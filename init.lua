@@ -61,20 +61,140 @@ opt('w', 'wrap', false)
 cmd('filetype plugin on')
 cmd 'colorscheme ayu'
 
-vim.o.statusline = table.concat({
-    '  ',
-    'f',            -- relative path
-    'm',            -- modified flag
-    'r',
-    '=',
-    '{&spelllang}',
-    'y',            -- filetype
-    '8(%l,%c%)',    -- line, column
-    '8p%% ',        -- file percentage
-}, ' %')
-
--------------------- MAPPINGS ------------------------------
 g.python3_host_prog="/home/ben/.virtualenvs/nvim/bin/python3"
+
+-------------------- statusline ----------------------------
+-- vim.o.statusline = table.concat({
+--     '  ',
+--     'f',            -- relative path
+--     'm',            -- modified flag
+--     'r',
+--     '=',
+--     '{&spelllang}',
+--     'y',            -- filetype
+--     '8(%l,%c%)',    -- line, column
+--     '8p%% ',        -- file percentage
+-- }, ' %')
+local mode_fn = vim.fn.mode
+local win_getid = vim.fn.win_getid
+local winbufnr_fn = vim.fn.winbufnr
+local bufname_fn = vim.fn.bufname
+local fnamemod_fn = vim.fn.fnamemodify
+local winwidth_fn = vim.fn.winwidth
+local pathshorten_fn = vim.fn.pathshorten
+
+local function vcs()
+    local branch_sign = ''
+    local git_info = vim.b.gitsigns_status_dict
+    if not git_info or git_info.head == '' then return '' end
+    local added = git_info.added and ('+' .. git_info.added .. ' ') or ''
+    local modified = git_info.changed and ('~' .. git_info.changed .. ' ') or ''
+    local removed = git_info.removed and ('-' .. git_info.removed .. ' ') or ''
+    local pad = ((added ~= '') or (removed ~= '') or (modified ~= '')) and ' ' or ''
+    local diff_str = string.format('%s%s%s%s', added, removed, modified, pad)
+    return string.format('%s%s %s ', diff_str, branch_sign, git_info.head)
+end
+
+local mode_table = {
+    n = '  normal ',
+    no = '  n-operator pending ',
+    v = '  visual ',
+    V = '  v-line ',
+    [''] = '  v-block ',
+    s = '  select ',
+    S = '  s-line ',
+    [''] = '  s-block ',
+    i = '  insert ',
+    R = '  replace ',
+    Rv = '  v-replace ',
+    c = '  command ',
+    cv = '  vim ex ',
+    ce = '  ex ',
+    r = '  prompt ',
+    rm = '  more ',
+    ['r?'] = '  confirm ',
+    ['!'] = '  shell ',
+    t = '  terminal '
+}
+
+local function get_mode(mode) return string.upper(mode_table[mode] or 'v-block') end
+
+local function filename(buf_name, win_id)
+  local base_name = fnamemod_fn(buf_name, [[:~:.]])
+  local space = math.min(50, math.floor(0.4 * winwidth_fn(win_id)))
+  if string.len(base_name) <= space then
+    return base_name
+  else
+    return pathshorten_fn(base_name)
+  end
+end
+
+local function update_colors(mode)
+  local mode_color = 'OtherMode'
+  if mode == 'n' then
+    mode_color = 'NormalMode'
+  elseif mode == 'i' then
+    mode_color = 'InsertMode'
+  elseif mode == 'R' then
+    mode_color = 'ReplaceMode'
+  elseif mode == 'v' or mode == 'V' or mode == '^V' then
+    mode_color = 'VisualMode'
+  -- elseif mode == 'c' then
+  --   mode_color = 'StatuslineConfirmAccent'
+  -- elseif mode == 't' then
+  --   mode_color = 'StatuslineTerminalAccent'
+  else
+    mode_color = 'OtherMode'
+  end
+
+  local filename_color
+  if vim.bo.modified then
+    filename_color = 'InsertMode'
+  else
+    filename_color = 'NormalMode'
+  end
+  return mode_color, filename_color
+end
+
+local function set_modified_symbol(modified)
+  if modified then
+    return '  ●'
+  else
+    return ''
+  end
+end
+
+local function get_readonly_char()
+  if vim.bo.readonly or vim.bo.modifiable == false then 
+    return '    '
+  else
+    return ''
+  end
+end
+
+local statusline_format =
+  '%%#%s# %s %%#StatuslineFiletype# %%#NormalMode#%s%%#%s# %s%s%%<%%#%s# %s%%<%%=%%#StatuslineVC#%s %%#StatuslineFiletype#'
+
+local function status(win_num)
+  local mode = mode_fn()
+  local win_id = win_getid(win_num)
+  local buf_nr = winbufnr_fn(win_id)
+  local bufname = bufname_fn(buf_nr)
+  local filename_segment = filename(bufname, win_id)
+  local mode_color, filename_color = update_colors(mode)
+  local line_col_segment = filename_segment ~= '' and
+                             ' %#StatuslineLineCol#| %l:%#StatuslineLineCol#%c ' or ''
+  return string.format(statusline_format, mode_color, get_mode(mode),
+                       set_modified_symbol(vim.bo.modified), filename_color, filename_segment,
+                       line_col_segment, filename_color, get_readonly_char(), vcs())
+end
+
+local function update()
+    for i = 1, vim.fn.winnr('$')
+        do vim.wo.statusline = status(i)
+        end
+    return {status = status, update = update}
+end
 
 -------------------- mappings ------------------------------
 -- map('', '<leader>c', '"+y')       -- Copy to clipboard in normal, visual, select and operator modes
