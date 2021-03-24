@@ -189,6 +189,11 @@ function get_readonly_char()
   end
 end
 
+function get_cwd()
+  local dir = vim.api.nvim_call_function('getcwd', {})
+  return dir
+end
+
 function StatusLine()
     local status = ''
 
@@ -203,6 +208,7 @@ function StatusLine()
 
     -- right side
     status = status .. [[ %= %y LN %l/%L]]
+    status = status .. [[%-{luaeval("get_cwd()")} ]]
 
     return status
 end
