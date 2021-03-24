@@ -240,7 +240,8 @@ map('i', '<S-Tab>', 'pumvisible() ? "\\<C-p>" : "\\<Tab>"', {expr = true})
 map('i', '<Tab>', 'pumvisible() ? "\\<C-n>" : "\\<Tab>"', {expr = true})
 
 map('n', '<C-l>', '<cmd>noh<CR>')    -- Clear highlights
-map('n', '<leader>o', 'm`o<Esc>``')  -- Insert a newline in normal mode
+
+cmd 'runtime macros/sandwich/keymap/surround.vim'
 
 -------------------- TREE-SITTER ---------------------------
 local ts = require 'nvim-treesitter.configs'
