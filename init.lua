@@ -113,13 +113,13 @@ g.indentLine_char = ''
 g['sneak#label'] = 1
 
 -------------------- statusline ----------------------------
-function get_git()
+function git()
     local branch_sign = ''
     if not g.loaded_fugitive then
         return ""
     end
 
-    local out = fn.FugitiveHead(10)
+    local out = fn.FugitiveHead()
 
     if out ~= "" then
         out = branch_sign .. " " .. out
@@ -155,16 +155,6 @@ function get_mode()
     return string.upper(current_mode or 'v-block')
 end
 
-local function filename(buf_name, win_id)
-  local base_name = fnamemod_fn(buf_name, [[:~:.]])
-  local space = math.min(50, math.floor(0.4 * winwidth_fn(win_id)))
-  if string.len(base_name) <= space then
-    return base_name
-  else
-    return pathshorten_fn(base_name)
-  end
-end
-
 function get_mode_color(mode)
   local mode_color = 'OtherMode'
   if mode == 'n' then
@@ -194,35 +184,48 @@ function get_cwd()
   return dir
 end
 
+function scroll_bar()
+  -- from github.com/drzel/vim-line-no-indicator
+  local chars = {
+      '   ', '▏  ', '▎  ', '▍  ', '▌  ', '▋  ', '▊  ', '▉  ', '█  ', '█▏ ', '█▎ ', '█▍ ', '█▌ ',
+      '█▋ ', '█▊ ', '█▉ ', '██ ', '██▏', '██▎', '██▍', '██▌', '██▋', '██▊', '██▉', '███'
+  }
+  local current_line = fn.line('.')
+  local total_lines = fn.line('$')
+  local index = current_line
+  if current_line == 1 then
+    index = 1
+  elseif current_line == total_lines then
+    index = #chars
+  else
+    local line_no_fraction = math.floor(current_line) / math.floor(total_lines)
+    index = math.ceil(line_no_fraction * #chars)
+  end
+  return chars[index]
+end
+
+
 function StatusLine()
     local status = ''
 
-    -- left side
     status = status .. get_mode_color(fn.mode())
-    status = status .. [[ %-{luaeval("get_mode()")} ]]
+    status = status .. [[ %-{luaeval("get_mode()")}]]
     status = status .. '%#DiffAdd#'
-    status = status .. [[ %-{luaeval("get_git()")} ]]
-    -- status = status .. [[ %-m %-r ]]
-    status = status .. [[ %-m %-{luaeval("get_readonly_char()")} ]]
+    status = status .. [[ %-{luaeval("git()")}]]
+    status = status .. [[ %-m %-{luaeval("get_readonly_char()")}]]
     status = status .. '%#Directory#'
-
-    -- right side
-    status = status .. [[ %= %y LN %l/%L]]
+    status = status .. '%='
     status = status .. [[%-{luaeval("get_cwd()")} ]]
+    status = status .. [[%#ScrollBar#%-{luaeval("scroll_bar()")}]]
+    status = status .. [[%#TabLine# %-"col:%2c]]
 
     return status
 end
 
--- Status line
 vim.o.showmode = false
 vim.o.laststatus = 2
-vim.wo.statusline = '%!luaeval("StatusLine()")'
-
--- Tab line
+vim.o.statusline = '%!luaeval("StatusLine()")'
 vim.o.showtabline = 2
-
--- Better display
-vim.o.cmdheight = 2
 
 -------------------- mappings ------------------------------
 -- map('', '<leader>c', '"+y')       -- Copy to clipboard in normal, visual, select and operator modes
