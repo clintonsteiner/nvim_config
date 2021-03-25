@@ -106,6 +106,23 @@ g.fzf_colors = {
     header = {'fg', 'Comment'}
 }
 
+function fzf_cd()
+    local fzf_wrap = vim.fn["fzf#wrap"] 
+    local wrapped = fzf_wrap("fzf_cd", {
+        source = "find . -type d -follow 2>/dev/null",
+        options = {
+            "--prompt", "Cd> "
+        }
+    })
+    wrapped["sink*"] = nil -- this line is required if you want to use `sink` only
+    wrapped.sink = function(line)
+        local dir = line
+        cmd('cd ' .. line)
+    end
+    fn['fzf#run'](wrapped)
+end
+cmd [[command! Cd lua fzf_cd{}]]
+
 -- indentLine
 g.indentLine_char = ''
 
