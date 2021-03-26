@@ -299,7 +299,8 @@ map('n', '<leader>d', '<cmd>lua vim.lsp.buf.definition()<CR>')
 map('n', '<leader>h', ':Helptags<CR>')
 map('n', '<leader>q', ':bd<CR>')
 map('n', '<leader>r', ':Rg<CR>')
--- g.which_key_map['s'] = [":call SaveSession()", 'save session']
+map('n', '<leader>s', ':lua SaveSession()<CR>')
+
 -- change dir
 map('n', '<leader>cc', ':cd %:p:h<CR>')
 map('n', '<leader>cd', ':Cd<CR>')
@@ -353,5 +354,5 @@ cmd 'au TextYankPost * lua vim.highlight.on_yank {on_visual = false}'  -- disabl
 
 function SaveSession()
   local name = fn.input("Session name: ")
-  fn.execute('mksession! ~/.local/share/nvim/session/' .. fn.fnameescape(name))
+  if name ~= "" then fn.execute('mksession! ~/.local/share/nvim/session/' .. fn.fnameescape(name)) end
 end
