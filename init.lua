@@ -296,8 +296,6 @@ map('i', '<Tab>', 'pumvisible() ? "\\<C-n>" : "\\<Tab>"', {expr = true})
 
 map('n', '<C-l>', '<cmd>noh<CR>')    -- Clear highlights
 
-cmd 'runtime macros/sandwich/keymap/surround.vim'
-
 -------------------- TREE-SITTER ---------------------------
 local ts = require 'nvim-treesitter.configs'
 ts.setup {ensure_installed = 'python', highlight = {enable = true}}
