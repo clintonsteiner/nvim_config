@@ -116,7 +116,6 @@ function fzf_cd()
     })
     wrapped["sink*"] = nil -- this line is required if you want to use `sink` only
     wrapped.sink = function(line)
-        local dir = line
         cmd('cd ' .. line)
     end
     fn['fzf#run'](wrapped)
