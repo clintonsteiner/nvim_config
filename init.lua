@@ -269,7 +269,16 @@ vim.o.statusline = '%!luaeval("StatusLine()")'
 vim.o.showtabline = 2
 
 -------------------- mappings ------------------------------
--- map('', '<leader>c', '"+y')       -- Copy to clipboard in normal, visual, select and operator modes
+g.mapleader = ' '  -- make sure this is before all other leader mappings
+map('n', '<leader>/', ':BLines<CR>')
+map('n', '<leader>:', ':e ~/dotfiles/nvim/init.lua<CR>')
+map('n', '<leader>;', ':so ~/dotfiles/nvim/init.lua<CR>')
+map('n', '<leader>b', ':Buffers<CR>')
+map('n', '<leader>d', '<cmd>lua vim.lsp.buf.definition()<CR>')
+map('n', '<leader>h', ':Helptags<CR>')
+map('n', '<leader>q', ':bd<CR>')
+map('n', '<leader>r', ':Rg<CR>')
+-- g.which_key_map['s'] = [":call SaveSession()", 'save session']
 map('n', '<F1>', ':w<CR>')
 map('i', '<F1>', '<ESC>:w<CR>i')
 map('n', '<TAB>', '<C-^>')
