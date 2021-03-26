@@ -87,6 +87,12 @@ vim.api.nvim_command("augroup END")
 -- deoplete
 g['deoplete#enable_at_startup'] = 1  -- enable deoplete at startup
 
+-- floaterm
+g.floaterm_autoclose = 1
+g.floaterm_width = 0.9
+g.floaterm_height = 0.7
+g.floaterm_title = 0
+
 -- fzf
 g.fzf_layout = {
     window = {
@@ -144,12 +150,6 @@ g.indentLine_char = ''
 
 -- vim-sneak
 g['sneak#label'] = 1
-
--- floaterm
-g.floaterm_autoclose = 1
-g.floaterm_width = 0.9
-g.floaterm_height = 0.7
-g.floaterm_title = 0
 
 -- sandwich
 cmd 'runtime macros/sandwich/keymap/surround.vim'  -- use tpope's surround.vim mapping so sneak works
