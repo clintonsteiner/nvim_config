@@ -148,11 +148,26 @@ cmd [[command! Sessions lua fzf_sessions{}]]
 -- indentLine
 g.indentLine_char = ''
 
+-- lsp
+local lsp = require 'lspconfig'
+-- For ccls we use the default settings
+-- lsp.ccls.setup {}
+-- root_dir is where the LSP server will start: here at the project root otherwise in current folder
+lsp.pyls.setup {root_dir = lsp.util.root_pattern('.git', fn.getcwd())}
+
+-- lsp fuzzy
+local lspfuzzy = require 'lspfuzzy'
+lspfuzzy.setup {}  -- Make the LSP client use FZF instead of the quickfix list
+
 -- vim-sneak
 g['sneak#label'] = 1
 
 -- sandwich
 cmd 'runtime macros/sandwich/keymap/surround.vim'  -- use tpope's surround.vim mapping so sneak works
+
+-- treesitter
+local ts = require 'nvim-treesitter.configs'
+ts.setup {ensure_installed = 'python', highlight = {enable = true}}
 
 -------------------- statusline ----------------------------
 function git()
@@ -315,19 +330,7 @@ map('i', '<Tab>', 'pumvisible() ? "\\<C-n>" : "\\<Tab>"', {expr = true})
 
 map('n', '<C-l>', '<cmd>noh<CR>')    -- Clear highlights
 
--------------------- TREE-SITTER ---------------------------
-local ts = require 'nvim-treesitter.configs'
-ts.setup {ensure_installed = 'python', highlight = {enable = true}}
-
 -------------------- LSP -----------------------------------
-local lsp = require 'lspconfig'
-local lspfuzzy = require 'lspfuzzy'
-
--- For ccls we use the default settings
-lsp.ccls.setup {}
--- root_dir is where the LSP server will start: here at the project root otherwise in current folder
-lsp.pyls.setup {root_dir = lsp.util.root_pattern('.git', fn.getcwd())}
-lspfuzzy.setup {}  -- Make the LSP client use FZF instead of the quickfix list
 
 -- map('n', '<space>,', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>')
 -- map('n', '<space>;', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>')
