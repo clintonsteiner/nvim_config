@@ -150,6 +150,9 @@ g.floaterm_width = 0.9
 g.floaterm_height = 0.7
 g.floaterm_title = 0
 
+-- sandwich
+cmd 'runtime macros/sandwich/keymap/surround.vim'  -- use tpope's surround.vim mapping so sneak works
+
 -------------------- statusline ----------------------------
 function git()
     local branch_sign = ''
