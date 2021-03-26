@@ -174,15 +174,15 @@ ts.setup {ensure_installed = 'python', highlight = {enable = true}}
 
 -------------------- statusline ----------------------------
 function git()
-    local branch_sign = ''
     if not g.loaded_fugitive then
         return ""
     end
 
+    local branch_sign = ''
     local out = fn.FugitiveHead()
 
     if out ~= "" then
-        out = branch_sign .. " " .. out
+        out = "  " .. branch_sign .. " " .. out .. " "
     end
 
     return out
@@ -288,6 +288,7 @@ vim.o.showtabline = 2
 
 -------------------- mappings ------------------------------
 g.mapleader = ' '  -- make sure this is before all other leader mappings
+-- single key mappings
 map('n', '<leader>/', ':BLines<CR>')
 map('n', '<leader>:', ':e ~/dotfiles/nvim/init.lua<CR>')
 map('n', '<leader>;', ':so ~/dotfiles/nvim/init.lua<CR>')
@@ -320,6 +321,7 @@ map('n', '<leader>oh', ':History<CR>')
 map('n', '<leader>os', ':Sessions<CR>')
 map('n', '<leader>ot', ':FloatermNew<CR>')
 
+-- general
 map('n', '<F1>', ':w<CR>')
 map('i', '<F1>', '<ESC>:w<CR>i')
 map('n', '<TAB>', '<C-^>')
