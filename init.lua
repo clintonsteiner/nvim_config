@@ -28,6 +28,7 @@ paq 'junegunn/fzf.vim'
 paq 'ojroques/nvim-lspfuzzy'
 paq 'luxed/ayu-vim'
 paq 'tpope/vim-fugitive'
+paq 'airblade/vim-gitgutter'
 paq 'Yggdroot/indentLine'
 paq 'tpope/vim-commentary'
 paq 'machakann/vim-sandwich'
@@ -287,9 +288,15 @@ map('n', '<leader>ch', ':cd ~<CR>')
 -- git
 map('n', '<leader>gb', ':Git blame<CR>')
 map('n', '<leader>gc', ':Git commit<CR>')
+map('n', '<leader>gd', ':GitGutterPreviewHunk<CR>')
 map('n', '<leader>gg', ':Git<CR>')
+map('n', '<leader>gj', ':GitGutterNextHunk<CR>')
+map('n', '<leader>gk', ':GitGutterPrevHunk<CR>')
 map('n', '<leader>gl', ':BCommits<CR>')
 map('n', '<leader>gr', ':Git reset -p<CR>')
+map('n', '<leader>gs', ':GitGutterStageHunk<CR>')
+map('n', '<leader>gu', ':GitGutterUndoHunk<CR>')
+
 map('n', '<F1>', ':w<CR>')
 map('i', '<F1>', '<ESC>:w<CR>i')
 map('n', '<TAB>', '<C-^>')
