@@ -145,6 +145,9 @@ function fzf_sessions()
 end
 cmd [[command! Sessions lua fzf_sessions{}]]
 
+-- gitgutter
+g.gitgutter_map_keys = 0
+
 -- indentLine
 g.indentLine_char = ''
 
