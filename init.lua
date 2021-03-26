@@ -144,6 +144,12 @@ g.indentLine_char = ''
 -- vim-sneak
 g['sneak#label'] = 1
 
+-- floaterm
+g.floaterm_autoclose = 1
+g.floaterm_width = 0.9
+g.floaterm_height = 0.7
+g.floaterm_title = 0
+
 -------------------- statusline ----------------------------
 function git()
     local branch_sign = ''
