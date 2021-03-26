@@ -34,6 +34,7 @@ paq 'tpope/vim-commentary'
 paq 'machakann/vim-sandwich'
 paq 'justinmk/vim-sneak'
 paq 'voldikss/vim-floaterm'
+paq 'liuchengxu/vim-which-key'
 
 -------------------- options -------------------------------
 opt('b', 'expandtab', true)
@@ -289,6 +290,7 @@ vim.o.showtabline = 2
 -------------------- mappings ------------------------------
 g.mapleader = ' '  -- make sure this is before all other leader mappings
 -- single key mappings
+map('n', '<leader>', ':WhichKey " "<CR>', { silent = true })
 map('n', '<leader>/', ':BLines<CR>')
 map('n', '<leader>:', ':e ~/dotfiles/nvim/init.lua<CR>')
 map('n', '<leader>;', ':so ~/dotfiles/nvim/init.lua<CR>')
