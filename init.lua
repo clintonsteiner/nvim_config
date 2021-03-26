@@ -284,6 +284,12 @@ map('n', '<leader>cc', ':cd %:p:h<CR>')
 map('n', '<leader>cd', ':Cd<CR>')
 map('n', '<leader>ch', ':cd ~<CR>')
 
+-- git
+map('n', '<leader>gb', ':Git blame<CR>')
+map('n', '<leader>gc', ':Git commit<CR>')
+map('n', '<leader>gg', ':Git<CR>')
+map('n', '<leader>gl', ':BCommits<CR>')
+map('n', '<leader>gr', ':Git reset -p<CR>')
 map('n', '<F1>', ':w<CR>')
 map('i', '<F1>', '<ESC>:w<CR>i')
 map('n', '<TAB>', '<C-^>')
