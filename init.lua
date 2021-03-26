@@ -279,6 +279,11 @@ map('n', '<leader>h', ':Helptags<CR>')
 map('n', '<leader>q', ':bd<CR>')
 map('n', '<leader>r', ':Rg<CR>')
 -- g.which_key_map['s'] = [":call SaveSession()", 'save session']
+-- change dir
+map('n', '<leader>cc', ':cd %:p:h<CR>')
+map('n', '<leader>cd', ':Cd<CR>')
+map('n', '<leader>ch', ':cd ~<CR>')
+
 map('n', '<F1>', ':w<CR>')
 map('i', '<F1>', '<ESC>:w<CR>i')
 map('n', '<TAB>', '<C-^>')
