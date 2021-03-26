@@ -122,6 +122,22 @@ function fzf_cd()
 end
 cmd [[command! Cd lua fzf_cd{}]]
 
+function fzf_sessions()
+    local fzf_wrap = vim.fn["fzf#wrap"] 
+    local wrapped = fzf_wrap("fzf_sessions", {
+        source = "find ~/.local/share/nvim/session -type f",
+        options = {
+            "--prompt", "Sessions> "
+        }
+    })
+    wrapped["sink*"] = nil
+    wrapped.sink = function(line)
+        cmd('source ' .. line)
+    end
+    fn['fzf#run'](wrapped)
+end
+cmd [[command! Sessions lua fzf_sessions{}]]
+
 -- indentLine
 g.indentLine_char = ''
 
