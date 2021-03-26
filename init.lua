@@ -261,7 +261,6 @@ function scroll_bar()
   return chars[index]
 end
 
-
 function StatusLine()
     local status = ''
 
@@ -344,3 +343,8 @@ map('n', '<C-l>', '<cmd>noh<CR>')    -- Clear highlights
 
 -------------------- COMMANDS ------------------------------
 cmd 'au TextYankPost * lua vim.highlight.on_yank {on_visual = false}'  -- disabled in visual mode
+
+function SaveSession()
+  local name = fn.input("Session name: ")
+  fn.execute('mksession! ~/.local/share/nvim/session/' .. fn.fnameescape(name))
+end
