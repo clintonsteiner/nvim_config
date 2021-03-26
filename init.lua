@@ -265,15 +265,28 @@ function scroll_bar()
   return chars[index]
 end
 
+function git_summary(idx)
+   local summary = fn.GitGutterGetHunkSummary()
+   local prefix = {'+', '~', '-'}
+   return summary[idx] > 0 and string.format(" %s%d ", prefix[idx], summary[idx]) or ''
+end
+
 function StatusLine()
     local status = ''
 
     status = status .. get_mode_color(fn.mode())
     status = status .. [[ %-{luaeval("get_mode()")}]]
     status = status .. '%#DiffAdd#'
-    status = status .. [[ %-{luaeval("git()")}]]
-    status = status .. [[ %-m %-{luaeval("get_readonly_char()")}]]
+    status = status .. [[%-{luaeval("git()")}]]
+    status = status .. '%#Directory# '
+    status = status .. '%#DiffAdd#'
+    status = status .. [[%-{luaeval("git_summary(1)")}]]
+    status = status .. '%#DiffChange#'
+    status = status .. [[%-{luaeval("git_summary(2)")}]]
+    status = status .. '%#DiffDelete#'
+    status = status .. [[%-{luaeval("git_summary(3)")}]]
     status = status .. '%#Directory#'
+    status = status .. [[ %-m %-{luaeval("get_readonly_char()")}]]
     status = status .. '%='
     status = status .. [[%-{luaeval("get_cwd()")} ]]
     status = status .. [[%#ScrollBar#%-{luaeval("scroll_bar()")}]]
