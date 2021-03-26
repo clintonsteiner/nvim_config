@@ -297,6 +297,12 @@ map('n', '<leader>gr', ':Git reset -p<CR>')
 map('n', '<leader>gs', ':GitGutterStageHunk<CR>')
 map('n', '<leader>gu', ':GitGutterUndoHunk<CR>')
 
+-- open
+map('n', '<leader>of', ':Files<CR>')
+map('n', '<leader>oh', ':History<CR>')
+map('n', '<leader>os', ':Sessions<CR>')
+map('n', '<leader>ot', ':FloatermNew<CR>')
+
 map('n', '<F1>', ':w<CR>')
 map('i', '<F1>', '<ESC>:w<CR>i')
 map('n', '<TAB>', '<C-^>')
