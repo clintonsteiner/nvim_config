@@ -1,4 +1,4 @@
-------------------- HELPERS -------------------------------
+------------------- helpers -------------------------------
 local cmd = vim.cmd  -- to execute Vim commands e.g. cmd('pwd')
 local fn = vim.fn    -- to call Vim functions e.g. fn.bufnr()
 local g = vim.g      -- a table to access global variables
@@ -15,7 +15,7 @@ local function map(mode, lhs, rhs, opts)
   vim.api.nvim_set_keymap(mode, lhs, rhs, options)
 end
 
--------------------- PLUGINS -------------------------------
+-------------------- plugins -------------------------------
 cmd 'packadd paq-nvim'               -- load the package manager
 local paq = require('paq-nvim').paq  -- a convenient alias
 paq {'savq/paq-nvim', opt=true}    -- paq-nvim manages itself
@@ -168,11 +168,11 @@ lsp.pyls.setup {root_dir = lsp.util.root_pattern('.git', fn.getcwd())}
 local lspfuzzy = require 'lspfuzzy'
 lspfuzzy.setup {}  -- Make the LSP client use FZF instead of the quickfix list
 
--- vim-sneak
-g['sneak#label'] = 1
-
 -- sandwich
 cmd 'runtime macros/sandwich/keymap/surround.vim'  -- use tpope's surround.vim mapping so sneak works
+
+-- sneak
+g['sneak#label'] = 1
 
 -- treesitter
 local ts = require 'nvim-treesitter.configs'
@@ -367,7 +367,7 @@ map('n', '<C-l>', '<cmd>noh<CR>')    -- Clear highlights
 -- map('n', '<space>r', '<cmd>lua vim.lsp.buf.references()<CR>')
 -- map('n', '<space>s', '<cmd>lua vim.lsp.buf.document_symbol()<CR>')
 
--------------------- COMMANDS ------------------------------
+-------------------- commands ------------------------------
 cmd 'au TextYankPost * lua vim.highlight.on_yank {on_visual = false}'  -- disabled in visual mode
 
 function SaveSession()
