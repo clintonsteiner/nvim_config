@@ -35,6 +35,7 @@ paq 'machakann/vim-sandwich'
 paq 'justinmk/vim-sneak'
 paq 'voldikss/vim-floaterm'
 paq 'liuchengxu/vim-which-key'
+paq 'windwp/nvim-autopairs'
 
 -------------------- options -------------------------------
 opt('b', 'expandtab', true)
@@ -67,6 +68,9 @@ cmd 'colorscheme ayu'
 g.python3_host_prog="/home/ben/.virtualenvs/nvim/bin/python3"
 
 ----------------- plugin settings --------------------------
+-- autopairs
+require('nvim-autopairs').setup()
+
 -- ayu
 function custom_ayu_colors()
     cmd 'call ayu#hi("LineNr", "fg", "")'
