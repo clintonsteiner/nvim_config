@@ -78,6 +78,7 @@ function custom_ayu_colors()
     cmd 'call ayu#hi("ReplaceMode", "markup", "bg", "reverse,bold")'
     cmd 'call ayu#hi("OtherMode", "constant", "bg", "reverse,bold")'
     cmd 'call ayu#hi("ScrollBar", "regexp", "selection_inactive")'
+    cmd 'call ayu#hi("Sneak", "bg", "error", "bold")'
 end
 
 vim.api.nvim_command("augroup custom_colors")
