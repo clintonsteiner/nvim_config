@@ -379,7 +379,7 @@ map('n', '<C-l>', '<cmd>noh<CR>')    -- Clear highlights
 -- map('n', '<space>r', '<cmd>lua vim.lsp.buf.references()<CR>')
 -- map('n', '<space>s', '<cmd>lua vim.lsp.buf.document_symbol()<CR>')
 
--------------------- commands ------------------------------
+-------------------- misc ------------------------------
 cmd 'au TextYankPost * lua vim.highlight.on_yank {on_visual = false}'  -- disabled in visual mode
 
 function SaveSession()
@@ -398,6 +398,5 @@ function Abbrev(_text)
     elseif _text == "this" then
         cmd = 'from nose.plugins.attrib import attr<CR>@attr("this")'
     end
-    -- vim.api.nvim_command(vim.api.nvim_replace_termcodes('normal! O' .. cmd .. '<CR>', true, false, true))
     vim.api.nvim_command(vim.api.nvim_replace_termcodes('normal! O' .. cmd .. '<ESC><CR>', true, false, true))
 end
