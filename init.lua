@@ -138,7 +138,7 @@ cmd [[command! Cd lua fzf_cd{}]]
 function fzf_sessions()
     local fzf_wrap = vim.fn["fzf#wrap"] 
     local wrapped = fzf_wrap("fzf_sessions", {
-        source = "find ~/.local/share/nvim/session -type f",
+        source = "find ~/.local/share/nvim/sessions -type f",
         options = {
             "--prompt", "Sessions> "
         }
