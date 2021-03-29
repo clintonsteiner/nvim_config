@@ -65,7 +65,7 @@ cmd('filetype plugin on')
 g['ayucolor'] = 'mirage'
 cmd 'colorscheme ayu'
 
-g.python3_host_prog="/home/ben/.virtualenvs/nvim/bin/python3"
+g.python3_host_prog="~/.virtualenvs/nvim/bin/python3"
 
 ----------------- plugin settings --------------------------
 -- autopairs
@@ -239,7 +239,7 @@ end
 
 function get_readonly_char()
   if vim.bo.readonly or vim.bo.modifiable == false then 
-    return '    '
+    return ''
   else
     return ''
   end
@@ -310,8 +310,8 @@ g.mapleader = ' '  -- make sure this is before all other leader mappings
 -- single key mappings
 map('n', '<leader>', ':WhichKey " "<CR>', { silent = true })
 map('n', '<leader>/', ':BLines<CR>')
-map('n', '<leader>:', ':e ~/dotfiles/nvim/init.lua<CR>')
-map('n', '<leader>;', ':so ~/dotfiles/nvim/init.lua<CR>')
+map('n', '<leader>:', ':e ~/dotfiles/nvim_nightly/init.lua<CR>')
+map('n', '<leader>;', ':so ~/dotfiles/nvim_nightly/init.lua<CR>')
 map('n', '<leader>b', ':Buffers<CR>')
 map('n', '<leader>d', '<cmd>lua vim.lsp.buf.definition()<CR>')
 map('n', '<leader>h', ':Helptags<CR>')
