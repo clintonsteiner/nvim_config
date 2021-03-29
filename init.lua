@@ -336,6 +336,12 @@ map('n', '<leader>gr', ':Git reset -p<CR>')
 map('n', '<leader>gs', ':GitGutterStageHunk<CR>')
 map('n', '<leader>gu', ':GitGutterUndoHunk<CR>')
 
+-- insert text
+map('n', '<leader>ib', ':lua Abbrev("break")<CR>')
+map('n', '<leader>il', ':lua Abbrev("lbreak")<CR>')
+map('n', '<leader>ip', ':lua Abbrev("pdb")<CR>')
+map('n', '<leader>it', ':lua Abbrev("this")<CR>')
+
 -- open
 map('n', '<leader>of', ':Files<CR>')
 map('n', '<leader>oh', ':History<CR>')
@@ -379,4 +385,19 @@ cmd 'au TextYankPost * lua vim.highlight.on_yank {on_visual = false}'  -- disabl
 function SaveSession()
   local name = fn.input("Session name: ")
   if name ~= "" then fn.execute('mksession! ~/.local/share/nvim/session/' .. fn.fnameescape(name)) end
+end
+
+function Abbrev(_text)
+    local cmd = ""
+    if _text == "break" then
+        cmd = "# ----------------------------------------------------------------------------------------------"
+    elseif _text == "lbreak" then
+        cmd = "# --------------------------------------------------------------------------------------------------"
+    elseif _text == "pdb" then
+        cmd = 'from pdb import set_trace; set_trace()'
+    elseif _text == "this" then
+        cmd = 'from nose.plugins.attrib import attr<CR>@attr("this")'
+    end
+    -- vim.api.nvim_command(vim.api.nvim_replace_termcodes('normal! O' .. cmd .. '<CR>', true, false, true))
+    vim.api.nvim_command(vim.api.nvim_replace_termcodes('normal! O' .. cmd .. '<ESC><CR>', true, false, true))
 end
