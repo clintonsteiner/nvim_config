@@ -342,6 +342,12 @@ map('n', '<leader>oh', ':History<CR>')
 map('n', '<leader>os', ':Sessions<CR>')
 map('n', '<leader>ot', ':FloatermNew<CR>')
 
+-- tests
+map('n', '<leader>tc', ':call NtCov()<CR>')  -- file coverage (ONLY WORKS ON py3!!)
+map('n', '<leader>tf', ':FloatermNew --wintype=floating --title=test-file --autoclose=0 nosetests -sv --nologcapture --with-id %:p<CR>')
+map('n', '<leader>tt', ':FloatermNew --wintype=floating --title=test-these --autoclose=0 nosetests -sv -a this --nologcapture %:p<CR>')
+map('n', '<leader>tx', ':FloatermNew --wintype=floating --title=test-file-stop --autoclose=0 nosetests -sv --nologcapture --with-id -x %:p<CR>')
+
 -- general
 map('n', '<F1>', ':w<CR>')
 map('i', '<F1>', '<ESC>:w<CR>i')
