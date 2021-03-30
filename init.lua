@@ -328,7 +328,7 @@ g.mapleader = ' '  -- make sure this is before all other leader mappings
 map('n', '<leader>', ':WhichKey " "<CR>', { silent = true })
 map('n', '<leader>/', ':BLines<CR>')
 map('n', '<leader>:', ':e ~/dotfiles/nvim_nightly/init.lua<CR>')
-map('n', '<leader>;', ':so ~/dotfiles/nvim_nightly/init.lua<CR>')
+map('n', '<leader>;', ':luafile ~/dotfiles/nvim_nightly/init.lua<CR>')
 map('n', '<leader>b', ':Buffers<CR>')
 map('n', '<leader>h', ':Helptags<CR>')
 map('n', '<leader>q', ':bd<CR>')
