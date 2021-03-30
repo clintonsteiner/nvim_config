@@ -330,7 +330,6 @@ map('n', '<leader>/', ':BLines<CR>')
 map('n', '<leader>:', ':e ~/dotfiles/nvim_nightly/init.lua<CR>')
 map('n', '<leader>;', ':so ~/dotfiles/nvim_nightly/init.lua<CR>')
 map('n', '<leader>b', ':Buffers<CR>')
-map('n', '<leader>d', '<cmd>lua vim.lsp.buf.definition()<CR>')
 map('n', '<leader>h', ':Helptags<CR>')
 map('n', '<leader>q', ':bd<CR>')
 map('n', '<leader>r', ':Rg<CR>')
@@ -359,6 +358,13 @@ map('n', '<leader>il', ':lua Abbrev("lbreak")<CR>')
 map('n', '<leader>ip', ':lua Abbrev("pdb")<CR>')
 map('n', '<leader>it', ':lua Abbrev("this")<CR>')
 
+-- lsp
+map('n', '<leader>ld', '<cmd>lua vim.lsp.buf.definition()<CR>')
+map('n', '<leader>lh', '<cmd>lua vim.lsp.buf.hover()<CR>')
+map('n', '<leader>lj', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>')
+map('n', '<leader>lk', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>')
+map('n', '<leader>lr', '<cmd>lua vim.lsp.buf.references()<CR>')
+
 -- open
 map('n', '<leader>of', ':Files<CR>')
 map('n', '<leader>oh', ':History<CR>')
@@ -386,14 +392,9 @@ map('n', '<C-l>', '<cmd>noh<CR>')    -- Clear highlights
 
 -------------------- LSP -----------------------------------
 
--- map('n', '<space>,', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>')
--- map('n', '<space>;', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>')
 -- map('n', '<space>a', '<cmd>lua vim.lsp.buf.code_action()<CR>')
--- map('n', '<space>d', '<cmd>lua vim.lsp.buf.definition()<CR>')
 -- map('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>')
--- map('n', '<space>h', '<cmd>lua vim.lsp.buf.hover()<CR>')
 -- map('n', '<space>m', '<cmd>lua vim.lsp.buf.rename()<CR>')
--- map('n', '<space>r', '<cmd>lua vim.lsp.buf.references()<CR>')
 -- map('n', '<space>s', '<cmd>lua vim.lsp.buf.document_symbol()<CR>')
 
 -------------------- misc ------------------------------
