@@ -402,7 +402,7 @@ cmd 'au TextYankPost * lua vim.highlight.on_yank {on_visual = false}'  -- disabl
 
 function SaveSession()
   local name = fn.input("Session name: ")
-  if name ~= "" then fn.execute('mksession! ~/.local/share/nvim/session/' .. fn.fnameescape(name)) end
+  if name ~= "" then fn.execute('mksession! ~/.local/share/nvim/sessions/' .. fn.fnameescape(name)) end
 end
 
 function Abbrev(_text)
