@@ -163,7 +163,23 @@ local lsp = require 'lspconfig'
 -- For ccls we use the default settings
 -- lsp.ccls.setup {}
 -- root_dir is where the LSP server will start: here at the project root otherwise in current folder
-lsp.pyls.setup {root_dir = lsp.util.root_pattern('.git', fn.getcwd())}
+lsp.pyls.setup {
+    root_dir = lsp.util.root_pattern('.git', fn.getcwd()),
+    settings = {
+        pyls = {
+            configurationSources = {'flake8'},
+            plugins = {
+                flake8 = {enabled = true},
+                pycodestyle = {enabled = false},
+                pylint = {enabled = false},
+                pydocstyle = {enabled = false},
+                pyflakes = {enabled = false},
+                mccabe = {enabled = false},
+                yapf = {enabled = false},
+            }
+        }
+    }
+}
 
 -- lsp fuzzy
 local lspfuzzy = require 'lspfuzzy'
