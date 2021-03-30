@@ -49,6 +49,7 @@ opt('o', 'ignorecase', true)
 opt('o', 'inccommand', 'nosplit')  -- visually show live substitutions
 opt('o', 'lazyredraw', true)
 opt('o', 'mouse', 'a')
+opt('o', 'shortmess', vim.o.shortmess .. 'c')  -- don't pass messages to completions menu
 opt('o', 'showmode', false)  -- not necessary with a statusline set
 opt('o', 'smarttab', true)
 opt('o', 'startofline', false)
