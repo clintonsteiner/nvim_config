@@ -1,4 +1,4 @@
-------------------- helpers -------------------------------
+-- helpers -----------------------------------------------------------------------------------------
 local cmd = vim.cmd  -- to execute Vim commands e.g. cmd('pwd')
 local fn = vim.fn    -- to call Vim functions e.g. fn.bufnr()
 local g = vim.g      -- a table to access global variables
@@ -15,10 +15,10 @@ local function map(mode, lhs, rhs, opts)
   vim.api.nvim_set_keymap(mode, lhs, rhs, options)
 end
 
--------------------- plugins -------------------------------
+-- plugins -----------------------------------------------------------------------------------------
 cmd 'packadd paq-nvim'               -- load the package manager
-local paq = require('paq-nvim').paq  -- a convenient alias
-paq {'savq/paq-nvim', opt=true}    -- paq-nvim manages itself
+local paq = require('paq-nvim').paq
+paq {'savq/paq-nvim', opt=true}
 paq 'shougo/deoplete-lsp'
 paq {'shougo/deoplete.nvim', run=fn['remote#host#UpdateRemotePlugins']}
 paq 'nvim-treesitter/nvim-treesitter'
@@ -37,7 +37,7 @@ paq 'voldikss/vim-floaterm'
 paq 'liuchengxu/vim-which-key'
 paq 'windwp/nvim-autopairs'
 
--------------------- options -------------------------------
+-- options -----------------------------------------------------------------------------------------
 opt('b', 'expandtab', true)
 opt('b', 'shiftwidth', 4)
 opt('b', 'tabstop', 4)
@@ -61,14 +61,16 @@ opt('w', 'cursorline', true)
 opt('w', 'number', true)
 opt('w', 'relativenumber', true)
 opt('w', 'wrap', false)
-
 cmd('filetype plugin on')
+
 g['ayucolor'] = 'mirage'
 cmd 'colorscheme ayu'
 
 g.python3_host_prog="~/.virtualenvs/nvim/bin/python3"
 
------------------ plugin settings --------------------------
+cmd 'au TextYankPost * lua vim.highlight.on_yank {on_visual = false}'  -- yank highlights
+
+-- plugin settings ---------------------------------------------------------------------------------
 -- autopairs
 require('nvim-autopairs').setup()
 
@@ -160,11 +162,9 @@ g.indentLine_char = ''
 
 -- lsp
 local lsp = require 'lspconfig'
--- For ccls we use the default settings
--- lsp.ccls.setup {}
--- root_dir is where the LSP server will start: here at the project root otherwise in current folder
+-- lsp.ccls.setup {}  -- default settings; use this for cpp
 lsp.pyls.setup {
-    root_dir = lsp.util.root_pattern('.git', fn.getcwd()),
+    root_dir = lsp.util.root_pattern('.git', fn.getcwd()),  -- start LSP server at project root or cwd
     settings = {
         pyls = {
             configurationSources = {'flake8'},
@@ -195,7 +195,7 @@ g['sneak#label'] = 1
 local ts = require 'nvim-treesitter.configs'
 ts.setup {ensure_installed = 'python', highlight = {enable = true}}
 
--------------------- statusline ----------------------------
+-- status line -------------------------------------------------------------------------------------
 function git()
     if not g.loaded_fugitive then
         return ""
@@ -317,12 +317,11 @@ function StatusLine()
     return status
 end
 
-vim.o.showmode = false
-vim.o.laststatus = 2
-vim.o.statusline = '%!luaeval("StatusLine()")'
-vim.o.showtabline = 2
+opt('o', 'laststatus', 2)
+opt('o', 'statusline', '%!luaeval("StatusLine()")')
+opt('o', 'showtabline', 2)
 
--------------------- mappings ------------------------------
+-- mappings ----------------------------------------------------------------------------------------
 g.mapleader = ' '  -- make sure this is before all other leader mappings
 -- single key mappings
 map('n', '<leader>', ':WhichKey " "<CR>', { silent = true })
@@ -400,9 +399,7 @@ map('i', '<Tab>', 'pumvisible() ? "\\<C-n>" : "\\<Tab>"', {expr = true})
 -- map('n', '<space>m', '<cmd>lua vim.lsp.buf.rename()<CR>')
 -- map('n', '<space>s', '<cmd>lua vim.lsp.buf.document_symbol()<CR>')
 
--------------------- misc ------------------------------
-cmd 'au TextYankPost * lua vim.highlight.on_yank {on_visual = false}'  -- disabled in visual mode
-
+-- misc --------------------------------------------------------------------------------------------
 function SaveSession()
   local name = fn.input("Session name: ")
   if name ~= "" then fn.execute('mksession! ~/.local/share/nvim/sessions/' .. fn.fnameescape(name)) end
