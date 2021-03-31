@@ -380,15 +380,18 @@ map('n', '<leader>tx', ':FloatermNew --wintype=floating --title=test-file-stop -
 -- general
 map('n', '<F1>', ':w<CR>')
 map('i', '<F1>', '<ESC>:w<CR>i')
+map('n', '<F2>', '<cmd>noh<CR>')
 map('n', '<TAB>', '<C-^>')
 map('n', '<S-TAB>', ':bn<CR>')
 map('n', 'Y', 'y$')
+map('n', '<C-h>', '<C-w>h')
+map('n', '<C-j>', '<C-w>j')
+map('n', '<C-k>', '<C-w>k')
+map('n', '<C-l>', '<C-w>l')
 
 -- <Tab> to navigate the completion menu
 map('i', '<S-Tab>', 'pumvisible() ? "\\<C-p>" : "\\<Tab>"', {expr = true})
 map('i', '<Tab>', 'pumvisible() ? "\\<C-n>" : "\\<Tab>"', {expr = true})
-
-map('n', '<C-l>', '<cmd>noh<CR>')    -- Clear highlights
 
 -------------------- LSP -----------------------------------
 
