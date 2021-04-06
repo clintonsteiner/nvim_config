@@ -371,7 +371,7 @@ map('n', '<leader>os', ':Sessions<CR>')
 map('n', '<leader>ot', ':FloatermNew<CR>')
 
 -- tests
-map('n', '<leader>tc', ':call NtCov()<CR>')  -- file coverage (ONLY WORKS ON py3!!)
+map('n', '<leader>tc', ':lua NtCov()<CR>')  -- file coverage (ONLY WORKS ON py3!!)
 map('n', '<leader>tf', ':FloatermNew --wintype=floating --title=test-file --autoclose=0 nosetests -sv --nologcapture --with-id %:p<CR>')
 map('n', '<leader>tt', ':FloatermNew --wintype=floating --title=test-these --autoclose=0 nosetests -sv -a this --nologcapture %:p<CR>')
 map('n', '<leader>tx', ':FloatermNew --wintype=floating --title=test-file-stop --autoclose=0 nosetests -sv --nologcapture --with-id -x %:p<CR>')
@@ -417,4 +417,12 @@ function Abbrev(_text)
         cmd = 'from nose.plugins.attrib import attr<CR>@attr("this")'
     end
     vim.api.nvim_command(vim.api.nvim_replace_termcodes('normal! O' .. cmd .. '<ESC><CR>', true, false, true))
+end
+
+function NtCov()
+    local prevPwd = fn.getcwd()
+    cmd(":cd " .. fn.expand('%:p:h'))
+    local cov = fn.split(fn.substitute(fn.split(fn.expand('%:p'), "python/")[2], "/", ".", "g"), ".tests.")[1] .. "." .. fn.substitute(fn.substitute(fn.expand('%'), "test_", "", ""), ".py", "", "")
+    cmd(":FloatermNew --wintype=floating --title=test-file-coverage --autoclose=0 nosetests --with-cov --cov=" .. cov .. " --cov-report=term-missing " .. fn.expand('%') .. " --verbose")
+    cmd(":cd " .. prevPwd)
 end
