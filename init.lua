@@ -178,6 +178,13 @@ lsp.pyls.setup {
                 yapf = {enabled = false},
             }
         }
+    },
+    handlers = {
+        ["textDocument/publishDiagnostics"] = vim.lsp.with(
+            vim.lsp.diagnostic.on_publish_diagnostics, {
+                virtual_text = false  -- turning off for now to keep visual noise down
+            }
+        )
     }
 }
 
