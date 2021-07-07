@@ -272,6 +272,7 @@ end
 
 function get_cwd()
   local dir = vim.api.nvim_call_function('getcwd', {})
+  dir = vim.api.nvim_call_function('pathshorten', {dir})
   return dir
 end
 
