@@ -51,7 +51,6 @@ opt('o', 'lazyredraw', true)
 opt('o', 'mouse', 'a')
 opt('o', 'shortmess', vim.o.shortmess .. 'c')  -- don't pass messages to completions menu
 opt('o', 'showmode', false)  -- not necessary with a statusline set
-opt('o', 'smarttab', true)
 opt('o', 'startofline', false)
 opt('o', 'termguicolors', true)
 opt('o', 'ttimeoutlen', 10)
