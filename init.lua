@@ -74,7 +74,7 @@ require('nvim-autopairs').setup()
 
 -- ayu
 function custom_ayu_colors()
-    cmd 'call ayu#hi("LineNr", "fg", "")'
+    cmd 'call ayu#hi("LineNr", "comment", "")'
     cmd 'call ayu#hi("TabLineFill", "", "bg")'
     cmd 'call ayu#hi("TabLineSel", "bg", "accent", "bold")'
     cmd 'call ayu#hi("NormalMode", "string", "bg", "reverse,bold")'
@@ -109,7 +109,7 @@ g.fzf_layout = {
 }
 g.fzf_colors = {
     fg = {'fg', 'Normal'},
-    hl = {'fg', 'Constant'},
+    hl = {'fg', 'Underlined'},
     ['fg+'] = {'fg', 'CursorLine', 'CursorColumn', 'Normal'},
     ['bg+'] = {'bg', 'CursorLine', 'CursorColumn'},
     ['hl+'] = {'fg', 'Statement'},
