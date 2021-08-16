@@ -16,26 +16,26 @@ local function map(mode, lhs, rhs, opts)
 end
 
 -- plugins -----------------------------------------------------------------------------------------
-cmd 'packadd paq-nvim'               -- load the package manager
-local paq = require('paq-nvim').paq
-paq {'savq/paq-nvim', opt=true}
-paq 'shougo/deoplete-lsp'
-paq {'shougo/deoplete.nvim', run=fn['remote#host#UpdateRemotePlugins']}
-paq 'nvim-treesitter/nvim-treesitter'
-paq 'neovim/nvim-lspconfig'
-paq {'junegunn/fzf', run=fn['fzf#install']}
-paq 'junegunn/fzf.vim'
-paq 'ojroques/nvim-lspfuzzy'
-paq 'luxed/ayu-vim'
-paq 'tpope/vim-fugitive'
-paq 'airblade/vim-gitgutter'
-paq 'Yggdroot/indentLine'
-paq 'tpope/vim-commentary'
-paq 'machakann/vim-sandwich'
-paq 'justinmk/vim-sneak'
-paq 'voldikss/vim-floaterm'
-paq 'liuchengxu/vim-which-key'
-paq 'windwp/nvim-autopairs'
+local Plug = vim.fn['plug#']
+vim.call('plug#begin', '~/.config/nvim/plugged')
+Plug 'shougo/deoplete-lsp'
+Plug('shougo/deoplete.nvim', {['do'] = fn['remote#host#UpdateRemotePlugins']})
+Plug('nvim-treesitter/nvim-treesitter', {branch = '0.5-compat'})
+Plug 'neovim/nvim-lspconfig'
+Plug('junegunn/fzf', {['do'] = fn['fzf#install']})
+Plug 'junegunn/fzf.vim'
+Plug 'ojroques/nvim-lspfuzzy'
+Plug 'luxed/ayu-vim'
+Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
+Plug 'Yggdroot/indentLine'
+Plug 'tpope/vim-commentary'
+Plug 'machakann/vim-sandwich'
+Plug 'justinmk/vim-sneak'
+Plug 'voldikss/vim-floaterm'
+Plug 'liuchengxu/vim-which-key'
+Plug 'windwp/nvim-autopairs'
+vim.call('plug#end')
 
 -- options -----------------------------------------------------------------------------------------
 opt('b', 'expandtab', true)
