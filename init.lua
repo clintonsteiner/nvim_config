@@ -66,7 +66,7 @@ cmd 'colorscheme ayu'
 
 g.python3_host_prog="~/.virtualenvs/nvim/bin/python3"
 
-cmd 'au TextYankPost * lua vim.highlight.on_yank {on_visual = false}'  -- yank highlights
+cmd 'au TextYankPost * lua vim.highlight.on_yank {timeout=400}'  -- yank highlights
 
 -- plugin settings ---------------------------------------------------------------------------------
 -- autopairs
