@@ -58,7 +58,6 @@ opt('o', 'updatetime', 100)
 opt('w', 'colorcolumn', '100')
 opt('w', 'cursorline', true)
 opt('w', 'number', true)
-opt('w', 'relativenumber', true)
 opt('w', 'wrap', false)
 cmd('filetype plugin on')
 
