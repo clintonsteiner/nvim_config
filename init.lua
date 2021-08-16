@@ -206,14 +206,11 @@ function git()
     if not g.loaded_fugitive then
         return ""
     end
-
     local branch_sign = ''
     local out = fn.FugitiveHead()
-
     if out ~= "" then
         out = "  " .. branch_sign .. " " .. out .. " "
     end
-
     return out
 end
 
@@ -240,7 +237,6 @@ function get_mode()
         t = 'terminal '
     }
     local current_mode = mode_table[fn.mode()]
-
     return string.upper(current_mode or 'v-block')
 end
 
@@ -302,7 +298,6 @@ end
 
 function StatusLine()
     local status = ''
-
     status = status .. get_mode_color(fn.mode())
     status = status .. [[ %-{luaeval("get_mode()")}]]
     status = status .. '%#DiffAdd#'
@@ -320,7 +315,6 @@ function StatusLine()
     status = status .. [[%-{luaeval("get_cwd()")} ]]
     status = status .. [[%#ScrollBar#%-{luaeval("scroll_bar()")}]]
     status = status .. [[%#TabLine# %-"col:%2c]]
-
     return status
 end
 
