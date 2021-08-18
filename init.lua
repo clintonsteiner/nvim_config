@@ -16,7 +16,7 @@ local function map(mode, lhs, rhs, opts)
 end
 
 -- plugins -----------------------------------------------------------------------------------------
-local Plug = vim.fn['plug#']
+local Plug = fn['plug#']
 vim.call('plug#begin', '~/.config/nvim/plugged')
 Plug 'shougo/deoplete-lsp'
 Plug('shougo/deoplete.nvim', {['do'] = fn['remote#host#UpdateRemotePlugins']})
@@ -61,9 +61,6 @@ opt('w', 'number', true)
 opt('w', 'wrap', false)
 cmd('filetype plugin on')
 
-g['ayucolor'] = 'mirage'
-cmd 'colorscheme ayu'
-
 g.python3_host_prog="~/.virtualenvs/nvim/bin/python3"
 
 cmd 'au TextYankPost * lua vim.highlight.on_yank {timeout=400}'  -- yank highlights
@@ -73,6 +70,8 @@ cmd 'au TextYankPost * lua vim.highlight.on_yank {timeout=400}'  -- yank highlig
 require('nvim-autopairs').setup()
 
 -- ayu
+g['ayucolor'] = 'mirage'
+
 function custom_ayu_colors()
     cmd 'call ayu#hi("LineNr", "comment", "")'
     cmd 'call ayu#hi("TabLineFill", "", "bg")'
@@ -91,6 +90,7 @@ vim.api.nvim_command("augroup custom_colors")
 vim.api.nvim_command("autocmd!")
 cmd('autocmd ColorScheme ayu lua custom_ayu_colors()')
 vim.api.nvim_command("augroup END")
+cmd [[colorscheme ayu]]
 
 -- deoplete
 g['deoplete#enable_at_startup'] = 1  -- enable deoplete at startup
