@@ -30,7 +30,7 @@ Plug 'justinmk/vim-sneak'
 Plug 'voldikss/vim-floaterm'
 Plug 'liuchengxu/vim-which-key'
 Plug 'windwp/nvim-autopairs'
-vim.call('plug#end')
+vim.call('plug#end')    -- automatically calls `filetype plugin indent on` and `syntax enable`
 
 -- options -----------------------------------------------------------------------------------------
 opt.expandtab = true
@@ -54,7 +54,6 @@ opt.colorcolumn = '100'
 opt.cursorline = true
 opt.number = true
 opt.wrap = false
-cmd('filetype plugin on')
 
 g.python3_host_prog="~/.virtualenvs/nvim/bin/python3"
 
