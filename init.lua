@@ -156,10 +156,10 @@ g.indentLine_char = ''
 -- lsp
 local lsp = require 'lspconfig'
 -- lsp.ccls.setup {}  -- default settings; use this for cpp
-lsp.pyls.setup {
+lsp.pylsp.setup {
     root_dir = lsp.util.root_pattern('.git', fn.getcwd()),  -- start LSP server at project root or cwd
     settings = {
-        pyls = {
+        pylsp = {
             configurationSources = {'flake8'},
             plugins = {
                 flake8 = {enabled = true},
