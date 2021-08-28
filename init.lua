@@ -2,12 +2,7 @@
 local cmd = vim.cmd  -- to execute Vim commands e.g. cmd('pwd')
 local fn = vim.fn    -- to call Vim functions e.g. fn.bufnr()
 local g = vim.g      -- a table to access global variables
-local scopes = {o = vim.o, b = vim.bo, w = vim.wo}
-
-local function opt(scope, key, value)
-  scopes[scope][key] = value
-  if scope ~= 'o' then scopes['o'][key] = value end
-end
+local opt = vim.opt  -- to set options
 
 local function map(mode, lhs, rhs, opts)
   local options = {noremap = true}
@@ -38,27 +33,27 @@ Plug 'windwp/nvim-autopairs'
 vim.call('plug#end')
 
 -- options -----------------------------------------------------------------------------------------
-opt('b', 'expandtab', true)
-opt('b', 'shiftwidth', 4)
-opt('b', 'tabstop', 4)
-opt('b', 'textwidth', 100)
-opt('o', 'completeopt', 'menuone,noinsert,noselect')  -- completion options (for deoplete)
-opt('o', 'clipboard', 'unnamedplus')
-opt('o', 'hidden', true)  -- enable modified buffers in background
-opt('o', 'ignorecase', true)
-opt('o', 'inccommand', 'nosplit')  -- visually show live substitutions
-opt('o', 'lazyredraw', true)
-opt('o', 'mouse', 'a')
-opt('o', 'shortmess', vim.o.shortmess .. 'c')  -- don't pass messages to completions menu
-opt('o', 'showmode', false)  -- not necessary with a statusline set
-opt('o', 'startofline', false)
-opt('o', 'termguicolors', true)
-opt('o', 'ttimeoutlen', 10)
-opt('o', 'updatetime', 100)
-opt('w', 'colorcolumn', '100')
-opt('w', 'cursorline', true)
-opt('w', 'number', true)
-opt('w', 'wrap', false)
+opt.expandtab = true
+opt.shiftwidth = 4
+opt.tabstop = 4
+opt.textwidth = 100
+opt.completeopt = {'menuone,noinsert,noselect'}  -- completion options (for deoplete)
+opt.clipboard = 'unnamedplus'
+opt.hidden = true  -- enable modified buffers in background
+opt.ignorecase = true
+opt.inccommand = 'nosplit'  -- visually show live substitutions
+opt.lazyredraw = true
+opt.mouse = 'a'
+vim.o.shortmess = vim.o.shortmess .. 'c'  -- don't pass messages to completions menu
+opt.showmode = false  -- not necessary with a statusline set
+opt.startofline = false
+opt.termguicolors = true
+opt.ttimeoutlen = 10
+opt.updatetime = 100
+opt.colorcolumn = '100'
+opt.cursorline = true
+opt.number = true
+opt.wrap = false
 cmd('filetype plugin on')
 
 g.python3_host_prog="~/.virtualenvs/nvim/bin/python3"
@@ -318,9 +313,9 @@ function StatusLine()
     return status
 end
 
-opt('o', 'laststatus', 2)
-opt('o', 'statusline', '%!luaeval("StatusLine()")')
-opt('o', 'showtabline', 2)
+opt.laststatus = 2
+opt.statusline = '%!luaeval("StatusLine()")'
+opt.showtabline = 2
 
 -- mappings ----------------------------------------------------------------------------------------
 g.mapleader = ' '  -- make sure this is before all other leader mappings
