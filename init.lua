@@ -64,8 +64,7 @@ cmd 'au TextYankPost * lua vim.highlight.on_yank {timeout=400}'  -- yank highlig
 require('nvim-autopairs').setup()
 
 -- ayu
-g['ayucolor'] = 'mirage'
-
+g.ayucolor = 'mirage'
 function custom_ayu_colors()
     cmd 'call ayu#hi("LineNr", "comment", "")'
     cmd 'call ayu#hi("TabLineFill", "", "bg")'
@@ -79,11 +78,7 @@ function custom_ayu_colors()
     cmd 'call ayu#hi("Sneak", "bg", "error", "bold")'
     cmd 'call ayu#hi("FloatermBorder", "comment", "bg")'
 end
-
-vim.api.nvim_command("augroup custom_colors")
-vim.api.nvim_command("autocmd!")
 cmd('autocmd ColorScheme ayu lua custom_ayu_colors()')
-vim.api.nvim_command("augroup END")
 cmd [[colorscheme ayu]]
 
 -- deoplete
