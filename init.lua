@@ -194,6 +194,14 @@ g['sneak#label'] = 1
 local ts = require 'nvim-treesitter.configs'
 ts.setup {ensure_installed = 'python', highlight = {enable = true}}
 
+-- disable unused builtin plugins ------------------------------------------------------------------
+local disabled_builtins = {'gzip', 'zip', 'zipPlugin', 'tar', 'tarPlugin', 'getscript',
+                           'getscriptPlugin', 'vimball', 'vimballPlugin', '2html_plugin', 'logipat',
+                           'rrhelper', 'spellfile_plugin', 'matchit'}
+for _, plugin in pairs(disabled_builtins) do
+    g["loaded_" .. plugin] = 1
+end
+
 -- status line -------------------------------------------------------------------------------------
 function git()
     if not g.loaded_fugitive then
