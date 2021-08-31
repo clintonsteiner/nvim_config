@@ -23,7 +23,7 @@ Plug 'ojroques/nvim-lspfuzzy'
 Plug 'luxed/ayu-vim'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
-Plug 'Yggdroot/indentLine'
+Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'tpope/vim-commentary'
 Plug 'machakann/vim-sandwich'
 Plug 'justinmk/vim-sneak'
@@ -151,7 +151,11 @@ cmd [[command! Sessions lua fzf_sessions{}]]
 g.gitgutter_map_keys = 0
 
 -- indentLine
-g.indentLine_char = ''
+require("indent_blankline").setup()
+g.indent_blankline_use_treesitter = true
+g.indent_blankline_show_current_context = true
+g.indent_blankline_context_patterns = {'class', 'function', '^if', '^elif', '^for'}
+cmd('autocmd CursorMoved * IndentBlanklineRefresh')
 
 -- lsp
 local lsp = require 'lspconfig'
