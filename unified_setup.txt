@@ -1,0 +1,59 @@
+installing and running neovim 0.5 (or nightly) from absolute scratch
+
+1. install neovim 0.5:
+    a. `mkdir ~/apps/neovim && cd ~/apps/neovim`
+    b. `wget https://github.com/neovim/neovim/releases/download/v0.5.0/nvim.appimage`
+    c. `chmod u+x nvim.appimage`
+2. install fuse if you cannot run this: `./nvim.appimage`
+    a. `sudo apt-get install fuse`
+    b. `sudo apt-get install fuse-libs`
+3. install a virtual environment (if it already exists, wipe it out and start fresh):
+    a. `mkdir ~/.virtualenvs && cd ~/.virtualenvs`
+    b. `python3 -m venv nvim`
+4. install the necessary python packages in the virtual environment:
+    a. `cd ~/.virtualenvs/nvim/bin`
+    b. `source activate`
+    c. `./pip install pynvim`
+    d. `./pip install python-lsp-server`  # https://github.com/python-lsp/python-lsp-server
+    e. `./pip install pyls-flake8`  # https://github.com/emanspeaks/pyls-flake8
+    f. `deactivate`
+5. add a flake8 config file to turn off specific errors/warnings (simply create this as an empty
+    file if you don't want to turn off any errors/warnings)
+    a. `vim ~/.config/flake8`
+    b. to turn off line length (E501) and orverindent (E128) errors:
+    ```
+        [flake8]
+        ignore=E501,E128
+    ```
+6. download vim-plug plugin manager:
+    a. `sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'`
+7. for a template to get you started (and this is my current lua config file):
+    a. `mkdir ~/dotfiles/ && cd ~/dotfiles`
+    b. `git clone https://github.com/benewberg/nightly_nvim_init.git`
+    c. `mv nightly_nvim_init/ nvim`
+8. make a new script which will launch this version of neovim, source your virtualenv, use the lua
+    config file, and deactivate once done:
+    a. `vi ~/.local/bin/nvim`
+    b. add the below into the file (ignore the back-ticks) and save
+    ```
+        #!/bin/bash
+
+        if [ ! "$#" -gt 0 ] ; then
+            source ~/.virtualenvs/nvim/bin/activate && ~/apps/neovim/nvim.appimage -u ~/dotfiles/nvim/init.lua && deactivate
+        else
+            source ~/.virtualenvs/nvim/bin/activate && ~/apps/neovim/nvim.appimage -u ~/dotfiles/nvim/init.lua "$@" && deactivate
+        fi
+    ```
+    c. `chmod u+x ~/.local/bin/nvim`
+    d. make sure `~/.local/bin` is in your path (it should be)
+9. launch neovim now: `nvim`
+10. in neovim, run this command to install all the plugins: `:PlugInstall`
+11. in neovim, run this command to install language for treesitter: `:TSInstall python lua` (and any other languages you want)
+12. in neovim, run this command to get deoplete working: `:UpdateRemotePlugins`
+13. close out of neovim, relaunch, and run this command to make sure all is OK: `:checkhealth`
+14. (optional) add nvim as the default editor in git: `git config --global core.editor nvim`
+15. (optional) add nvim as the default editor in psql: add this to your .bashrc: `export PSQL_EDITOR=nvim` and source your .bashrc
+
+further reading:
+* https://oroques.dev/notes/neovim-init/  # this is where the basis of my init.lua came from

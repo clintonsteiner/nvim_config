@@ -17,8 +17,8 @@ Plug 'shougo/deoplete-lsp'
 Plug('shougo/deoplete.nvim', {['do'] = fn['remote#host#UpdateRemotePlugins'], commit = '49151bc'})
 Plug('nvim-treesitter/nvim-treesitter', {branch = '0.5-compat'})
 Plug('neovim/nvim-lspconfig', {commit = '234a8cd'})
-Plug('junegunn/fzf', {['do'] = fn['fzf#install']})
-Plug 'junegunn/fzf.vim'
+Plug('junegunn/fzf', {['do'] = fn['fzf#install'], commit = '4cd621e8'})
+Plug('junegunn/fzf.vim', {commit = '75c7e87de'})
 Plug 'ojroques/nvim-lspfuzzy'
 Plug 'luxed/ayu-vim'
 Plug 'tpope/vim-fugitive'
@@ -91,11 +91,6 @@ g.floaterm_height = 0.7
 g.floaterm_title = 0
 
 -- fzf
-g.fzf_layout = {
-    window = {
-        width = 0.9, height = 0.6
-    }
-}
 g.fzf_colors = {
     fg = {'fg', 'Normal'},
     hl = {'fg', 'Underlined'},
@@ -387,7 +382,7 @@ map('i', '<F1>', '<ESC>:w<CR>i')
 map('n', '<F2>', '<cmd>noh<CR>')
 map('n', '<TAB>', '<C-^>')
 map('n', '<S-TAB>', ':bn<CR>')
-map('n', 'Y', 'y$')
+map('n', 'Y', 'y$')  -- now included in default neovim > 0.5
 map('n', '<C-h>', '<C-w>h')
 map('n', '<C-j>', '<C-w>j')
 map('n', '<C-k>', '<C-w>k')
