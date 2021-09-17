@@ -30,6 +30,7 @@ Plug 'justinmk/vim-sneak'
 Plug 'voldikss/vim-floaterm'
 Plug 'liuchengxu/vim-which-key'
 Plug 'windwp/nvim-autopairs'
+Plug 'Vimjas/vim-python-pep8-indent'
 vim.call('plug#end')    -- automatically calls `filetype plugin indent on` and `syntax enable`
 
 -- options -----------------------------------------------------------------------------------------
