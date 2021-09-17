@@ -211,32 +211,6 @@ function git()
     return out
 end
 
-function get_mode()
-    local mode_table = {
-        n = 'normal ',
-        no = 'n-operator pending ',
-        v = 'visual ',
-        V = 'v-line ',
-        [''] = 'v-block ',
-        s = 'select ',
-        S = 's-line ',
-        [''] = 's-block ',
-        i = 'insert ',
-        R = 'replace ',
-        Rv = 'v-replace ',
-        c = 'command ',
-        cv = 'vim ex ',
-        ce = 'ex ',
-        r = 'prompt ',
-        rm = 'more ',
-        ['r?'] = 'confirm ',
-        ['!'] = 'shell ',
-        t = 'terminal '
-    }
-    local current_mode = mode_table[fn.mode()]
-    return string.upper(current_mode or 'v-block')
-end
-
 function get_mode_color(mode)
   local mode_color = 'OtherMode'
   if mode == 'n' then
