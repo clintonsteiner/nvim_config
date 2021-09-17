@@ -16,9 +16,9 @@ vim.call('plug#begin', '~/.config/nvim/plugged')
 Plug 'shougo/deoplete-lsp'
 Plug('shougo/deoplete.nvim', {['do'] = fn['remote#host#UpdateRemotePlugins']})
 Plug('nvim-treesitter/nvim-treesitter', {branch = '0.5-compat'})
-Plug('neovim/nvim-lspconfig', {commit = '234a8cd'})
 Plug('junegunn/fzf', {['do'] = fn['fzf#install'], commit = '4cd621e8'})
 Plug('junegunn/fzf.vim', {commit = '75c7e87de'})
+Plug 'neovim/nvim-lspconfig'
 Plug 'ojroques/nvim-lspfuzzy'
 Plug 'luxed/ayu-vim'
 Plug 'tpope/vim-fugitive'
