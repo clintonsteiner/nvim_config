@@ -59,6 +59,7 @@ opt.wrap = false
 g.python3_host_prog="~/.virtualenvs/nvim/bin/python3"
 
 cmd 'au TextYankPost * lua vim.highlight.on_yank {timeout=400}'  -- yank highlights
+-- cmd('autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics()')  -- show diagnostic on cursor hover
 
 -- plugin settings ---------------------------------------------------------------------------------
 -- autopairs
@@ -333,6 +334,7 @@ map('n', '<leader>ld', '<cmd>lua vim.lsp.buf.definition()<CR>')
 map('n', '<leader>lh', '<cmd>lua vim.lsp.buf.hover()<CR>')
 map('n', '<leader>lr', '<cmd>lua vim.lsp.buf.references()<CR>')
 map('n', '<leader>ls', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>')
+map('n', '<leader>lt', ':lua ToggleDiagnostics()<CR>')
 
 -- open
 map('n', '<leader>of', ':Files<CR>')
@@ -385,4 +387,22 @@ function NtCov()
     local cov = fn.split(fn.substitute(fn.split(fn.expand('%:p'), "python/")[2], "/", ".", "g"), ".tests.")[1] .. "." .. fn.substitute(fn.substitute(fn.expand('%'), "test_", "", ""), ".py", "", "")
     cmd(":FloatermNew --wintype=floating --title=test-file-coverage --autoclose=0 nosetests --with-cov --cov=" .. cov .. " --cov-report=term-missing " .. fn.expand('%') .. " --verbose")
     cmd(":cd " .. prevPwd)
+end
+
+g.diagnostics_active = true
+function ToggleDiagnostics()
+    if g.diagnostics_active then
+        g.diagnostics_active = false
+        vim.lsp.diagnostic.clear(0)
+    else
+        g.diagnostics_active = true
+    end
+    vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+        vim.lsp.diagnostic.on_publish_diagnostics, {
+            virtual_text = g.diagnostics_active,
+            signs = g.diagnostics_active,
+            underline = g.diagnostics_active,
+            update_in_insert = not g.diagnostics_active,
+        }
+    )
 end
