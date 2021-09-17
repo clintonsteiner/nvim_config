@@ -5,9 +5,9 @@ local g = vim.g      -- a table to access global variables
 local opt = vim.opt  -- to set options
 
 local function map(mode, lhs, rhs, opts)
-  local options = {noremap = true}
-  if opts then options = vim.tbl_extend('force', options, opts) end
-  vim.api.nvim_set_keymap(mode, lhs, rhs, options)
+    local options = {noremap = true}
+    if opts then options = vim.tbl_extend('force', options, opts) end
+    vim.api.nvim_set_keymap(mode, lhs, rhs, options)
 end
 
 -- plugins -----------------------------------------------------------------------------------------
@@ -141,7 +141,7 @@ cmd [[command! Sessions lua fzf_sessions{}]]
 -- gitgutter
 g.gitgutter_map_keys = 0
 
--- indentLine
+-- indent_blankline
 require("indent_blankline").setup()
 g.indent_blankline_use_treesitter = true
 g.indent_blankline_show_current_context = true
@@ -212,53 +212,50 @@ function git()
 end
 
 function get_mode_color(mode)
-  local mode_color = 'OtherMode'
-  if mode == 'n' then
-    mode_color = '%#NormalMode#'
-  elseif mode == 'i' then
-    mode_color = '%#InsertMode#'
-  elseif mode == 'R' then
-    mode_color = '%#ReplaceMode#'
-  elseif mode == 'v' or mode == 'V' or mode == '' then
-    mode_color = '%#VisualMode#'
-  else
-    mode_color = '%#OtherMode#'
-  end
-  return mode_color
+    local mode_color = '%#OtherMode#'
+    local mode_color_table = {
+        n = '%#NormalMode#',
+        i = '%#InsertMode#',
+        R = '%#ReplaceMode#',
+        v = '%#VisualMode#',
+        V = '%#VisualMode#',
+        [''] = '%#VisualMode#',
+    }
+    if mode_color_table[mode] then
+        mode_color = mode_color_table[mode]
+    end
+    return mode_color
 end
 
 function get_readonly_char()
-  if vim.bo.readonly or vim.bo.modifiable == false then 
-    return ''
-  else
-    return ''
-  end
+    local ro_char = ''
+    if vim.bo.readonly or vim.bo.modifiable == false then ro_char = '' end
+    return ro_char
 end
 
 function get_cwd()
-  local dir = vim.api.nvim_call_function('getcwd', {})
-  dir = vim.api.nvim_call_function('pathshorten', {dir})
-  return dir
+    local dir = vim.api.nvim_call_function('getcwd', {})
+    dir = vim.api.nvim_call_function('pathshorten', {dir})
+    return dir
 end
 
-function scroll_bar()
-  -- from github.com/drzel/vim-line-no-indicator
-  local chars = {
-      '   ', '▏  ', '▎  ', '▍  ', '▌  ', '▋  ', '▊  ', '▉  ', '█  ', '█▏ ', '█▎ ', '█▍ ', '█▌ ',
-      '█▋ ', '█▊ ', '█▉ ', '██ ', '██▏', '██▎', '██▍', '██▌', '██▋', '██▊', '██▉', '███'
-  }
-  local current_line = fn.line('.')
-  local total_lines = fn.line('$')
-  local index = current_line
-  if current_line == 1 then
-    index = 1
-  elseif current_line == total_lines then
-    index = #chars
-  else
-    local line_no_fraction = math.floor(current_line) / math.floor(total_lines)
-    index = math.ceil(line_no_fraction * #chars)
-  end
-  return chars[index]
+function scroll_bar()  -- from github.com/drzel/vim-line-no-indicator
+    local chars = {
+        '   ', '▏  ', '▎  ', '▍  ', '▌  ', '▋  ', '▊  ', '▉  ', '█  ', '█▏ ', '█▎ ', '█▍ ', '█▌ ',
+        '█▋ ', '█▊ ', '█▉ ', '██ ', '██▏', '██▎', '██▍', '██▌', '██▋', '██▊', '██▉', '███'
+    }
+    local current_line = fn.line('.')
+    local total_lines = fn.line('$')
+    local index = current_line
+    if current_line == 1 then
+      index = 1
+    elseif current_line == total_lines then
+      index = #chars
+    else
+      local line_no_fraction = math.floor(current_line) / math.floor(total_lines)
+      index = math.ceil(line_no_fraction * #chars)
+    end
+    return chars[index]
 end
 
 function git_summary(idx)
@@ -270,7 +267,7 @@ end
 function StatusLine()
     local status = ''
     status = status .. get_mode_color(fn.mode())
-    status = status .. [[ %-{luaeval("get_mode()")}]]
+    status = status .. [[ %-"]]
     status = status .. '%#DiffAdd#'
     status = status .. [[%-{luaeval("git()")}]]
     status = status .. '%#Directory# '
@@ -334,8 +331,6 @@ map('n', '<leader>it', ':lua Abbrev("this")<CR>')
 -- lsp
 map('n', '<leader>ld', '<cmd>lua vim.lsp.buf.definition()<CR>')
 map('n', '<leader>lh', '<cmd>lua vim.lsp.buf.hover()<CR>')
-map('n', '<leader>lj', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>')
-map('n', '<leader>lk', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>')
 map('n', '<leader>lr', '<cmd>lua vim.lsp.buf.references()<CR>')
 map('n', '<leader>ls', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>')
 
@@ -367,30 +362,20 @@ map('n', '<C-l>', '<C-w>l')
 map('i', '<S-Tab>', 'pumvisible() ? "\\<C-p>" : "\\<Tab>"', {expr = true})
 map('i', '<Tab>', 'pumvisible() ? "\\<C-n>" : "\\<Tab>"', {expr = true})
 
--------------------- LSP -----------------------------------
-
--- map('n', '<space>a', '<cmd>lua vim.lsp.buf.code_action()<CR>')
--- map('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>')
--- map('n', '<space>m', '<cmd>lua vim.lsp.buf.rename()<CR>')
--- map('n', '<space>s', '<cmd>lua vim.lsp.buf.document_symbol()<CR>')
-
--- misc --------------------------------------------------------------------------------------------
+-- functions ---------------------------------------------------------------------------------------
 function SaveSession()
   local name = fn.input("Session name: ")
   if name ~= "" then fn.execute('mksession! ~/.local/share/nvim/sessions/' .. fn.fnameescape(name)) end
 end
 
 function Abbrev(_text)
-    local cmd = ""
-    if _text == "break" then
-        cmd = "# ----------------------------------------------------------------------------------------------"
-    elseif _text == "lbreak" then
-        cmd = "# --------------------------------------------------------------------------------------------------"
-    elseif _text == "pdb" then
-        cmd = 'from pdb import set_trace; set_trace()'
-    elseif _text == "this" then
-        cmd = 'from nose.plugins.attrib import attr<CR>@attr("this")'
-    end
+    local abbrev_text_table = {
+        sbreak = '# ' .. string.rep('-', 94),
+        lbreak = '# ' .. string.rep('-', 98),
+        pdb = 'from pdb import set_trace; set_trace()',
+        this = 'from nose.plugins.attrib import attr<CR>@attr("this")',
+    }
+    local cmd = abbrev_text_table[_text]
     vim.api.nvim_command(vim.api.nvim_replace_termcodes('normal! O' .. cmd .. '<ESC><CR>', true, false, true))
 end
 
