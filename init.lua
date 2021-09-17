@@ -56,7 +56,7 @@ opt.cursorline = true
 opt.number = true
 opt.wrap = false
 
-g.python3_host_prog="~/.virtualenvs/nvim/bin/python3"
+g.python3_host_prog = vim.env.HOME .. "/.virtualenvs/nvim/bin/python3"
 
 cmd 'au TextYankPost * lua vim.highlight.on_yank {timeout=400}'  -- yank highlights
 -- cmd('autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics()')  -- show diagnostic on cursor hover
@@ -154,26 +154,15 @@ local lsp = require 'lspconfig'
 -- lsp.ccls.setup {}  -- default settings; use this for cpp
 lsp.pylsp.setup {
     root_dir = lsp.util.root_pattern('.git', fn.getcwd()),  -- start LSP server at project root or cwd
+    cmd = {vim.env.HOME .. '/.virtualenvs/nvim/bin/pylsp'},
     settings = {
         pylsp = {
             configurationSources = {'flake8'},
             plugins = {
-                flake8 = {enabled = true},
+                flake8 = {enabled = true, executable = vim.env.HOME .. '/.virtualenvs/nvim/bin/flake8'},
                 pycodestyle = {enabled = false},
-                pylint = {enabled = false},
-                pydocstyle = {enabled = false},
-                pyflakes = {enabled = false},
-                mccabe = {enabled = false},
-                yapf = {enabled = false},
             }
         }
-    },
-    handlers = {
-        ["textDocument/publishDiagnostics"] = vim.lsp.with(
-            vim.lsp.diagnostic.on_publish_diagnostics, {
-                virtual_text = false  -- turning off for now to keep visual noise down
-            }
-        )
     }
 }
 
