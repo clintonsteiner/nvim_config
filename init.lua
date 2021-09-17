@@ -75,7 +75,7 @@ function custom_ayu_colors()
     cmd 'call ayu#hi("VisualMode", "keyword", "bg", "reverse,bold")'
     cmd 'call ayu#hi("ReplaceMode", "markup", "bg", "reverse,bold")'
     cmd 'call ayu#hi("OtherMode", "constant", "bg", "reverse,bold")'
-    cmd 'call ayu#hi("ScrollBar", "regexp", "selection_inactive")'
+    cmd 'call ayu#hi("ScrollBar", "accent", "selection_inactive")'
     cmd 'call ayu#hi("Sneak", "bg", "error", "bold")'
     cmd 'call ayu#hi("FloatermBorder", "comment", "bg")'
 end
