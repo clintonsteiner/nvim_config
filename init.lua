@@ -16,9 +16,9 @@ vim.call('plug#begin', '~/.config/nvim/plugged')
 Plug 'shougo/deoplete-lsp'
 Plug('shougo/deoplete.nvim', {['do'] = fn['remote#host#UpdateRemotePlugins']})
 Plug('nvim-treesitter/nvim-treesitter', {branch = '0.5-compat'})
-Plug('junegunn/fzf', {['do'] = fn['fzf#install'], commit = '4cd621e8'})
-Plug('junegunn/fzf.vim', {commit = '75c7e87de'})
 Plug 'neovim/nvim-lspconfig'
+Plug('junegunn/fzf', {['do'] = fn['fzf#install']})
+Plug 'junegunn/fzf.vim'
 Plug 'ojroques/nvim-lspfuzzy'
 Plug 'luxed/ayu-vim'
 Plug 'tpope/vim-fugitive'
@@ -108,33 +108,37 @@ g.fzf_colors = {
 }
 
 function fzf_cd()
-    local fzf_wrap = vim.fn["fzf#wrap"] 
-    local wrapped = fzf_wrap("fzf_cd", {
+    local fzf_wrap = fn["fzf#wrap"] 
+    local spec = {
         source = "find . -type d -follow 2>/dev/null",
         options = {
             "--prompt", "Cd> "
-        }
-    })
-    wrapped["sink*"] = nil -- this line is required if you want to use `sink` only
-    wrapped.sink = function(line)
-        cmd('cd ./' .. line)
-    end
+        },
+        sink = function(line)
+            cmd('cd ./' .. line)
+        end,
+    }
+    local wrapped = fzf_wrap("fzf_cd", spec)
+    wrapped["sink*"] = spec["sink*"]
+    wrapped.sink = spec.sink
     fn['fzf#run'](wrapped)
 end
 cmd [[command! Cd lua fzf_cd{}]]
 
 function fzf_sessions()
-    local fzf_wrap = vim.fn["fzf#wrap"] 
-    local wrapped = fzf_wrap("fzf_sessions", {
+    local fzf_wrap = fn["fzf#wrap"] 
+    local spec = {
         source = "find ~/.local/share/nvim/sessions -type f",
         options = {
             "--prompt", "Sessions> "
-        }
-    })
-    wrapped["sink*"] = nil
-    wrapped.sink = function(line)
-        cmd('source ' .. line)
-    end
+        },
+        sink = function(line)
+            cmd('source ' .. line)
+        end,
+    }
+    local wrapped = fzf_wrap("fzf_sessions", spec)
+    wrapped["sink*"] = spec["sink*"]
+    wrapped.sink = spec.sink
     fn['fzf#run'](wrapped)
 end
 cmd [[command! Sessions lua fzf_sessions{}]]
