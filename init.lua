@@ -14,7 +14,7 @@ end
 local Plug = fn['plug#']
 vim.call('plug#begin', '~/.config/nvim/plugged')
 Plug 'shougo/deoplete-lsp'
-Plug('shougo/deoplete.nvim', {['do'] = fn['remote#host#UpdateRemotePlugins'], commit = '49151bc'})
+Plug('shougo/deoplete.nvim', {['do'] = fn['remote#host#UpdateRemotePlugins']})
 Plug('nvim-treesitter/nvim-treesitter', {branch = '0.5-compat'})
 Plug('neovim/nvim-lspconfig', {commit = '234a8cd'})
 Plug('junegunn/fzf', {['do'] = fn['fzf#install'], commit = '4cd621e8'})
