@@ -13,8 +13,6 @@ end
 -- plugins -----------------------------------------------------------------------------------------
 local Plug = fn['plug#']
 vim.call('plug#begin', '~/.config/nvim/plugged')
-Plug 'shougo/deoplete-lsp'
-Plug('shougo/deoplete.nvim', {['do'] = fn['remote#host#UpdateRemotePlugins']})
 Plug('nvim-treesitter/nvim-treesitter', {branch = '0.5-compat'})
 Plug 'neovim/nvim-lspconfig'
 Plug('junegunn/fzf', {['do'] = fn['fzf#install']})
@@ -82,9 +80,6 @@ function custom_ayu_colors()
 end
 cmd('autocmd ColorScheme ayu lua custom_ayu_colors()')
 cmd [[colorscheme ayu]]
-
--- deoplete
-g['deoplete#enable_at_startup'] = 1  -- enable deoplete at startup
 
 -- floaterm
 g.floaterm_autoclose = 1
@@ -154,7 +149,13 @@ cmd('autocmd CursorMoved * IndentBlanklineRefresh')
 -- lsp
 local lsp = require 'lspconfig'
 -- lsp.ccls.setup {}  -- default settings; use this for cpp
+local on_attach = function(client, bufnr)
+    vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+    -- vim.api.nvim_buf_set_keymap(bufnr, 'i', '.', '.<C-x><C-o>', {noremap=true, silent=true})  -- trigger completion when period entered
+    -- cmd('autocmd CursorHoldI <buffer> lua vim.lsp.omnifunc()')  -- pseudo autocompletion
+end
 lsp.pylsp.setup {
+    on_attach = on_attach,
     root_dir = lsp.util.root_pattern('.git', fn.getcwd()),  -- start LSP server at project root or cwd
     cmd = {vim.env.HOME .. '/.virtualenvs/nvim/bin/pylsp'},
     settings = {
