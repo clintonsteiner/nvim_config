@@ -108,7 +108,6 @@ g.fzf_colors = {
 }
 
 function fzf_cd()
-    local fzf_wrap = fn["fzf#wrap"] 
     local spec = {
         source = "find . -type d -follow 2>/dev/null",
         options = {
@@ -118,7 +117,7 @@ function fzf_cd()
             cmd('cd ./' .. line)
         end,
     }
-    local wrapped = fzf_wrap("fzf_cd", spec)
+    local wrapped = fn["fzf#wrap"]("fzf_cd", spec)
     wrapped["sink*"] = spec["sink*"]
     wrapped.sink = spec.sink
     fn['fzf#run'](wrapped)
@@ -126,7 +125,6 @@ end
 cmd [[command! Cd lua fzf_cd{}]]
 
 function fzf_sessions()
-    local fzf_wrap = fn["fzf#wrap"] 
     local spec = {
         source = "find ~/.local/share/nvim/sessions -type f",
         options = {
@@ -136,7 +134,7 @@ function fzf_sessions()
             cmd('source ' .. line)
         end,
     }
-    local wrapped = fzf_wrap("fzf_sessions", spec)
+    local wrapped = fn["fzf#wrap"]("fzf_sessions", spec)
     wrapped["sink*"] = spec["sink*"]
     wrapped.sink = spec.sink
     fn['fzf#run'](wrapped)
