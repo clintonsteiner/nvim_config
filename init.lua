@@ -140,7 +140,8 @@ local lsp = require 'lspconfig'
 local on_attach = function(client, bufnr)
     vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
     -- vim.api.nvim_buf_set_keymap(bufnr, 'i', '.', '.<C-x><C-o>', {noremap=true, silent=true})  -- trigger completion when period entered
-    -- cmd('autocmd CursorHoldI <buffer> lua vim.lsp.omnifunc()')  -- pseudo autocompletion
+    vim.api.nvim_buf_set_keymap(bufnr, 'i', '<c-space>', '<c-x><c-o>', {noremap=true, silent=true})
+    -- vim.cmd('autocmd CursorHoldI <buffer> lua vim.lsp.omnifunc()')  -- pseudo autocompletion
 end
 lsp.pylsp.setup {
     on_attach = on_attach,
