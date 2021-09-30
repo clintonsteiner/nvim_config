@@ -334,7 +334,7 @@ map('n', '<leader>tx', ':FloatermNew --wintype=floating --title=test-file-stop -
 -- general
 map('n', '<F1>', ':w<CR>')
 map('i', '<F1>', '<ESC>:w<CR>i')
-map('n', '<F2>', '<cmd>noh<CR>')
+map('n', '<CR>', '<cmd>noh<CR><CR>')
 map('n', '<TAB>', '<C-^>')
 map('n', '<S-TAB>', ':bn<CR>')
 map('n', 'Y', 'y$')  -- now included in default neovim > 0.5
