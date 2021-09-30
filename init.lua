@@ -153,6 +153,7 @@ lsp.pylsp.setup {
             plugins = {
                 flake8 = {enabled = true, executable = vim.env.HOME .. '/.virtualenvs/nvim/bin/flake8'},
                 pycodestyle = {enabled = false},
+                pyflakes = {enabled = false},
             }
         }
     }
