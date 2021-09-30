@@ -1,21 +1,9 @@
--- helpers -----------------------------------------------------------------------------------------
-local cmd = vim.cmd  -- to execute Vim commands e.g. cmd('pwd')
-local fn = vim.fn    -- to call Vim functions e.g. fn.bufnr()
-local g = vim.g      -- a table to access global variables
-local opt = vim.opt  -- to set options
-
-local function map(mode, lhs, rhs, opts)
-    local options = {noremap = true}
-    if opts then options = vim.tbl_extend('force', options, opts) end
-    vim.api.nvim_set_keymap(mode, lhs, rhs, options)
-end
-
 -- plugins -----------------------------------------------------------------------------------------
-local Plug = fn['plug#']
+local Plug = vim.fn['plug#']
 vim.call('plug#begin', '~/.config/nvim/plugged')
 Plug('nvim-treesitter/nvim-treesitter', {branch = '0.5-compat'})
 Plug 'neovim/nvim-lspconfig'
-Plug('junegunn/fzf', {['do'] = fn['fzf#install']})
+Plug('junegunn/fzf', {['do'] = vim.fn['fzf#install']})
 Plug 'junegunn/fzf.vim'
 Plug 'ojroques/nvim-lspfuzzy'
 Plug 'luxed/ayu-vim'
@@ -32,63 +20,63 @@ Plug 'Vimjas/vim-python-pep8-indent'
 vim.call('plug#end')    -- automatically calls `filetype plugin indent on` and `syntax enable`
 
 -- options -----------------------------------------------------------------------------------------
-opt.expandtab = true
-opt.shiftwidth = 4
-opt.tabstop = 4
-opt.textwidth = 100
-opt.completeopt = {'menuone,noinsert,noselect'}  -- completion options (for deoplete)
-opt.clipboard = 'unnamedplus'
-opt.hidden = true  -- enable modified buffers in background
-opt.ignorecase = true
-opt.inccommand = 'nosplit'  -- visually show live substitutions
-opt.lazyredraw = true
-opt.mouse = 'a'
+vim.opt.expandtab = true
+vim.opt.shiftwidth = 4
+vim.opt.tabstop = 4
+vim.opt.textwidth = 100
+vim.opt.completeopt = {'menuone,noinsert,noselect'}  -- completion options (for deoplete)
+vim.opt.clipboard = 'unnamedplus'
+vim.opt.hidden = true  -- enable modified buffers in background
+vim.opt.ignorecase = true
+vim.opt.inccommand = 'nosplit'  -- visually show live substitutions
+vim.opt.lazyredraw = true
+vim.opt.mouse = 'a'
 vim.o.shortmess = vim.o.shortmess .. 'c'  -- don't pass messages to completions menu
-opt.showmode = false  -- not necessary with a statusline set
-opt.startofline = false
-opt.termguicolors = true
-opt.ttimeoutlen = 10
-opt.updatetime = 100
-opt.colorcolumn = '100'
-opt.cursorline = true
-opt.number = true
-opt.wrap = false
+vim.opt.showmode = false  -- not necessary with a statusline set
+vim.opt.startofline = false
+vim.opt.termguicolors = true
+vim.opt.ttimeoutlen = 10
+vim.opt.updatetime = 100
+vim.opt.colorcolumn = '100'
+vim.opt.cursorline = true
+vim.opt.number = true
+vim.opt.wrap = false
 
-g.python3_host_prog = vim.env.HOME .. "/.virtualenvs/nvim/bin/python3"
+vim.g.python3_host_prog = vim.env.HOME .. "/.virtualenvs/nvim/bin/python3"
 
-cmd 'au TextYankPost * lua vim.highlight.on_yank {timeout=400}'  -- yank highlights
--- cmd('autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics()')  -- show diagnostic on cursor hover
+vim.cmd 'au TextYankPost * lua vim.highlight.on_yank {timeout=400}'  -- yank highlights
+-- vim.cmd('autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics()')  -- show diagnostic on cursor hover
 
 -- plugin settings ---------------------------------------------------------------------------------
 -- autopairs
 require('nvim-autopairs').setup()
 
 -- ayu
-g.ayucolor = 'mirage'
+vim.g.ayucolor = 'mirage'
 function custom_ayu_colors()
-    cmd 'call ayu#hi("LineNr", "comment", "")'
-    cmd 'call ayu#hi("TabLineFill", "", "bg")'
-    cmd 'call ayu#hi("TabLineSel", "bg", "accent", "bold")'
-    cmd 'call ayu#hi("NormalMode", "string", "bg", "reverse,bold")'
-    cmd 'call ayu#hi("InsertMode", "tag", "bg", "reverse,bold")'
-    cmd 'call ayu#hi("VisualMode", "keyword", "bg", "reverse,bold")'
-    cmd 'call ayu#hi("ReplaceMode", "markup", "bg", "reverse,bold")'
-    cmd 'call ayu#hi("OtherMode", "constant", "bg", "reverse,bold")'
-    cmd 'call ayu#hi("ScrollBar", "accent", "selection_inactive")'
-    cmd 'call ayu#hi("Sneak", "bg", "error", "bold")'
-    cmd 'call ayu#hi("FloatermBorder", "comment", "bg")'
+    vim.cmd 'call ayu#hi("LineNr", "comment", "")'
+    vim.cmd 'call ayu#hi("TabLineFill", "", "bg")'
+    vim.cmd 'call ayu#hi("TabLineSel", "bg", "accent", "bold")'
+    vim.cmd 'call ayu#hi("NormalMode", "string", "bg", "reverse,bold")'
+    vim.cmd 'call ayu#hi("InsertMode", "tag", "bg", "reverse,bold")'
+    vim.cmd 'call ayu#hi("VisualMode", "keyword", "bg", "reverse,bold")'
+    vim.cmd 'call ayu#hi("ReplaceMode", "markup", "bg", "reverse,bold")'
+    vim.cmd 'call ayu#hi("OtherMode", "constant", "bg", "reverse,bold")'
+    vim.cmd 'call ayu#hi("ScrollBar", "accent", "selection_inactive")'
+    vim.cmd 'call ayu#hi("Sneak", "bg", "error", "bold")'
+    vim.cmd 'call ayu#hi("FloatermBorder", "comment", "bg")'
 end
-cmd('autocmd ColorScheme ayu lua custom_ayu_colors()')
-cmd [[colorscheme ayu]]
+vim.cmd('autocmd ColorScheme ayu lua custom_ayu_colors()')
+vim.cmd [[colorscheme ayu]]
 
 -- floaterm
-g.floaterm_autoclose = 1
-g.floaterm_width = 0.9
-g.floaterm_height = 0.7
-g.floaterm_title = 0
+vim.g.floaterm_autoclose = 1
+vim.g.floaterm_width = 0.9
+vim.g.floaterm_height = 0.7
+vim.g.floaterm_title = 0
 
 -- fzf
-g.fzf_colors = {
+vim.g.fzf_colors = {
     fg = {'fg', 'Normal'},
     hl = {'fg', 'Underlined'},
     ['fg+'] = {'fg', 'CursorLine', 'CursorColumn', 'Normal'},
@@ -109,15 +97,15 @@ function fzf_cd()
             "--prompt", "Cd> "
         },
         sink = function(line)
-            cmd('cd ./' .. line)
+            vim.cmd('cd ./' .. line)
         end,
     }
-    local wrapped = fn["fzf#wrap"]("fzf_cd", spec)
+    local wrapped = vim.fn["fzf#wrap"]("fzf_cd", spec)
     wrapped["sink*"] = spec["sink*"]
     wrapped.sink = spec.sink
-    fn['fzf#run'](wrapped)
+    vim.fn['fzf#run'](wrapped)
 end
-cmd [[command! Cd lua fzf_cd{}]]
+vim.cmd [[command! Cd lua fzf_cd{}]]
 
 function fzf_sessions()
     local spec = {
@@ -126,25 +114,25 @@ function fzf_sessions()
             "--prompt", "Sessions> "
         },
         sink = function(line)
-            cmd('source ' .. line)
+            vim.cmd('source ' .. line)
         end,
     }
-    local wrapped = fn["fzf#wrap"]("fzf_sessions", spec)
+    local wrapped = vim.fn["fzf#wrap"]("fzf_sessions", spec)
     wrapped["sink*"] = spec["sink*"]
     wrapped.sink = spec.sink
-    fn['fzf#run'](wrapped)
+    vim.fn['fzf#run'](wrapped)
 end
-cmd [[command! Sessions lua fzf_sessions{}]]
+vim.cmd [[command! Sessions lua fzf_sessions{}]]
 
 -- gitgutter
-g.gitgutter_map_keys = 0
+vim.g.gitgutter_map_keys = 0
 
 -- indent_blankline
 require("indent_blankline").setup()
-g.indent_blankline_use_treesitter = true
-g.indent_blankline_show_current_context = true
-g.indent_blankline_context_patterns = {'class', 'function', '^if', '^elif', '^for'}
-cmd('autocmd CursorMoved * IndentBlanklineRefresh')
+vim.g.indent_blankline_use_treesitter = true
+vim.g.indent_blankline_show_current_context = true
+vim.g.indent_blankline_context_patterns = {'class', 'function', '^if', '^elif', '^for'}
+vim.cmd('autocmd CursorMoved * IndentBlanklineRefresh')
 
 -- lsp
 local lsp = require 'lspconfig'
@@ -156,7 +144,7 @@ local on_attach = function(client, bufnr)
 end
 lsp.pylsp.setup {
     on_attach = on_attach,
-    root_dir = lsp.util.root_pattern('.git', fn.getcwd()),  -- start LSP server at project root or cwd
+    root_dir = lsp.util.root_pattern('.git', vim.fn.getcwd()),  -- start LSP server at project root or cwd
     cmd = {vim.env.HOME .. '/.virtualenvs/nvim/bin/pylsp'},
     settings = {
         pylsp = {
@@ -174,10 +162,10 @@ local lspfuzzy = require 'lspfuzzy'
 lspfuzzy.setup {}  -- Make the LSP client use FZF instead of the quickfix list
 
 -- sandwich
-cmd 'runtime macros/sandwich/keymap/surround.vim'  -- use tpope's surround.vim mapping so sneak works
+vim.cmd 'runtime macros/sandwich/keymap/surround.vim'  -- use tpope's surround.vim mapping so sneak works
 
 -- sneak
-g['sneak#label'] = 1
+vim.g['sneak#label'] = 1
 
 -- treesitter
 local ts = require 'nvim-treesitter.configs'
@@ -188,18 +176,18 @@ local disabled_builtins = {'gzip', 'zip', 'zipPlugin', 'tar', 'tarPlugin', 'gets
                            'getscriptPlugin', 'vimball', 'vimballPlugin', '2html_plugin', 'logipat',
                            'rrhelper', 'spellfile_plugin', 'matchit'}
 for _, plugin in pairs(disabled_builtins) do
-    g["loaded_" .. plugin] = 1
+    vim.g["loaded_" .. plugin] = 1
 end
 
 -- status line -------------------------------------------------------------------------------------
 function git()
-    if not g.loaded_fugitive then
+    if not vim.g.loaded_fugitive then
         return ""
     end
     local branch_sign = ''
-    local out = fn.FugitiveHead()
+    local out = vim.fn.FugitiveHead()
     if out ~= "" then
-        out = "  " .. branch_sign .. " " .. out .. " "
+        out = branch_sign .. " " .. out .. " "
     end
     return out
 end
@@ -237,8 +225,8 @@ function scroll_bar()  -- from github.com/drzel/vim-line-no-indicator
         '   ', '▏  ', '▎  ', '▍  ', '▌  ', '▋  ', '▊  ', '▉  ', '█  ', '█▏ ', '█▎ ', '█▍ ', '█▌ ',
         '█▋ ', '█▊ ', '█▉ ', '██ ', '██▏', '██▎', '██▍', '██▌', '██▋', '██▊', '██▉', '███'
     }
-    local current_line = fn.line('.')
-    local total_lines = fn.line('$')
+    local current_line = vim.fn.line('.')
+    local total_lines = vim.fn.line('$')
     local index = current_line
     if current_line == 1 then
       index = 1
@@ -252,7 +240,7 @@ function scroll_bar()  -- from github.com/drzel/vim-line-no-indicator
 end
 
 function git_summary(idx)
-   local summary = fn.GitGutterGetHunkSummary()
+   local summary = vim.fn.GitGutterGetHunkSummary()
    local prefix = {'+', '~', '-'}
    return summary[idx] > 0 and string.format(" %s%d ", prefix[idx], summary[idx]) or ''
 end
@@ -279,12 +267,18 @@ function StatusLine()
     return status
 end
 
-opt.laststatus = 2
-opt.statusline = '%!luaeval("StatusLine()")'
-opt.showtabline = 2
+vim.opt.laststatus = 2
+vim.opt.statusline = '%!luaeval("StatusLine()")'
+vim.opt.showtabline = 2
 
 -- mappings ----------------------------------------------------------------------------------------
-g.mapleader = ' '  -- make sure this is before all other leader mappings
+vim.g.mapleader = ' '  -- make sure this is before all other leader mappings
+local function map(mode, lhs, rhs, opts)
+    local options = {noremap = true}
+    if opts then options = vim.tbl_extend('force', options, opts) end
+    vim.api.nvim_set_keymap(mode, lhs, rhs, options)
+end
+
 -- single key mappings
 map('n', '<leader>', ':WhichKey " "<CR>', { silent = true })
 map('n', '<leader>/', ':BLines<CR>')
@@ -358,8 +352,8 @@ map('i', '<Tab>', 'pumvisible() ? "\\<C-n>" : "\\<Tab>"', {expr = true})
 
 -- functions ---------------------------------------------------------------------------------------
 function SaveSession()
-  local name = fn.input("Session name: ")
-  if name ~= "" then fn.execute('mksession! ~/.local/share/nvim/sessions/' .. fn.fnameescape(name)) end
+  local name = vim.fn.input("Session name: ")
+  if name ~= "" then vim.fn.execute('mksession! ~/.local/share/nvim/sessions/' .. vim.fn.fnameescape(name)) end
 end
 
 function Abbrev(_text)
@@ -374,27 +368,27 @@ function Abbrev(_text)
 end
 
 function NtCov()
-    local prevPwd = fn.getcwd()
-    cmd(":cd " .. fn.expand('%:p:h'))
-    local cov = fn.split(fn.substitute(fn.split(fn.expand('%:p'), "python/")[2], "/", ".", "g"), ".tests.")[1] .. "." .. fn.substitute(fn.substitute(fn.expand('%'), "test_", "", ""), ".py", "", "")
-    cmd(":FloatermNew --wintype=floating --title=test-file-coverage --autoclose=0 nosetests --with-cov --cov=" .. cov .. " --cov-report=term-missing " .. fn.expand('%') .. " --verbose")
-    cmd(":cd " .. prevPwd)
+    local prevPwd = vim.fn.getcwd()
+    vim.cmd(":cd " .. vim.fn.expand('%:p:h'))
+    local cov = vim.fn.split(vim.fn.substitute(vim.fn.split(vim.fn.expand('%:p'), "python/")[2], "/", ".", "g"), ".tests.")[1] .. "." .. vim.fn.substitute(vim.fn.substitute(vim.fn.expand('%'), "test_", "", ""), ".py", "", "")
+    vim.cmd(":FloatermNew --wintype=floating --title=test-file-coverage --autoclose=0 nosetests --with-cov --cov=" .. cov .. " --cov-report=term-missing " .. vim.fn.expand('%') .. " --verbose")
+    vim.cmd(":cd " .. prevPwd)
 end
 
-g.diagnostics_active = true
+vim.g.diagnostics_active = true
 function ToggleDiagnostics()
-    if g.diagnostics_active then
-        g.diagnostics_active = false
+    if vim.g.diagnostics_active then
+        vim.g.diagnostics_active = false
         vim.lsp.diagnostic.clear(0)
     else
-        g.diagnostics_active = true
+        vim.g.diagnostics_active = true
     end
     vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
         vim.lsp.diagnostic.on_publish_diagnostics, {
-            virtual_text = g.diagnostics_active,
-            signs = g.diagnostics_active,
-            underline = g.diagnostics_active,
-            update_in_insert = not g.diagnostics_active,
+            virtual_text = vim.g.diagnostics_active,
+            signs = vim.g.diagnostics_active,
+            underline = vim.g.diagnostics_active,
+            update_in_insert = not vim.g.diagnostics_active,
         }
     )
 end
