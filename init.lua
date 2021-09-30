@@ -229,12 +229,12 @@ function scroll_bar()  -- from github.com/drzel/vim-line-no-indicator
     local total_lines = vim.fn.line('$')
     local index = current_line
     if current_line == 1 then
-      index = 1
+        index = 1
     elseif current_line == total_lines then
-      index = #chars
+        index = #chars
     else
-      local line_no_fraction = math.floor(current_line) / math.floor(total_lines)
-      index = math.ceil(line_no_fraction * #chars)
+        local line_no_fraction = math.floor(current_line) / math.floor(total_lines)
+        index = math.ceil(line_no_fraction * #chars)
     end
     return chars[index]
 end
@@ -247,19 +247,15 @@ end
 
 function StatusLine()
     local status = ''
-    status = status .. get_mode_color(fn.mode())
-    status = status .. [[ %-"]]
-    status = status .. '%#DiffAdd#'
+    status = status .. get_mode_color(vim.fn.mode()) .. [[ %-"]]
+    status = status .. '%#DiffAdd#  '
     status = status .. [[%-{luaeval("git()")}]]
     status = status .. '%#Directory# '
-    status = status .. '%#DiffAdd#'
-    status = status .. [[%-{luaeval("git_summary(1)")}]]
-    status = status .. '%#DiffChange#'
-    status = status .. [[%-{luaeval("git_summary(2)")}]]
-    status = status .. '%#DiffDelete#'
-    status = status .. [[%-{luaeval("git_summary(3)")}]]
-    status = status .. '%#Directory#'
-    status = status .. [[ %-m %-{luaeval("get_readonly_char()")}]]
+    status = status .. [[%#DiffAdd#%-{luaeval("git_summary(1)")}]]
+    status = status .. [[%#DiffChange#%-{luaeval("git_summary(2)")}]]
+    status = status .. [[%#DiffDelete#%-{luaeval("git_summary(3)")}]]
+    status = status .. '%#Directory# '
+    status = status .. [[%-m %-{luaeval("get_readonly_char()")}]]
     status = status .. '%='
     status = status .. [[%-{luaeval("get_cwd()")} ]]
     status = status .. [[%#ScrollBar#%-{luaeval("scroll_bar()")}]]
@@ -280,7 +276,7 @@ local function map(mode, lhs, rhs, opts)
 end
 
 -- single key mappings
-map('n', '<leader>', ':WhichKey " "<CR>', { silent = true })
+map('n', '<leader>', ':WhichKey " "<CR>', {silent = true})
 map('n', '<leader>/', ':BLines<CR>')
 map('n', '<leader>:', ':e ~/dotfiles/nvim_nightly/init.lua<CR>')
 map('n', '<leader>;', ':luafile ~/dotfiles/nvim_nightly/init.lua<CR>')
