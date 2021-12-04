@@ -340,7 +340,6 @@ map('i', '<F1>', '<ESC>:w<CR>i')
 map('n', '<CR>', '<cmd>noh<CR><CR>')
 map('n', '<TAB>', '<C-^>')
 map('n', '<S-TAB>', ':bn<CR>')
-map('n', 'Y', 'y$')  -- now included in default neovim > 0.5
 map('n', '<C-h>', '<C-w>h')
 map('n', '<C-j>', '<C-w>j')
 map('n', '<C-k>', '<C-w>k')
@@ -379,7 +378,7 @@ vim.g.diagnostics_active = true
 function ToggleDiagnostics()
     if vim.g.diagnostics_active then
         vim.g.diagnostics_active = false
-        vim.lsp.diagnostic.clear(0)
+        vim.lsp.buf.clear_references()
     else
         vim.g.diagnostics_active = true
     end
