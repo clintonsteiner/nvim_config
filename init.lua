@@ -1,7 +1,7 @@
 -- plugins -----------------------------------------------------------------------------------------
 local Plug = vim.fn['plug#']
 vim.call('plug#begin', '~/.config/nvim/plugged')
-Plug('nvim-treesitter/nvim-treesitter', {branch = '0.5-compat'})
+Plug 'nvim-treesitter/nvim-treesitter'
 Plug 'neovim/nvim-lspconfig'
 Plug('junegunn/fzf', {['do'] = vim.fn['fzf#install']})
 Plug 'junegunn/fzf.vim'
@@ -26,9 +26,7 @@ vim.opt.tabstop = 4
 vim.opt.textwidth = 100
 vim.opt.completeopt = {'menuone,noinsert,noselect'}  -- completion options (for deoplete)
 vim.opt.clipboard = 'unnamedplus'
-vim.opt.hidden = true  -- enable modified buffers in background
 vim.opt.ignorecase = true
-vim.opt.inccommand = 'nosplit'  -- visually show live substitutions
 vim.opt.lazyredraw = true
 vim.opt.mouse = 'a'
 vim.o.shortmess = vim.o.shortmess .. 'c'  -- don't pass messages to completions menu
