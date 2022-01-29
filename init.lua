@@ -311,7 +311,6 @@ map('n', '<leader>it', ':lua Abbrev("this")<CR>')
 -- lsp
 map('n', '<leader>ld', '<cmd>lua vim.lsp.buf.definition()<CR>')
 map('n', '<leader>lh', '<cmd>lua vim.lsp.buf.hover()<CR>')
-map('n', '<leader>ll', '<cmd>lua vim.lsp.buf.signature_help()<CR>')
 map('n', '<leader>lr', '<cmd>lua vim.lsp.buf.references()<CR>')
 map('n', '<leader>ls', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>')
 map('n', '<leader>lt', ':lua ToggleDiagnostics()<CR>')
