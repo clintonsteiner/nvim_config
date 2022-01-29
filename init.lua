@@ -6,7 +6,7 @@ Plug 'shougo/deoplete-lsp'
 Plug('shougo/deoplete.nvim', {['do'] = vim.fn['remote#host#UpdateRemotePlugins']})
 Plug 'neovim/nvim-lspconfig'
 Plug('junegunn/fzf', {['do'] = vim.fn['fzf#install']})
-Plug 'junegunn/fzf.vim'
+Plug 'ibhagwan/fzf-lua'
 Plug 'stevearc/dressing.nvim'
 Plug 'ojroques/nvim-lspfuzzy'
 Plug 'luxed/ayu-vim'
@@ -78,20 +78,23 @@ vim.g.floaterm_width = 0.9
 vim.g.floaterm_height = 0.7
 vim.g.floaterm_title = 0
 
--- fzf
-vim.g.fzf_colors = {
-    fg = {'fg', 'Normal'},
-    hl = {'fg', 'Underlined'},
-    ['fg+'] = {'fg', 'CursorLine', 'CursorColumn', 'Normal'},
-    ['bg+'] = {'bg', 'CursorLine', 'CursorColumn'},
-    ['hl+'] = {'fg', 'Statement'},
-    info = {'fg', 'PreProc'},
-    prompt = {'fg', 'Conditional'},
-    pointer = {'fg', 'Exception'},
-    marker = {'fg', 'Keyword'},
-    spinner = {'fg', 'Label'},
-    header = {'fg', 'Comment'}
+-- fzf-lua
+require'fzf-lua'.setup {
+    fzf_colors = {
+        ['fg'] = {'fg', 'Normal'},
+        ['hl'] = {'fg', 'Underlined'},
+        ['fg+'] = {'fg', 'CursorLine', 'CursorColumn', 'Normal'},
+        ['bg+'] = {'bg', 'CursorLine', 'CursorColumn'},
+        ['hl+'] = {'fg', 'Statement'},
+        ['info'] = {'fg', 'PreProc'},
+        ['prompt'] = {'fg', 'Conditional'},
+        ['pointer'] = {'fg', 'Exception'},
+        ['marker'] = {'fg', 'Keyword'},
+        ['spinner'] = {'fg', 'Label'},
+        ['header'] = {'fg', 'Comment'}
+    },
 }
+vim.api.nvim_command('FzfLua register_ui_select')
 
 function fzf_cd()
     local spec = {
@@ -273,14 +276,14 @@ end
 
 -- single key mappings
 map('n', '<leader>', ':WhichKey " "<CR>', {silent = true})
-map('n', '<leader>/', ':BLines<CR>')
-map('n', '<leader>?', ':Lines<CR>')
+map('n', '<leader>/', "<cmd>lua require('fzf-lua').blines()<CR>")
+map('n', '<leader>?', "<cmd>lua require('fzf-lua').lines()<CR>")
 map('n', '<leader>:', ':e ~/dotfiles/nvim/init.lua<CR>')
 map('n', '<leader>;', ':luafile ~/dotfiles/nvim/init.lua<CR>')
-map('n', '<leader>b', ':Buffers<CR>')
-map('n', '<leader>h', ':Helptags<CR>')
+map('n', '<leader>b', "<cmd>lua require('fzf-lua').buffers()<CR>")
+map('n', '<leader>h', "<cmd>lua require('fzf-lua').help_tags()<CR>")
 map('n', '<leader>q', ':bd<CR>')
-map('n', '<leader>r', ':Rg<CR>')
+map('n', '<leader>r', "<cmd>lua require('fzf-lua').grep_project()<CR>")
 map('n', '<leader>s', ':lua SaveSession()<CR>')
 map('n', '<leader>w', ':w<CR>')
 
@@ -297,7 +300,7 @@ map('n', '<leader>gc', ':Git commit<CR>')
 map('n', '<leader>gg', ':Git<CR>')
 map('n', '<leader>gj', ':GitGutterNextHunk<CR>')
 map('n', '<leader>gk', ':GitGutterPrevHunk<CR>')
-map('n', '<leader>gl', ':BCommits<CR>')
+map('n', '<leader>gl', "<cmd>lua require('fzf-lua').git_bcommits()<CR>")
 map('n', '<leader>gp', ':GitGutterPreviewHunk<CR>')
 map('n', '<leader>gr', ':Git reset -p<CR>')
 map('n', '<leader>gs', ':GitGutterStageHunk<CR>')
@@ -317,8 +320,8 @@ map('n', '<leader>ls', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>'
 map('n', '<leader>lt', ':lua ToggleDiagnostics()<CR>')
 
 -- open
-map('n', '<leader>of', ':Files<CR>')
-map('n', '<leader>oh', ':History<CR>')
+map('n', '<leader>of', "<cmd>lua require('fzf-lua').files({prompt = 'Files> '})<CR>")
+map('n', '<leader>oh', "<cmd>lua require('fzf-lua').oldfiles()<CR>")
 map('n', '<leader>os', ':Sessions<CR>')
 map('n', '<leader>ot', ':FloatermNew<CR>')
 
