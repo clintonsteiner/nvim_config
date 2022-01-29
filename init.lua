@@ -7,6 +7,7 @@ Plug('shougo/deoplete.nvim', {['do'] = vim.fn['remote#host#UpdateRemotePlugins']
 Plug 'neovim/nvim-lspconfig'
 Plug('junegunn/fzf', {['do'] = vim.fn['fzf#install']})
 Plug 'junegunn/fzf.vim'
+Plug 'stevearc/dressing.nvim'
 Plug 'ojroques/nvim-lspfuzzy'
 Plug 'luxed/ayu-vim'
 Plug 'tpope/vim-fugitive'
@@ -342,8 +343,17 @@ map('i', '<Tab>', 'pumvisible() ? "\\<C-n>" : "\\<Tab>"', {expr = true})
 
 -- functions ---------------------------------------------------------------------------------------
 function SaveSession()
-  local name = vim.fn.input("Session name: ")
-  if name ~= "" then vim.fn.execute('mksession! ~/.local/share/nvim/sessions/' .. vim.fn.fnameescape(name)) end
+    vim.ui.input({
+        prompt = "Session name: ",
+        default = '~/.local/share/nvim/sessions/',
+        completion = 'file'
+    },
+    function(sessionName)
+        if sessionName ~= "" then
+            vim.fn.execute('mksession! ' .. vim.fn.fnameescape(sessionName))
+        end
+    end
+    )
 end
 
 function Abbrev(_text)
