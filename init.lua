@@ -286,6 +286,7 @@ map('n', '<leader>h', ':Helptags<CR>')
 map('n', '<leader>q', ':bd<CR>')
 map('n', '<leader>r', ':Rg<CR>')
 map('n', '<leader>s', ':lua SaveSession()<CR>')
+map('n', '<leader>w', ':w<CR>')
 
 -- change dir
 map('n', '<leader>cc', ':cd %:p:h<CR>')
@@ -333,8 +334,6 @@ map('n', '<leader>tt', ':FloatermNew --wintype=floating --title=test-these --aut
 map('n', '<leader>tx', ':FloatermNew --wintype=floating --title=test-file-stop --autoclose=0 nosetests -sv --nologcapture --with-id -x %:p<CR>')
 
 -- general
-map('n', '<F1>', ':w<CR>')
-map('i', '<F1>', '<ESC>:w<CR>i')
 map('n', '<CR>', '<cmd>noh<CR><CR>')
 map('n', '<TAB>', '<C-^>')
 map('n', '<S-TAB>', ':bn<CR>')
