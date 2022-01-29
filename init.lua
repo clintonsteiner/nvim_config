@@ -3,7 +3,7 @@ local Plug = vim.fn['plug#']
 vim.call('plug#begin', '~/.config/nvim/plugged')
 Plug 'nvim-treesitter/nvim-treesitter'
 Plug 'shougo/deoplete-lsp'
-Plug('shougo/deoplete.nvim', {['do'] = fn['remote#host#UpdateRemotePlugins']})
+Plug('shougo/deoplete.nvim', {['do'] = vim.fn['remote#host#UpdateRemotePlugins']})
 Plug 'neovim/nvim-lspconfig'
 Plug('junegunn/fzf', {['do'] = vim.fn['fzf#install']})
 Plug 'junegunn/fzf.vim'
@@ -70,7 +70,7 @@ vim.cmd('autocmd ColorScheme ayu lua custom_ayu_colors()')
 vim.cmd [[colorscheme ayu]]
 
 -- deoplete
-g['deoplete#enable_at_startup'] = 1  -- enable deoplete at startup
+vim.g['deoplete#enable_at_startup'] = 1  -- enable deoplete at startup
 
 -- floaterm
 vim.g.floaterm_autoclose = 1
@@ -141,7 +141,7 @@ vim.cmd('autocmd CursorMoved * IndentBlanklineRefresh')
 local lsp = require 'lspconfig'
 -- lsp.ccls.setup {}  -- default settings; use this for cpp
 lsp.pylsp.setup {
-    root_dir = lsp.util.root_pattern('.git', fn.getcwd()),  -- start LSP server at project root or cwd
+    root_dir = lsp.util.root_pattern('.git', vim.fn.getcwd()),  -- start LSP server at project root or cwd
     cmd = {vim.env.HOME .. '/.virtualenvs/nvim/bin/pylsp'},
     settings = {
         pylsp = {
