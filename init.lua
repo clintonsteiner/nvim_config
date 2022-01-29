@@ -96,7 +96,7 @@ require'fzf-lua'.setup {
 vim.api.nvim_command('FzfLua register_ui_select')
 
 function fzf_cd()
-    local dirs = {}
+    local dirs = {'..', '-', '~'}
     local find_dirs = io.popen("find . -type d -follow 2>/dev/null")
     for a_dir in find_dirs:lines() do
         table.insert(dirs, a_dir)
@@ -275,9 +275,6 @@ map('n', '<leader>w', ':w<CR>')
 -- change dir
 map('n', '<leader>cc', ':cd %:p:h<CR>')
 map('n', '<leader>cd', '<cmd>lua fzf_cd()<CR>')
-map('n', '<leader>ch', ':cd ~<CR>')
-map('n', '<leader>c..', ':cd ..<CR>')
-map('n', '<leader>c-', ':cd -<CR>')
 
 -- git
 map('n', '<leader>gb', ':Git blame<CR>')
