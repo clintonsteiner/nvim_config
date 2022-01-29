@@ -95,30 +95,6 @@ require'fzf-lua'.setup {
 }
 vim.api.nvim_command('FzfLua register_ui_select')
 
-function fzf_cd()
-    local dirs = {'..', '-', '~'}
-    local find_dirs = io.popen("find . -type d -follow 2>/dev/null")
-    for a_dir in find_dirs:lines() do
-        table.insert(dirs, a_dir)
-    end
-    vim.ui.select(dirs, {
-        prompt = 'Cd> ',
-        format_item = function(item) return item end,
-    }, function(chosen_dir) vim.api.nvim_command('cd ' .. chosen_dir) end)
-end
-
-function fzf_sessions()
-    local sessions = {}
-    local find_sessions = io.popen("find ~/.local/share/nvim/sessions -type f")
-    for a_session in find_sessions:lines() do
-        table.insert(sessions, a_session)
-    end
-    vim.ui.select(sessions, {
-        prompt = 'Sessions> ',
-        format_item = function(item) return item end,
-    }, function(chosen_session) vim.api.nvim_command('source ' .. chosen_session) end)
-end
-
 -- gitgutter
 vim.g.gitgutter_map_keys = 0
 
@@ -274,7 +250,7 @@ map('n', '<leader>w', ':w<CR>')
 
 -- change dir
 map('n', '<leader>cc', ':cd %:p:h<CR>')
-map('n', '<leader>cd', '<cmd>lua fzf_cd()<CR>')
+map('n', '<leader>cd', "<cmd>lua require('fzf-lua').files({prompt = 'Cd> ', previewer = 'false', cmd = [[(echo '..' ; echo '-' ; echo '~' ; find . -type d -follow 2>/dev/null)]], actions = {['default'] = function(selected) vim.api.nvim_command('cd ' .. selected[1]) end}})<CR>")
 
 -- git
 map('n', '<leader>gb', ':Git blame<CR>')
@@ -304,7 +280,7 @@ map('n', '<leader>lt', ':lua ToggleDiagnostics()<CR>')
 -- open
 map('n', '<leader>of', "<cmd>lua require('fzf-lua').files({prompt = 'Files> '})<CR>")
 map('n', '<leader>oh', "<cmd>lua require('fzf-lua').oldfiles()<CR>")
-map('n', '<leader>os', '<cmd>lua fzf_sessions()<CR>')
+map('n', '<leader>os', "<cmd>lua require('fzf-lua').files({prompt = 'Sessions> ', previewer = 'false', cmd = [[find ~/.local/share/nvim/sessions -type f]], actions = {['default'] = function(selected) vim.api.nvim_command('source ' .. selected[1]) end}})<CR>")
 map('n', '<leader>ot', ':FloatermNew<CR>')
 
 -- tests
