@@ -255,7 +255,6 @@ function StatusLine()
     status = status .. '%='
     status = status .. [[%-{luaeval("get_cwd()")} ]]
     status = status .. [[%#ScrollBar#%-{luaeval("scroll_bar()")}]]
-    status = status .. [[%#TabLine# %-"col:%2c]]
     return status
 end
 
