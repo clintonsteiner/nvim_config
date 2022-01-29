@@ -45,7 +45,6 @@ vim.opt.wrap = false
 vim.g.python3_host_prog = vim.env.HOME .. "/.virtualenvs/nvim/bin/python3"
 
 vim.cmd 'au TextYankPost * lua vim.highlight.on_yank {timeout=400}'  -- yank highlights
--- vim.cmd('autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics()')  -- show diagnostic on cursor hover
 
 -- plugin settings ---------------------------------------------------------------------------------
 -- autopairs
