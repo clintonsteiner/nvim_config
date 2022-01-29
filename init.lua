@@ -8,7 +8,6 @@ Plug 'neovim/nvim-lspconfig'
 Plug('junegunn/fzf', {['do'] = vim.fn['fzf#install']})
 Plug 'ibhagwan/fzf-lua'
 Plug 'stevearc/dressing.nvim'
-Plug 'ojroques/nvim-lspfuzzy'
 Plug 'luxed/ayu-vim'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
@@ -156,10 +155,6 @@ lsp.pylsp.setup {
         }
     }
 }
-
--- lsp fuzzy
-local lspfuzzy = require 'lspfuzzy'
-lspfuzzy.setup {}  -- Make the LSP client use FZF instead of the quickfix list
 
 -- sandwich
 vim.cmd 'runtime macros/sandwich/keymap/surround.vim'  -- use tpope's surround.vim mapping so sneak works
@@ -315,7 +310,7 @@ map('n', '<leader>it', ':lua Abbrev("this")<CR>')
 -- lsp
 map('n', '<leader>ld', '<cmd>lua vim.lsp.buf.definition()<CR>')
 map('n', '<leader>lh', '<cmd>lua vim.lsp.buf.hover()<CR>')
-map('n', '<leader>lr', '<cmd>lua vim.lsp.buf.references()<CR>')
+map('n', '<leader>lr', "<cmd>lua require('fzf-lua').lsp_references()<CR>")
 map('n', '<leader>ls', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>')
 map('n', '<leader>lt', ':lua ToggleDiagnostics()<CR>')
 
