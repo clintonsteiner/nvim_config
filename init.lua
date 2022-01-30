@@ -310,7 +310,7 @@ function SaveSession()
         completion = 'file'
     },
     function(sessionName)
-        if sessionName ~= "" then
+        if (sessionName ~= "" and sessionName ~= nil) then
             vim.fn.execute('mksession! ' .. vim.fn.fnameescape(sessionName))
         end
     end
