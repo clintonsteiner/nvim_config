@@ -244,7 +244,7 @@ map('n', '<leader>;', ':luafile ~/dotfiles/nvim/init.lua<CR>')
 map('n', '<leader>b', "<cmd>lua require('fzf-lua').buffers()<CR>")
 map('n', '<leader>h', "<cmd>lua require('fzf-lua').help_tags()<CR>")
 map('n', '<leader>q', ':bd<CR>')
-map('n', '<leader>r', "<cmd>lua require('fzf-lua').grep_project()<CR>")
+map('n', '<leader>r', "<cmd>lua require('fzf-lua').live_grep()<CR>")
 map('n', '<leader>s', ':lua SaveSession()<CR>')
 map('n', '<leader>w', ':w<CR>')
 
