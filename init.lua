@@ -7,7 +7,6 @@ Plug('shougo/deoplete.nvim', {['do'] = vim.fn['remote#host#UpdateRemotePlugins']
 Plug 'neovim/nvim-lspconfig'
 Plug('junegunn/fzf', {['do'] = vim.fn['fzf#install']})
 Plug 'ibhagwan/fzf-lua'
-Plug 'stevearc/dressing.nvim'
 Plug 'luxed/ayu-vim'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
