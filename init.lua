@@ -69,6 +69,9 @@ vim.cmd [[colorscheme ayu]]
 
 -- deoplete
 vim.g['deoplete#enable_at_startup'] = 1  -- enable deoplete at startup
+map('i', '<S-Tab>', 'pumvisible() ? "\\<C-p>" : "\\<Tab>"', {expr = true})
+map('i', '<Tab>', 'pumvisible() ? "\\<C-n>" : "\\<Tab>"', {expr = true})
+
 
 -- floaterm
 vim.g.floaterm_autoclose = 1
@@ -301,10 +304,6 @@ map('n', '<leader>tx', ':FloatermNew --wintype=floating --title=test-file-stop -
 map('n', '<CR>', '<cmd>noh<CR><CR>')
 map('n', '<TAB>', '<C-^>')
 map('n', '<S-TAB>', ':bn<CR>')
-
--- <Tab> to navigate the completion menu
-map('i', '<S-Tab>', 'pumvisible() ? "\\<C-p>" : "\\<Tab>"', {expr = true})
-map('i', '<Tab>', 'pumvisible() ? "\\<C-n>" : "\\<Tab>"', {expr = true})
 
 -- functions ---------------------------------------------------------------------------------------
 function SaveSession()
