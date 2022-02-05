@@ -42,6 +42,7 @@ vim.opt.number = true
 vim.opt.wrap = false
 
 vim.g.python3_host_prog = vim.env.HOME .. "/.virtualenvs/nvim/bin/python3"
+vim.g.mapleader = ' '
 
 vim.cmd 'au TextYankPost * lua vim.highlight.on_yank {timeout=400}'  -- yank highlights
 
@@ -239,7 +240,6 @@ vim.opt.statusline = '%!luaeval("StatusLine()")'
 vim.opt.showtabline = 2
 
 -- mappings ----------------------------------------------------------------------------------------
-vim.g.mapleader = ' '  -- make sure this is before all other leader mappings
 local function map(mode, lhs, rhs, opts)
     local options = {noremap = true}
     if opts then options = vim.tbl_extend('force', options, opts) end
