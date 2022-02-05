@@ -1,8 +1,8 @@
-installing and running neovim 0.5 (or nightly) from absolute scratch
+installing and running neovim 0.6+ (or nightly) from absolute scratch
 
-1. install neovim 0.5:
+1. install neovim 0.6.1:
     a. `mkdir ~/apps/neovim && cd ~/apps/neovim`
-    b. `wget https://github.com/neovim/neovim/releases/download/v0.5.0/nvim.appimage`
+    b. `wget https://github.com/neovim/neovim/releases/download/v0.6.1/nvim.appimage`
     c. `chmod u+x nvim.appimage`
 2. install fuse if you cannot run this: `./nvim.appimage`
     a. `sudo apt-get install fuse`
@@ -25,14 +25,18 @@ installing and running neovim 0.5 (or nightly) from absolute scratch
         [flake8]
         ignore=E501,E128
     ```
-6. download vim-plug plugin manager:
+6. download fzf:
+    a. `git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf`
+    b. `~/.fzf/install`
+7. download vim-plug plugin manager:
     a. `sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'`
-7. for a template to get you started (and this is my current lua config file):
+8. for a template to get you started (and this is my current lua config file):
     a. `mkdir ~/dotfiles/ && cd ~/dotfiles`
     b. `git clone https://github.com/benewberg/nightly_nvim_init.git`
     c. `mv nightly_nvim_init/ nvim`
-8. make a new script which will launch this version of neovim:
+9. add a symlink to the init.lua file: `ln -s $HOME/dotfiles/nvim/init.lua $HOME/.config/nvim/init.lua`
+10. make a new script which will launch this version of neovim:
     a. `vi ~/.local/bin/nvim`
     b. add the below into the file (ignore the back-ticks) and save
     ```
@@ -46,13 +50,13 @@ installing and running neovim 0.5 (or nightly) from absolute scratch
     ```
     c. `chmod u+x ~/.local/bin/nvim`
     d. make sure `~/.local/bin` is in your path (it should be)
-9. launch neovim now: `nvim`
-10. in neovim, run this command to install all the plugins: `:PlugInstall`
-11. in neovim, run this command to install language for treesitter: `:TSInstall python lua` (and any other languages you want)
-12. in neovim, run this command to get deoplete working: `:UpdateRemotePlugins`
-13. close out of neovim, relaunch, and run this command to make sure all is OK: `:checkhealth`
-14. (optional) add nvim as the default editor in git: `git config --global core.editor nvim`
-15. (optional) add nvim as the default editor in psql: add this to your .bashrc: `export PSQL_EDITOR=nvim` and source your .bashrc
+11. launch neovim now: `nvim`
+12. in neovim, run this command to install all the plugins: `:PlugInstall`
+13. in neovim, run this command to install language for treesitter: `:TSInstall python lua comment` (and any other languages you want)
+14. in neovim, run this command to get deoplete working: `:UpdateRemotePlugins`
+15. close out of neovim, relaunch, and run this command to make sure all is OK: `:checkhealth`
+16. (optional) add nvim as the default editor in git: `git config --global core.editor nvim`
+17. (optional) add nvim as the default editor in psql: add this to your .bashrc: `export PSQL_EDITOR=nvim` and source your .bashrc
 
 further reading:
 * https://oroques.dev/notes/neovim-init/  # this is where the basis of my init.lua came from
