@@ -70,9 +70,8 @@ vim.cmd [[colorscheme ayu]]
 
 -- deoplete
 vim.g['deoplete#enable_at_startup'] = 1  -- enable deoplete at startup
-map('i', '<S-Tab>', 'pumvisible() ? "\\<C-p>" : "\\<Tab>"', {expr = true})
-map('i', '<Tab>', 'pumvisible() ? "\\<C-n>" : "\\<Tab>"', {expr = true})
-
+vim.api.nvim_set_keymap('i', '<S-Tab>', 'pumvisible() ? "\\<C-p>" : "\\<Tab>"', {expr = true, noremap = true})
+vim.api.nvim_set_keymap('i', '<Tab>', 'pumvisible() ? "\\<C-n>" : "\\<Tab>"', {expr = true, noremap = true})
 
 -- floaterm
 vim.g.floaterm_autoclose = 1
