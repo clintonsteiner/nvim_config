@@ -118,6 +118,15 @@ lsp.pylsp.setup {
                 pyflakes = {enabled = false},
             }
         }
+    },
+    handlers = {
+        ["textDocument/publishDiagnostics"] = vim.lsp.with(
+            vim.lsp.diagnostic.on_publish_diagnostics, {
+                virtual_text = false,
+                signs = false,
+                underline = false,
+            }
+        )
     }
 }
 
@@ -272,9 +281,9 @@ map('n', '<leader>it', ':lua Abbrev("this")<CR>')
 -- lsp
 map('n', '<leader>ld', '<cmd>lua vim.lsp.buf.definition()<CR>')
 map('n', '<leader>lh', '<cmd>lua vim.lsp.buf.hover()<CR>')
+map('n', '<leader>ll', "<cmd>lua require('fzf-lua').lsp_document_diagnostics()<CR>")
 map('n', '<leader>lr', "<cmd>lua require('fzf-lua').lsp_references()<CR>")
 map('n', '<leader>ls', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>')
-map('n', '<leader>lt', ':lua ToggleDiagnostics()<CR>')
 
 -- open
 map('n', '<leader>of', "<cmd>lua require('fzf-lua').files({prompt = 'Files> '})<CR>")
@@ -333,22 +342,4 @@ function NtCov()
     local cov = vim.fn.split(vim.fn.substitute(vim.fn.split(vim.fn.expand('%:p'), "python/")[2], "/", ".", "g"), ".tests.")[1] .. "." .. vim.fn.substitute(vim.fn.substitute(vim.fn.expand('%'), "test_", "", ""), ".py", "", "")
     vim.cmd(":FloatermNew --wintype=floating --title=test-file-coverage --autoclose=0 nosetests --with-cov --cov=" .. cov .. " --cov-report=term-missing " .. vim.fn.expand('%') .. " --verbose")
     vim.cmd(":cd " .. prevPwd)
-end
-
-vim.g.diagnostics_active = true
-function ToggleDiagnostics()
-    if vim.g.diagnostics_active then
-        vim.g.diagnostics_active = false
-        vim.lsp.buf.clear_references()
-    else
-        vim.g.diagnostics_active = true
-    end
-    vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-        vim.lsp.diagnostic.on_publish_diagnostics, {
-            virtual_text = vim.g.diagnostics_active,
-            signs = vim.g.diagnostics_active,
-            underline = vim.g.diagnostics_active,
-            update_in_insert = not vim.g.diagnostics_active,
-        }
-    )
 end
