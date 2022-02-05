@@ -6,7 +6,7 @@ Plug 'shougo/deoplete-lsp'
 Plug('shougo/deoplete.nvim', {['do'] = vim.fn['remote#host#UpdateRemotePlugins']})
 Plug 'neovim/nvim-lspconfig'
 Plug 'ibhagwan/fzf-lua'
-Plug 'luxed/ayu-vim'
+Plug 'Shatur/neovim-ayu'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'lukas-reineke/indent-blankline.nvim'
@@ -31,7 +31,6 @@ vim.opt.lazyredraw = true
 vim.opt.mouse = 'a'
 vim.o.shortmess = vim.o.shortmess .. 'c'  -- don't pass messages to completions menu
 vim.opt.showmode = false  -- not necessary with a statusline set
-vim.opt.termguicolors = true
 vim.opt.ttimeoutlen = 10
 vim.opt.updatetime = 100
 vim.opt.colorcolumn = '100'
@@ -49,22 +48,29 @@ vim.cmd 'au TextYankPost * lua vim.highlight.on_yank {timeout=400}'  -- yank hig
 require('nvim-autopairs').setup()
 
 -- ayu
-vim.g.ayucolor = 'mirage'
-function custom_ayu_colors()
-    vim.cmd 'call ayu#hi("LineNr", "comment", "")'
-    vim.cmd 'call ayu#hi("TabLineFill", "", "bg")'
-    vim.cmd 'call ayu#hi("TabLineSel", "bg", "accent", "bold")'
-    vim.cmd 'call ayu#hi("NormalMode", "string", "bg", "reverse,bold")'
-    vim.cmd 'call ayu#hi("InsertMode", "tag", "bg", "reverse,bold")'
-    vim.cmd 'call ayu#hi("VisualMode", "keyword", "bg", "reverse,bold")'
-    vim.cmd 'call ayu#hi("ReplaceMode", "markup", "bg", "reverse,bold")'
-    vim.cmd 'call ayu#hi("OtherMode", "constant", "bg", "reverse,bold")'
-    vim.cmd 'call ayu#hi("ScrollBar", "accent", "selection_inactive")'
-    vim.cmd 'call ayu#hi("Sneak", "bg", "error", "bold")'
-    vim.cmd 'call ayu#hi("FloatermBorder", "comment", "bg")'
-end
-vim.cmd('autocmd ColorScheme ayu lua custom_ayu_colors()')
-vim.cmd [[colorscheme ayu]]
+local colors = require('ayu.colors')
+colors.generate(true)  -- pass true to enable mirage
+require('ayu').setup({
+    mirage = true,
+    overrides = {
+        LineNr = {fg = colors.comment},
+        TabLineFill = {bg = colors.bg},
+        TabLineSel = {fg = colors.bg, bg = colors.accent, style = "bold"},
+        NormalMode = {fg = colors.string, bg = colors.bg, style = "reverse,bold"},
+        InsertMode = {fg = colors.tag, bg = colors.bg, style = "reverse,bold"},
+        VisualMode = {fg = colors.keyword, bg = colors.bg, style = "reverse,bold"},
+        ReplaceMode = {fg = colors.markup, bg = colors.bg, style = "reverse,bold"},
+        OtherMode = {fg = colors.constant, bg = colors.bg, style = "reverse,bold"},
+        ScrollBar = {fg = colors.accent, bg = colors.selection_inactive},
+        Sneak = {fg = colors.bg, bg = colors.error, style = "bold"},
+        GitGutterAdd = {fg = colors.vcs_added, bg = colors.panel_bg},
+        GitGutterChange = {fg = colors.vcs_modified, bg = colors.panel_bg},
+        GitGutterDelete = {fg = colors.vcs_removed, bg = colors.panel_bg},
+        GitGutterChangeDelete = {fg = colors.vcs_modified, bg = colors.panel_bg, style = "underline"},
+        TSVariableBuiltin = {fg = colors.constant, style = "italic"},
+    }
+})
+require('ayu').colorscheme()
 
 -- deoplete
 vim.g['deoplete#enable_at_startup'] = 1  -- enable deoplete at startup
@@ -279,12 +285,12 @@ end
 function StatusLine()
     local status = ''
     status = status .. get_mode_color(vim.fn.mode()) .. [[ %-"]]
-    status = status .. '%#DiffAdd#  '
+    status = status .. '%#GitGutterAdd#  '
     status = status .. [[%-{luaeval("git()")}]]
     status = status .. '%#Directory# '
-    status = status .. [[%#DiffAdd#%-{luaeval("git_summary(1)")}]]
-    status = status .. [[%#DiffChange#%-{luaeval("git_summary(2)")}]]
-    status = status .. [[%#DiffDelete#%-{luaeval("git_summary(3)")}]]
+    status = status .. [[%#GitGutterAdd#%-{luaeval("git_summary(1)")}]]
+    status = status .. [[%#GitGutterChange#%-{luaeval("git_summary(2)")}]]
+    status = status .. [[%#GitGutterDelete#%-{luaeval("git_summary(3)")}]]
     status = status .. '%#Directory# '
     status = status .. [[%-m %-{luaeval("get_readonly_char()")}]]
     status = status .. '%='
