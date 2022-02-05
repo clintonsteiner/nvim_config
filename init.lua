@@ -15,7 +15,7 @@ Plug 'tpope/vim-commentary'
 Plug 'machakann/vim-sandwich'
 Plug 'justinmk/vim-sneak'
 Plug 'voldikss/vim-floaterm'
-Plug 'liuchengxu/vim-which-key'
+Plug 'folke/which-key.nvim'
 Plug 'windwp/nvim-autopairs'
 Plug 'Vimjas/vim-python-pep8-indent'
 vim.call('plug#end')    -- automatically calls `filetype plugin indent on` and `syntax enable`
@@ -143,6 +143,67 @@ vim.g['sneak#label'] = 1
 local ts = require 'nvim-treesitter.configs'
 ts.setup {ensure_installed = 'python', highlight = {enable = true}}
 
+-- which-key
+local wk = require("which-key")
+wk.register({
+    ['<CR>'] = {"<cmd>noh<CR><CR>", "remove highlights"},
+    ['<Tab>'] = {"<C-^>", "last buffer"},
+    ['<S-Tab>'] = {":bn<CR>", "next buffer"},
+})
+wk.register({
+    ['/'] = {"<cmd>lua require('fzf-lua').blines()<CR>", "blines"},
+    ['?'] = {"<cmd>lua require('fzf-lua').lines()<CR>", "lines"},
+    [':'] = {":e ~/dotfiles/nvim/init.lua<CR>", "open init"},
+    [';'] = {":luafile ~/dotfiles/nvim/init.lua<CR>", "source init"},
+    b = {"<cmd>lua require('fzf-lua').buffers()<CR>", "buffers"},
+    h = {"<cmd>lua require('fzf-lua').help_tags()<CR>", "help"},
+    q = {":bd<CR>", "delete buffer"},
+    r = {"<cmd>lua require('fzf-lua').live_grep()<CR>", "rg"},
+    s = {":lua SaveSession()<CR>", "save session"},
+    w = {":w<CR>", "save"},
+    c = {name = "change dir",
+        c = {":cd %:p:h<CR>", "change dir cwd"},
+        d = {"<cmd>lua require('fzf-lua').files({prompt = 'Cd> ', previewer = 'false', cmd = [[(echo '..' ; echo '-' ; echo '~' ; find . -type d -follow 2>/dev/null)]], actions = {['default'] = function(selected) vim.api.nvim_command('cd ' .. selected[1]) end}})<CR>", "change dir"},
+    },
+    g = {name = "git",
+        b = {":Git blame<CR>", "blame"},
+        c = {":Git commit<CR>", "commit"},
+        g = {":Git<CR>", "status"},
+        j = {":GitGutterNextHunk<CR>", "next hunk"},
+        k = {":GitGutterPrevHunk<CR>", "prev hunk"},
+        l = {"<cmd>lua require('fzf-lua').git_bcommits({cmd = [[git log --color=always --pretty=format:%C\\(auto\\)%h\\ %s\\ %C\\(green\\)%cs]], actions = {['default'] = require('fzf-lua.actions').git_buf_diff}})<CR>", "log"},
+        p = {":GitGutterPreviewHunk<CR>", "preview"},
+        r = {":Git reset -p<CR>", "unstage"},
+        s = {":GitGutterStageHunk<CR>", "stage"},
+        u = {":GitGutterUndoHunk<CR>", "undo"},
+    },
+    i = {name = "insert text",
+        b = {":lua Abbrev('break')<CR>", "break"},
+        l = {":lua Abbrev('lbreak')<CR>", "long break"},
+        p = {":lua Abbrev('pdb')<CR>", "pdb"},
+        t = {":lua Abbrev('this')<CR>", "test this"},
+    },
+    l = {name = "lsp",
+        d = {"<cmd>lua vim.lsp.buf.definition()<CR>", "definition"},
+        h = {"<cmd>lua vim.lsp.buf.hover()<CR>", "hover"},
+        l = {"<cmd>lua require('fzf-lua').lsp_document_diagnostics()<CR>", "list diagnostics"},
+        r = {"<cmd>lua require('fzf-lua').lsp_references()<CR>", "references"},
+        s = {"<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>", "show line diagnostics"},
+    },
+    o = {name = "open",
+        f = {"<cmd>lua require('fzf-lua').files({prompt = 'Files> '})<CR>", "files"},
+        h = {"<cmd>lua require('fzf-lua').oldfiles()<CR>", "history"},
+        s = {"<cmd>lua require('fzf-lua').files({prompt = 'Sessions> ', previewer = 'false', cmd = [[find ~/.local/share/nvim/sessions -type f]], actions = {['default'] = function(selected) vim.api.nvim_command('source ' .. selected[1]) end}})<CR>", "session"},
+        t = {":FloatermNew<CR>", "terminal"},
+    },
+    t = {name = "test",
+        c = {":lua NtCov()<CR>", "file coverage"},
+        f = {":FloatermNew --wintype=floating --title=test-file --autoclose=0 nosetests -sv --nologcapture --with-id %:p<CR>", "file"},
+        t = {":FloatermNew --wintype=floating --title=test-these --autoclose=0 nosetests -sv -a this --nologcapture %:p<CR>", "these"},
+        x = {":FloatermNew --wintype=floating --title=test-file-stop --autoclose=0 nosetests -sv --nologcapture --with-id -x %:p<CR>", "stop at failure"},
+    },
+}, {prefix = "<leader>"})
+
 -- disable unused builtin plugins ------------------------------------------------------------------
 local disabled_builtins = {'gzip', 'zip', 'zipPlugin', 'tar', 'tarPlugin', 'getscript',
                            'getscriptPlugin', 'vimball', 'vimballPlugin', '2html_plugin', 'logipat',
@@ -237,72 +298,6 @@ end
 vim.opt.laststatus = 2
 vim.opt.statusline = '%!luaeval("StatusLine()")'
 vim.opt.showtabline = 2
-
--- mappings ----------------------------------------------------------------------------------------
-local function map(mode, lhs, rhs, opts)
-    local options = {noremap = true}
-    if opts then options = vim.tbl_extend('force', options, opts) end
-    vim.api.nvim_set_keymap(mode, lhs, rhs, options)
-end
-
--- single key mappings
-map('n', '<leader>', ':WhichKey " "<CR>', {silent = true})
-map('n', '<leader>/', "<cmd>lua require('fzf-lua').blines()<CR>")
-map('n', '<leader>?', "<cmd>lua require('fzf-lua').lines()<CR>")
-map('n', '<leader>:', ':e ~/dotfiles/nvim/init.lua<CR>')
-map('n', '<leader>;', ':luafile ~/dotfiles/nvim/init.lua<CR>')
-map('n', '<leader>b', "<cmd>lua require('fzf-lua').buffers()<CR>")
-map('n', '<leader>h', "<cmd>lua require('fzf-lua').help_tags()<CR>")
-map('n', '<leader>q', ':bd<CR>')
-map('n', '<leader>r', "<cmd>lua require('fzf-lua').live_grep()<CR>")
-map('n', '<leader>s', ':lua SaveSession()<CR>')
-map('n', '<leader>w', ':w<CR>')
-
--- change dir
-map('n', '<leader>cc', ':cd %:p:h<CR>')
-map('n', '<leader>cd', "<cmd>lua require('fzf-lua').files({prompt = 'Cd> ', previewer = 'false', cmd = [[(echo '..' ; echo '-' ; echo '~' ; find . -type d -follow 2>/dev/null)]], actions = {['default'] = function(selected) vim.api.nvim_command('cd ' .. selected[1]) end}})<CR>")
-
--- git
-map('n', '<leader>gb', ':Git blame<CR>')
-map('n', '<leader>gc', ':Git commit<CR>')
-map('n', '<leader>gg', ':Git<CR>')
-map('n', '<leader>gj', ':GitGutterNextHunk<CR>')
-map('n', '<leader>gk', ':GitGutterPrevHunk<CR>')
-map('n', '<leader>gl', "<cmd>lua require('fzf-lua').git_bcommits({cmd = [[git log --color=always --pretty=format:%C\\(auto\\)%h\\ %s\\ %C\\(green\\)%cs]], actions = {['default'] = require('fzf-lua.actions').git_buf_diff}})<CR>")
-map('n', '<leader>gp', ':GitGutterPreviewHunk<CR>')
-map('n', '<leader>gr', ':Git reset -p<CR>')
-map('n', '<leader>gs', ':GitGutterStageHunk<CR>')
-map('n', '<leader>gu', ':GitGutterUndoHunk<CR>')
-
--- insert text
-map('n', '<leader>ib', ':lua Abbrev("break")<CR>')
-map('n', '<leader>il', ':lua Abbrev("lbreak")<CR>')
-map('n', '<leader>ip', ':lua Abbrev("pdb")<CR>')
-map('n', '<leader>it', ':lua Abbrev("this")<CR>')
-
--- lsp
-map('n', '<leader>ld', '<cmd>lua vim.lsp.buf.definition()<CR>')
-map('n', '<leader>lh', '<cmd>lua vim.lsp.buf.hover()<CR>')
-map('n', '<leader>ll', "<cmd>lua require('fzf-lua').lsp_document_diagnostics()<CR>")
-map('n', '<leader>lr', "<cmd>lua require('fzf-lua').lsp_references()<CR>")
-map('n', '<leader>ls', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>')
-
--- open
-map('n', '<leader>of', "<cmd>lua require('fzf-lua').files({prompt = 'Files> '})<CR>")
-map('n', '<leader>oh', "<cmd>lua require('fzf-lua').oldfiles()<CR>")
-map('n', '<leader>os', "<cmd>lua require('fzf-lua').files({prompt = 'Sessions> ', previewer = 'false', cmd = [[find ~/.local/share/nvim/sessions -type f]], actions = {['default'] = function(selected) vim.api.nvim_command('source ' .. selected[1]) end}})<CR>")
-map('n', '<leader>ot', ':FloatermNew<CR>')
-
--- tests
-map('n', '<leader>tc', ':lua NtCov()<CR>')  -- file coverage (ONLY WORKS ON py3!!)
-map('n', '<leader>tf', ':FloatermNew --wintype=floating --title=test-file --autoclose=0 nosetests -sv --nologcapture --with-id %:p<CR>')
-map('n', '<leader>tt', ':FloatermNew --wintype=floating --title=test-these --autoclose=0 nosetests -sv -a this --nologcapture %:p<CR>')
-map('n', '<leader>tx', ':FloatermNew --wintype=floating --title=test-file-stop --autoclose=0 nosetests -sv --nologcapture --with-id -x %:p<CR>')
-
--- general
-map('n', '<CR>', '<cmd>noh<CR><CR>')
-map('n', '<TAB>', '<C-^>')
-map('n', '<S-TAB>', ':bn<CR>')
 
 -- functions ---------------------------------------------------------------------------------------
 function SaveSession()
