@@ -5,7 +5,6 @@ Plug 'nvim-treesitter/nvim-treesitter'
 Plug 'shougo/deoplete-lsp'
 Plug('shougo/deoplete.nvim', {['do'] = vim.fn['remote#host#UpdateRemotePlugins']})
 Plug 'neovim/nvim-lspconfig'
-Plug('junegunn/fzf', {['do'] = vim.fn['fzf#install']})
 Plug 'ibhagwan/fzf-lua'
 Plug 'luxed/ayu-vim'
 Plug 'tpope/vim-fugitive'
