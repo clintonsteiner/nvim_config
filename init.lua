@@ -175,7 +175,7 @@ wk.register({
         g = {":Git<CR>", "status"},
         j = {":GitGutterNextHunk<CR>", "next hunk"},
         k = {":GitGutterPrevHunk<CR>", "prev hunk"},
-        l = {"<cmd>lua require('fzf-lua').git_bcommits({cmd = [[git log --color=always --pretty=format:%C\\(auto\\)%h\\ %s\\ %C\\(green\\)%cs]], actions = {['default'] = require('fzf-lua.actions').git_buf_diff}})<CR>", "log"},
+        l = {"<cmd>lua require('fzf-lua').git_bcommits({actions = {['default'] = function(selected) git_show_diff(selected) end}})<CR>", "log"},
         p = {":GitGutterPreviewHunk<CR>", "preview"},
         r = {":Git reset -p<CR>", "unstage"},
         s = {":GitGutterStageHunk<CR>", "stage"},
@@ -335,4 +335,18 @@ function NtCov()
     local cov = vim.fn.split(vim.fn.substitute(vim.fn.split(vim.fn.expand('%:p'), "python/")[2], "/", ".", "g"), ".tests.")[1] .. "." .. vim.fn.substitute(vim.fn.substitute(vim.fn.expand('%'), "test_", "", ""), ".py", "", "")
     vim.cmd(":FloatermNew --wintype=floating --title=test-file-coverage --autoclose=0 nosetests --with-cov --cov=" .. cov .. " --cov-report=term-missing " .. vim.fn.expand('%') .. " --verbose")
     vim.cmd(":cd " .. prevPwd)
+end
+
+function git_show_diff(selected)
+    local commit_hash = selected[1]:match("[^ ]+")
+    local cmd = {"git", "show", commit_hash}
+    local git_file_contents = vim.fn.systemlist(cmd)
+    local file_name = string.gsub(vim.fn.expand("%:p"), "$", "[" .. commit_hash .. "]")
+    local win = vim.api.nvim_get_current_win()
+    local buf = vim.api.nvim_create_buf(true, true)
+    vim.api.nvim_buf_set_lines(buf, 0, 0, true, git_file_contents)
+    vim.api.nvim_buf_set_name(buf, file_name)
+    vim.api.nvim_buf_set_option(buf, 'filetype', 'git')
+    vim.api.nvim_buf_set_option(buf, 'modifiable', false)
+    vim.api.nvim_win_set_buf(win, buf)
 end
