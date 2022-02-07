@@ -197,7 +197,7 @@ wk.register({
     o = {name = "open",
         f = {"<cmd>lua require('fzf-lua').files({prompt = 'Files> '})<CR>", "files"},
         h = {"<cmd>lua require('fzf-lua').oldfiles()<CR>", "history"},
-        s = {"<cmd>lua require('fzf-lua').files({prompt = 'Sessions> ', previewer = 'false', cmd = [[find ~/.local/share/nvim/sessions -type f]], actions = {['default'] = function(selected) vim.api.nvim_command('source ' .. selected[1]) end}})<CR>", "session"},
+        s = {"<cmd>lua require('fzf-lua').files({prompt = 'Sessions> ', previewer = false, cmd = [[find ~/.local/share/nvim/sessions -type f]], actions = {['default'] = function(selected) vim.api.nvim_command('source ' .. selected[1]) end}})<CR>", "session"},
         t = {":FloatermNew<CR>", "terminal"},
     },
     t = {name = "test",
