@@ -299,7 +299,6 @@ function StatusLine()
     return status
 end
 
-vim.opt.laststatus = 2
 vim.opt.statusline = '%!luaeval("StatusLine()")'
 vim.opt.showtabline = 2
 
