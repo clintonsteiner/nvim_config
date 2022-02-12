@@ -22,7 +22,7 @@ vim.call('plug#end')    -- automatically calls `filetype plugin indent on` and `
 -- options -----------------------------------------------------------------------------------------
 vim.opt.expandtab = true
 vim.opt.shiftwidth = 4
-vim.opt.tabstop = 4
+vim.opt.softtabstop = -1
 vim.opt.textwidth = 100
 vim.opt.completeopt = {'menuone,noinsert,noselect'}  -- completion options (for deoplete)
 vim.opt.clipboard = 'unnamedplus'
