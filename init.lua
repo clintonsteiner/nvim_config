@@ -8,7 +8,8 @@ Plug 'neovim/nvim-lspconfig'
 Plug 'ibhagwan/fzf-lua'
 Plug 'Shatur/neovim-ayu'
 Plug 'tpope/vim-fugitive'
-Plug 'airblade/vim-gitgutter'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'lewis6991/gitsigns.nvim'
 Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'tpope/vim-commentary'
 Plug 'machakann/vim-sandwich'
@@ -31,8 +32,8 @@ vim.opt.lazyredraw = true
 vim.opt.mouse = 'a'
 vim.o.shortmess = vim.o.shortmess .. 'c'  -- don't pass messages to completions menu
 vim.opt.showmode = false  -- not necessary with a statusline set
-vim.opt.ttimeoutlen = 10
-vim.opt.updatetime = 100
+vim.opt.ttimeoutlen = 0
+vim.opt.updatetime = 1000
 vim.opt.colorcolumn = '100'
 vim.opt.cursorline = true
 vim.opt.number = true
@@ -63,10 +64,7 @@ require('ayu').setup({
         OtherMode = {fg = colors.constant, bg = colors.bg, style = "reverse,bold"},
         ScrollBar = {fg = colors.accent, bg = colors.selection_inactive},
         Sneak = {fg = colors.bg, bg = colors.error, style = "bold"},
-        GitGutterAdd = {fg = colors.vcs_added, bg = colors.panel_bg},
-        GitGutterChange = {fg = colors.vcs_modified, bg = colors.panel_bg},
-        GitGutterDelete = {fg = colors.vcs_removed, bg = colors.panel_bg},
-        GitGutterChangeDelete = {fg = colors.vcs_modified, bg = colors.panel_bg, style = "underline"},
+        GitSignsChangeDelete = {fg = colors.constant},
         TSVariableBuiltin = {fg = colors.constant, style = "italic"},
     }
 })
@@ -101,8 +99,13 @@ require'fzf-lua'.setup {
 }
 vim.api.nvim_command('FzfLua register_ui_select')
 
--- gitgutter
-vim.g.gitgutter_map_keys = 0
+-- gitsigns
+require('gitsigns').setup({
+    signs = {
+        delete = {text = '│'},
+        changedelete = {hl = 'GitSignsChangeDelete', text = '│'},
+    }
+})
 
 -- indent_blankline
 require("indent_blankline").setup()
@@ -173,13 +176,12 @@ wk.register({
         b = {":Git blame<CR>", "blame"},
         c = {":Git commit<CR>", "commit"},
         g = {":Git<CR>", "status"},
-        j = {":GitGutterNextHunk<CR>", "next hunk"},
-        k = {":GitGutterPrevHunk<CR>", "prev hunk"},
+        j = {"<cmd>Gitsigns next_hunk<CR>", "next hunk"},
+        k = {"<cmd>Gitsigns prev_hunk<CR>", "prev hunk"},
         l = {"<cmd>lua require('fzf-lua').git_bcommits({cmd = [[git log --color=always --pretty=format:%C\\(auto\\)%h\\ %s\\ %C\\(green\\)%cs]], actions = {['default'] = function(selected) git_show_diff(selected) end}})<CR>", "log"},
-        p = {":GitGutterPreviewHunk<CR>", "preview"},
-        r = {":Git reset -p<CR>", "unstage"},
-        s = {":GitGutterStageHunk<CR>", "stage"},
-        u = {":GitGutterUndoHunk<CR>", "undo"},
+        p = {"<cmd>Gitsigns preview_hunk<CR>", "preview hunk"},
+        s = {":Gitsigns stage_hunk<CR>", "stage hunk"},
+        u = {":Gitsigns reset_hunk<CR>", "undo hunk"},
     },
     i = {name = "insert text",
         b = {":lua Abbrev('break')<CR>", "break"},
@@ -207,6 +209,12 @@ wk.register({
         x = {":FloatermNew --wintype=floating --title=test-file-stop --autoclose=0 nosetests -sv --nologcapture --with-id -x %:p<CR>", "stop at failure"},
     },
 }, {prefix = "<leader>"})
+wk.register({
+    g = {name = "git",
+        s = {":Gitsigns stage_hunk<CR><esc>", "stage selection"},
+        u = {":Gitsigns undo_stage_hunk<CR><esc>", "undo stage selection"},
+    }
+}, {mode = "v", prefix = "<leader>"})
 
 -- disable unused builtin plugins ------------------------------------------------------------------
 local disabled_builtins = {'gzip', 'zip', 'zipPlugin', 'tar', 'tarPlugin', 'getscript',
@@ -217,18 +225,6 @@ for _, plugin in pairs(disabled_builtins) do
 end
 
 -- status line -------------------------------------------------------------------------------------
-function git()
-    if not vim.g.loaded_fugitive then
-        return ""
-    end
-    local branch_sign = ''
-    local out = vim.fn.FugitiveHead()
-    if out ~= "" then
-        out = branch_sign .. " " .. out .. " "
-    end
-    return out
-end
-
 function get_mode_color(mode)
     local mode_color = '%#OtherMode#'
     local mode_color_table = {
@@ -276,21 +272,22 @@ function scroll_bar()  -- from github.com/drzel/vim-line-no-indicator
     return chars[index]
 end
 
-function git_summary(idx)
-   local summary = vim.fn.GitGutterGetHunkSummary()
-   local prefix = {'+', '~', '-'}
-   return summary[idx] > 0 and string.format(" %s%d ", prefix[idx], summary[idx]) or ''
+function gitsigns_status(key)
+    local summary = vim.b.gitsigns_status_dict or {head = '', added = 0, changed = 0, removed = 0}
+    if summary[key] == nil then return '' end
+    if summary[key] == '' then return '' end
+    if summary[key] == 0 then return '' end
+    local prefix = {head = ' ', added = '+', changed = '~', removed = '-'}
+    return string.format(" %s%s ", prefix[key], summary[key])
 end
 
 function StatusLine()
     local status = ''
     status = status .. get_mode_color(vim.fn.mode()) .. [[ %-"]]
-    status = status .. '%#GitGutterAdd#  '
-    status = status .. [[%-{luaeval("git()")}]]
-    status = status .. '%#Directory# '
-    status = status .. [[%#GitGutterAdd#%-{luaeval("git_summary(1)")}]]
-    status = status .. [[%#GitGutterChange#%-{luaeval("git_summary(2)")}]]
-    status = status .. [[%#GitGutterDelete#%-{luaeval("git_summary(3)")}]]
+    status = status .. [[%#GitSignsAdd#%-{luaeval("gitsigns_status('head')")}]]
+    status = status .. [[%#GitSignsAdd#%-{luaeval("gitsigns_status('added')")}]]
+    status = status .. [[%#GitSignsChange#%-{luaeval("gitsigns_status('changed')")}]]
+    status = status .. [[%#GitSignsDelete#%-{luaeval("gitsigns_status('removed')")}]]
     status = status .. '%#Directory# '
     status = status .. [[%-m %-{luaeval("get_readonly_char()")}]]
     status = status .. '%='
