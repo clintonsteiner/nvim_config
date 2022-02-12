@@ -16,6 +16,7 @@ Plug 'justinmk/vim-sneak'
 Plug 'voldikss/vim-floaterm'
 Plug 'folke/which-key.nvim'
 Plug 'windwp/nvim-autopairs'
+Plug 'Vimjas/vim-python-pep8-indent'
 vim.call('plug#end')    -- automatically calls `filetype plugin indent on` and `syntax enable`
 
 -- options -----------------------------------------------------------------------------------------
@@ -144,7 +145,7 @@ vim.g['sneak#label'] = 1
 
 -- treesitter
 local ts = require 'nvim-treesitter.configs'
-ts.setup {ensure_installed = 'python', highlight = {enable = true}, indent = {enable = true}}
+ts.setup {ensure_installed = 'python', highlight = {enable = true}}
 
 -- which-key
 local wk = require("which-key")
