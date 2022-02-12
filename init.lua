@@ -175,7 +175,7 @@ wk.register({
         g = {":Git<CR>", "status"},
         j = {":GitGutterNextHunk<CR>", "next hunk"},
         k = {":GitGutterPrevHunk<CR>", "prev hunk"},
-        l = {"<cmd>lua require('fzf-lua').git_bcommits({actions = {['default'] = function(selected) git_show_diff(selected) end}})<CR>", "log"},
+        l = {"<cmd>lua require('fzf-lua').git_bcommits({cmd = [[git log --color=always --pretty=format:%C\\(auto\\)%h\\ %s\\ %C\\(green\\)%cs]], actions = {['default'] = function(selected) git_show_diff(selected) end}})<CR>", "log"},
         p = {":GitGutterPreviewHunk<CR>", "preview"},
         r = {":Git reset -p<CR>", "unstage"},
         s = {":GitGutterStageHunk<CR>", "stage"},
