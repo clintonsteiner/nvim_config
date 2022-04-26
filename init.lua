@@ -84,7 +84,6 @@ vim.g.floaterm_title = 0
 -- fzf-lua
 require'fzf-lua'.setup {
     fzf_colors = {
-        ['fg'] = {'fg', 'Normal'},
         ['hl'] = {'fg', 'Underlined'},
         ['fg+'] = {'fg', 'CursorLine', 'CursorColumn', 'Normal'},
         ['bg+'] = {'bg', 'CursorLine', 'CursorColumn'},
