@@ -31,7 +31,6 @@ vim.opt.lazyredraw = true
 vim.opt.mouse = 'a'
 vim.o.shortmess = vim.o.shortmess .. 'c'  -- don't pass messages to completions menu
 vim.opt.showmode = false  -- not necessary with a statusline set
-vim.opt.ttimeoutlen = 0
 vim.opt.updatetime = 1000
 vim.opt.colorcolumn = '100'
 vim.opt.cursorline = true
