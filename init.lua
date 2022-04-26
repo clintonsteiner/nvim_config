@@ -316,7 +316,7 @@ function Abbrev(_text)
     local abbrev_text_table = {
         sbreak = '# ' .. string.rep('-', 94),
         lbreak = '# ' .. string.rep('-', 98),
-        pdb = 'from pdb import set_trace; set_trace()',
+        pdb = 'breakpoint()',
         this = 'from nose.plugins.attrib import attr<CR>@attr("this")',
     }
     local cmd = abbrev_text_table[_text]
