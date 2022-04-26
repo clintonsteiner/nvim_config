@@ -55,16 +55,16 @@ require('ayu').setup({
     overrides = {
         LineNr = {fg = colors.comment},
         TabLineFill = {bg = colors.bg},
-        TabLineSel = {fg = colors.bg, bg = colors.accent, style = "bold"},
-        NormalMode = {fg = colors.string, bg = colors.bg, style = "reverse,bold"},
-        InsertMode = {fg = colors.tag, bg = colors.bg, style = "reverse,bold"},
-        VisualMode = {fg = colors.keyword, bg = colors.bg, style = "reverse,bold"},
-        ReplaceMode = {fg = colors.markup, bg = colors.bg, style = "reverse,bold"},
-        OtherMode = {fg = colors.constant, bg = colors.bg, style = "reverse,bold"},
+        TabLineSel = {fg = colors.bg, bg = colors.accent, bold = true},
+        NormalMode = {fg = colors.string, bg = colors.bg, reverse = true, bold = true},
+        InsertMode = {fg = colors.tag, bg = colors.bg, reverse = true, bold = true},
+        VisualMode = {fg = colors.keyword, bg = colors.bg, reverse = true, bold = true},
+        ReplaceMode = {fg = colors.markup, bg = colors.bg, reverse = true, bold = true},
+        OtherMode = {fg = colors.constant, bg = colors.bg, reverse = true, bold = true},
         ScrollBar = {fg = colors.accent, bg = colors.selection_inactive},
-        Sneak = {fg = colors.bg, bg = colors.error, style = "bold"},
+        Sneak = {fg = colors.bg, bg = colors.error, bold = true},
         GitSignsChangeDelete = {fg = colors.constant},
-        TSVariableBuiltin = {fg = colors.constant, style = "italic"},
+        TSVariableBuiltin = {fg = colors.constant, italic = true},
     }
 })
 require('ayu').colorscheme()
