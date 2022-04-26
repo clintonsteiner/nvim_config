@@ -100,8 +100,8 @@ vim.api.nvim_command('FzfLua register_ui_select')
 -- gitsigns
 require('gitsigns').setup({
     signs = {
-        delete = {text = '│'},
-        changedelete = {hl = 'GitSignsChangeDelete', text = '│'},
+        delete = {text = '┃'},
+        changedelete = {hl = 'GitSignsChangeDelete', text = '┃'},
     }
 })
 
