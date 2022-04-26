@@ -171,6 +171,7 @@ wk.register({
     g = {name = "git",
         b = {":Git blame<CR>", "blame"},
         c = {":Git commit<CR>", "commit"},
+        d = {":Gitsigns diffthis<CR>", "diff"},
         g = {":Git<CR>", "status"},
         j = {"<cmd>Gitsigns next_hunk<CR>", "next hunk"},
         k = {"<cmd>Gitsigns prev_hunk<CR>", "prev hunk"},
