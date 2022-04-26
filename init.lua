@@ -158,7 +158,6 @@ wk.register({
     ['/'] = {"<cmd>lua require('fzf-lua').blines()<CR>", "blines"},
     ['?'] = {"<cmd>lua require('fzf-lua').lines()<CR>", "lines"},
     [':'] = {":e ~/dotfiles/nvim/init.lua<CR>", "open init"},
-    [';'] = {":luafile ~/dotfiles/nvim/init.lua<CR>", "source init"},
     b = {"<cmd>lua require('fzf-lua').buffers()<CR>", "buffers"},
     h = {"<cmd>lua require('fzf-lua').help_tags()<CR>", "help"},
     q = {":bd<CR>", "delete buffer"},
