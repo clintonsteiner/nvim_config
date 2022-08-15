@@ -40,8 +40,6 @@ vim.opt.wrap = false
 vim.g.python3_host_prog = vim.env.HOME .. "/.virtualenvs/nvim/bin/python3"
 vim.g.mapleader = ' '
 
-vim.cmd 'au TextYankPost * lua vim.highlight.on_yank {timeout=400}'  -- yank highlights
-
 -- plugin settings ---------------------------------------------------------------------------------
 -- autopairs
 require('nvim-autopairs').setup()
@@ -98,6 +96,7 @@ vim.api.nvim_command('FzfLua register_ui_select')
 require('gitsigns').setup({
     signs = {
         delete = {text = '┃'},
+        -- delete = {text = '█'},  -- experiment...
         changedelete = {hl = 'GitSignsChangeDelete', text = '┃'},
     },
     current_line_blame_formatter = '<abbrev_sha> <summary> <author> <author_time:%Y-%m-%d>',
@@ -107,7 +106,6 @@ require('gitsigns').setup({
 require("indent_blankline").setup()
 vim.g.indent_blankline_use_treesitter = true
 vim.g.indent_blankline_show_current_context = true
-vim.cmd('autocmd CursorMoved * IndentBlanklineRefresh')
 
 -- lsp
 local lsp = require 'lspconfig'
@@ -213,85 +211,10 @@ wk.register({
     }
 }, {mode = "v", prefix = "<leader>"})
 
--- disable unused builtin plugins ------------------------------------------------------------------
-local disabled_builtins = {'gzip', 'zip', 'zipPlugin', 'tar', 'tarPlugin', 'getscript',
-                           'getscriptPlugin', 'vimball', 'vimballPlugin', '2html_plugin', 'logipat',
-                           'rrhelper', 'spellfile_plugin', 'matchit'}
-for _, plugin in pairs(disabled_builtins) do
-    vim.g["loaded_" .. plugin] = 1
-end
-
--- status line -------------------------------------------------------------------------------------
-function get_mode_color(mode)
-    local mode_color = '%#OtherMode#'
-    local mode_color_table = {
-        n = '%#NormalMode#',
-        i = '%#InsertMode#',
-        R = '%#ReplaceMode#',
-        v = '%#VisualMode#',
-        V = '%#VisualMode#',
-        [''] = '%#VisualMode#',
-    }
-    if mode_color_table[mode] then
-        mode_color = mode_color_table[mode]
-    end
-    return mode_color
-end
-
-function get_readonly_char()
-    local ro_char = ''
-    if vim.bo.readonly or vim.bo.modifiable == false then ro_char = '' end
-    return ro_char
-end
-
-function get_cwd()
-    local dir = vim.api.nvim_call_function('getcwd', {})
-    dir = vim.api.nvim_call_function('pathshorten', {dir})
-    return dir
-end
-
-function scroll_bar()  -- from github.com/drzel/vim-line-no-indicator
-    local chars = {"⣾", "⣽", "⣻", "⢿", "⡿", "⣟", "⣯", "⣷"}
-    local current_line = vim.fn.line('.')
-    local total_lines = vim.fn.line('$')
-    local index = current_line
-    if current_line == 1 then
-        index = 1
-    elseif current_line == total_lines then
-        index = #chars
-    else
-        local line_no_fraction = math.floor(current_line) / math.floor(total_lines)
-        index = math.ceil(line_no_fraction * #chars)
-    end
-    return chars[index]
-end
-
-function gitsigns_status(key)
-    local summary = vim.b.gitsigns_status_dict or {head = '', added = 0, changed = 0, removed = 0}
-    if summary[key] == nil then return '' end
-    if summary[key] == '' then return '' end
-    if summary[key] == 0 then return '' end
-    local prefix = {head = ' ', added = '+', changed = '~', removed = '-'}
-    return string.format(" %s%s ", prefix[key], summary[key])
-end
-
-function StatusLine()
-    local status = ''
-    status = status .. get_mode_color(vim.fn.mode()) .. [[ %-"]]
-    status = status .. [[%#GitSignsAdd#%-{luaeval("gitsigns_status('head')")}]]
-    status = status .. [[%#GitSignsAdd#%-{luaeval("gitsigns_status('added')")}]]
-    status = status .. [[%#GitSignsChange#%-{luaeval("gitsigns_status('changed')")}]]
-    status = status .. [[%#GitSignsDelete#%-{luaeval("gitsigns_status('removed')")}]]
-    status = status .. '%#Directory# '
-    status = status .. [[%-m %-{luaeval("get_readonly_char()")}]]
-    status = status .. '%='
-    status = status .. [[%-{luaeval("get_cwd()")} ]]
-    status = status .. [[%#ScrollBar#%-{luaeval("scroll_bar()")}]]
-    return status
-end
-
-vim.opt.statusline = '%!luaeval("StatusLine()")'
-vim.opt.showtabline = 2
+-- load modules ------------------------------------------------------------------------------------
+require "autocmds"
+require "statusline"
+require "disable_plugins"
 
 -- functions ---------------------------------------------------------------------------------------
 function SaveSession()
