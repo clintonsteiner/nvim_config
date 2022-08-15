@@ -192,7 +192,7 @@ wk.register({
         s = {"<cmd>lua vim.diagnostic.open_float()<CR>", "show line diagnostics"},
     },
     o = {name = "open",
-        f = {"<cmd>lua require('fzf-lua').files({prompt = 'Files> '})<CR>", "files"},
+        f = {"<cmd>lua require('fzf-lua').files({prompt = 'Files> ', actions = {['default'] = function(selected) open_fzf_files(selected) end}})<CR>", "files"},
         h = {"<cmd>lua require('fzf-lua').oldfiles()<CR>", "history"},
         s = {"<cmd>lua require('fzf-lua').fzf_exec('find ~/.local/share/nvim/sessions -type f', {prompt = 'Sessions> ', previewer = false, actions = {['default'] = function(selected) vim.api.nvim_command('source ' .. selected[1]) end}})<CR>", "session"},
         t = {":FloatermNew<CR>", "terminal"},
@@ -340,4 +340,11 @@ function git_show_diff(selected)
     vim.api.nvim_buf_set_option(buf, 'filetype', 'git')
     vim.api.nvim_buf_set_option(buf, 'modifiable', false)
     vim.api.nvim_win_set_buf(win, buf)
+end
+
+function open_fzf_files(selected)
+    for _, e in ipairs(selected) do
+        local file = require'fzf-lua'.path.entry_to_file(e)
+        vim.cmd("e " .. file.path)
+    end
 end
