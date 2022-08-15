@@ -251,10 +251,7 @@ function get_cwd()
 end
 
 function scroll_bar()  -- from github.com/drzel/vim-line-no-indicator
-    local chars = {
-        '   ', '▏  ', '▎  ', '▍  ', '▌  ', '▋  ', '▊  ', '▉  ', '█  ', '█▏ ', '█▎ ', '█▍ ', '█▌ ',
-        '█▋ ', '█▊ ', '█▉ ', '██ ', '██▏', '██▎', '██▍', '██▌', '██▋', '██▊', '██▉', '███'
-    }
+    local chars = {"⣾", "⣽", "⣻", "⢿", "⡿", "⣟", "⣯", "⣷"}
     local current_line = vim.fn.line('.')
     local total_lines = vim.fn.line('$')
     local index = current_line
