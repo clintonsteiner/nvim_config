@@ -99,7 +99,8 @@ require('gitsigns').setup({
     signs = {
         delete = {text = '┃'},
         changedelete = {hl = 'GitSignsChangeDelete', text = '┃'},
-    }
+    },
+    current_line_blame_formatter = '<abbrev_sha> <summary> <author> <author_time:%Y-%m-%d>',
 })
 
 -- indent_blankline
@@ -167,7 +168,7 @@ wk.register({
         d = {"<cmd>lua require('fzf-lua').fzf_exec([[(echo '..' ; echo '-' ; echo '~' ; find . -type d -follow 2>/dev/null)]], {prompt = 'Cd> ', previewer = false, actions = {['default'] = function(selected) vim.api.nvim_command('cd ' .. selected[1]) end}})<CR>", "change dir"},
     },
     g = {name = "git",
-        b = {":Git blame<CR>", "blame"},
+        b = {"<cmd>lua require('gitsigns').blame_line{full=true}<CR>", "blame"},
         c = {":Git commit<CR>", "commit"},
         d = {":Gitsigns diffthis<CR>", "diff"},
         g = {"<cmd>lua require('fzf-lua').git_status()<CR>", "status"},
