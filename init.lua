@@ -170,7 +170,7 @@ wk.register({
         b = {":Git blame<CR>", "blame"},
         c = {":Git commit<CR>", "commit"},
         d = {":Gitsigns diffthis<CR>", "diff"},
-        g = {":Git<CR>", "status"},
+        g = {"<cmd>lua require('fzf-lua').git_status()<CR>", "status"},
         j = {"<cmd>Gitsigns next_hunk<CR>", "next hunk"},
         k = {"<cmd>Gitsigns prev_hunk<CR>", "prev hunk"},
         l = {"<cmd>lua require('fzf-lua').git_bcommits({cmd = [[git log --color=always --pretty=format:%C\\(auto\\)%h\\ %s\\ %C\\(green\\)%cs\\ %an]], actions = {['default'] = function(selected) git_show_diff(selected) end}})<CR>", "log"},
