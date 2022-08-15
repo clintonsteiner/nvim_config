@@ -74,7 +74,6 @@ vim.api.nvim_set_keymap('i', '<S-Tab>', 'pumvisible() ? "\\<C-p>" : "\\<Tab>"', 
 vim.api.nvim_set_keymap('i', '<Tab>', 'pumvisible() ? "\\<C-n>" : "\\<Tab>"', {expr = true, noremap = true})
 
 -- floaterm
-vim.g.floaterm_autoclose = 1
 vim.g.floaterm_width = 0.9
 vim.g.floaterm_height = 0.7
 vim.g.floaterm_title = 0
