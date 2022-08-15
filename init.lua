@@ -169,7 +169,7 @@ wk.register({
     },
     g = {name = "git",
         b = {"<cmd>lua require('gitsigns').blame_line{full=true}<CR>", "blame"},
-        c = {":Git commit<CR>", "commit"},
+        c = {":FloatermNew<CR>git commit<CR>", "commit"},
         d = {":Gitsigns diffthis<CR>", "diff"},
         g = {"<cmd>lua require('fzf-lua').git_status()<CR>", "status"},
         j = {"<cmd>Gitsigns next_hunk<CR>", "next hunk"},
