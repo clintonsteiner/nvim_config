@@ -176,6 +176,7 @@ wk.register({
         l = {"<cmd>lua require('fzf-lua').git_bcommits({cmd = [[git log --color=always --pretty=format:%C\\(auto\\)%h\\ %s\\ %C\\(green\\)%cs\\ %an]], actions = {['default'] = function(selected) git_show_diff(selected) end}})<CR>", "log"},
         p = {"<cmd>Gitsigns preview_hunk<CR>", "preview hunk"},
         s = {":Gitsigns stage_hunk<CR>", "stage hunk"},
+        t = {"<cmd>lua require('fzf-lua').git_stash()<CR>", "stash list"},
         u = {":Gitsigns reset_hunk<CR>", "undo hunk"},
     },
     i = {name = "insert text",
