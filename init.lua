@@ -83,8 +83,7 @@ vim.g.floaterm_title = 0
 require'fzf-lua'.setup {
     fzf_colors = {
         ['hl'] = {'fg', 'Underlined'},
-        ['fg+'] = {'fg', 'CursorLine', 'CursorColumn', 'Normal'},
-        ['bg+'] = {'bg', 'CursorLine', 'CursorColumn'},
+        ['bg+'] = {'bg', 'CursorLine'},
         ['hl+'] = {'fg', 'Statement'},
         ['info'] = {'fg', 'PreProc'},
         ['prompt'] = {'fg', 'Conditional'},
@@ -166,7 +165,7 @@ wk.register({
     w = {":w<CR>", "save"},
     c = {name = "change dir",
         c = {":cd %:p:h<CR>", "change dir cwd"},
-        d = {"<cmd>lua require('fzf-lua').files({prompt = 'Cd> ', previewer = false, cmd = [[(echo '..' ; echo '-' ; echo '~' ; find . -type d -follow 2>/dev/null)]], actions = {['default'] = function(selected) vim.api.nvim_command('cd ' .. selected[1]) end}})<CR>", "change dir"},
+        d = {"<cmd>lua require('fzf-lua').fzf_exec([[(echo '..' ; echo '-' ; echo '~' ; find . -type d -follow 2>/dev/null)]], {prompt = 'Cd> ', previewer = false, actions = {['default'] = function(selected) vim.api.nvim_command('cd ' .. selected[1]) end}})<CR>", "change dir"},
     },
     g = {name = "git",
         b = {":Git blame<CR>", "blame"},
@@ -196,7 +195,7 @@ wk.register({
     o = {name = "open",
         f = {"<cmd>lua require('fzf-lua').files({prompt = 'Files> '})<CR>", "files"},
         h = {"<cmd>lua require('fzf-lua').oldfiles()<CR>", "history"},
-        s = {"<cmd>lua require('fzf-lua').files({prompt = 'Sessions> ', previewer = false, cmd = [[find ~/.local/share/nvim/sessions -type f]], actions = {['default'] = function(selected) vim.api.nvim_command('source ' .. selected[1]) end}})<CR>", "session"},
+        s = {"<cmd>lua require('fzf-lua').fzf_exec('find ~/.local/share/nvim/sessions -type f', {prompt = 'Sessions> ', previewer = false, actions = {['default'] = function(selected) vim.api.nvim_command('source ' .. selected[1]) end}})<CR>", "session"},
         t = {":FloatermNew<CR>", "terminal"},
     },
     t = {name = "test",
