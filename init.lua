@@ -190,7 +190,7 @@ wk.register({
         h = {"<cmd>lua vim.lsp.buf.hover()<CR>", "hover"},
         l = {"<cmd>lua require('fzf-lua').lsp_document_diagnostics()<CR>", "list diagnostics"},
         r = {"<cmd>lua require('fzf-lua').lsp_references()<CR>", "references"},
-        s = {"<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>", "show line diagnostics"},
+        s = {"<cmd>lua vim.diagnostic.open_float()<CR>", "show line diagnostics"},
     },
     o = {name = "open",
         f = {"<cmd>lua require('fzf-lua').files({prompt = 'Files> '})<CR>", "files"},
