@@ -28,7 +28,7 @@ wk.register({
         g = {"<cmd>lua require('fzf-lua').git_status()<CR>", "status"},
         j = {"<cmd>Gitsigns next_hunk<CR>", "next hunk"},
         k = {"<cmd>Gitsigns prev_hunk<CR>", "prev hunk"},
-        l = {"<cmd>lua require('fzf-lua').git_bcommits({cmd = [[git log --color=always --pretty=format:%C\\(auto\\)%h\\ %s\\ %C\\(green\\)%cs\\ %an]], actions = {['default'] = function(selected) fzf.git_show_diff(selected) end}})<CR>", "log"},
+        l = {"<cmd>lua require('fzf-lua').git_bcommits({cmd = [[git log --color=always --pretty=format:%C\\(auto\\)%h\\ %s\\ %C\\(green\\)%cs\\ %an]], actions = {['default'] = function(selected) git_show_diff(selected) end}})<CR>", "log"},
         p = {"<cmd>Gitsigns preview_hunk<CR>", "preview hunk"},
         s = {":Gitsigns stage_hunk<CR>", "stage hunk"},
         t = {"<cmd>lua require('fzf-lua').git_stash()<CR>", "stash list"},
