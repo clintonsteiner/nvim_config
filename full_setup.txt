@@ -30,6 +30,7 @@ installing and running neovim 0.8.2 from absolute scratch (--verbose)
     a. `git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf`
     b. `~/.fzf/install`
     c. enter `y` or enter at the 3 prompts to enable fuzzy auto-complete, key bindings, and update shell config
+    d. source your .bashrc: `. ~/.bashrc`
 7. install ripgrep if not already installed:
     a. `sudo apt-get install ripgrep`
 8. download vim-plug plugin manager:
