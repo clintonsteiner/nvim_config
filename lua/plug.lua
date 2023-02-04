@@ -8,7 +8,6 @@ Plug('shougo/deoplete.nvim', {['do'] = vim.fn['remote#host#UpdateRemotePlugins']
 Plug 'neovim/nvim-lspconfig'
 Plug 'ibhagwan/fzf-lua'
 Plug 'Shatur/neovim-ayu'
-Plug 'tpope/vim-fugitive'
 Plug 'lewis6991/gitsigns.nvim'
 Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'tpope/vim-commentary'

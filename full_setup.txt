@@ -1,8 +1,8 @@
-installing and running neovim 0.8.2 from absolute scratch (--verbose)
+installing and running neovim 0.8.3 from absolute scratch (--verbose)
 
-1. install neovim 0.8.2:
+1. install neovim 0.8.3:
     a. `mkdir -p ~/apps/neovim && cd ~/apps/neovim`
-    b. `wget https://github.com/neovim/neovim/releases/download/v0.8.2/nvim.appimage`
+    b. `wget https://github.com/neovim/neovim/releases/download/v0.8.3/nvim.appimage`
     c. `chmod u+x nvim.appimage`
 2. install fuse if you cannot run this: `./nvim.appimage`
     a. `sudo apt-get install fuse`
@@ -15,36 +15,26 @@ installing and running neovim 0.8.2 from absolute scratch (--verbose)
     b. `source activate`
     c. `./pip install pynvim`
     d. `./pip install python-lsp-server[all]`  # https://github.com/python-lsp/python-lsp-server
-    e. `./pip install flake8`  # note: may already be covered by step 4d
-    f. `deactivate`
-5. add a flake8 config file to turn off specific errors/warnings (simply create this as an empty file if you don't want to turn off any errors/warnings)
-    a. `vi ~/.config/flake8`
-    b. to turn off line length and overindent errors:
-    ```
-        [flake8]
-        # E121,124,125,126,127,128,131: indentation
-        # E501: line length
-        ignore=E121,E124,E125,E126,E127,E128,E131,E501
-    ```
-6. download fzf if not already installed:
+    e. `deactivate`
+5. download fzf if not already installed:
     a. `git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf`
     b. `~/.fzf/install`
     c. enter `y` or enter at the 3 prompts to enable fuzzy auto-complete, key bindings, and update shell config
     d. source your .bashrc: `. ~/.bashrc`
-7. install ripgrep if not already installed:
+6. install ripgrep if not already installed:
     a. `sudo apt-get install ripgrep`
-8. download vim-plug plugin manager:
+7. download vim-plug plugin manager:
     a. `sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'`
-9. for a template to get you started (and this is my current lua config file):
+8. for a template to get you started (and this is my current lua config file):
     a. `mkdir ~/dotfiles/ && cd ~/dotfiles`
     b. `git clone https://github.com/benewberg/nightly_nvim_init.git`
     c. `mv nightly_nvim_init/ nvim`
-10. add symlinks from the dotfiles dir to the neovim config dir: 
+9. add symlinks from the dotfiles dir to the neovim config dir: 
     a. `mkdir -p $HOME/.config/nvim`
     b. `ln -sf $HOME/dotfiles/nvim/init.lua $HOME/.config/nvim/init.lua`
     c. `ln -sf $HOME/dotfiles/nvim/lua $HOME/.config/nvim/lua`
-11. make a new script which will launch this version of neovim:
+10. make a new script which will launch this version of neovim:
     a. `mkdir $HOME/.local/bin`
     b. `vi $HOME/.local/bin/nvim`
     c. add the below into the file (ignore the back-ticks) and save
@@ -59,11 +49,11 @@ installing and running neovim 0.8.2 from absolute scratch (--verbose)
     ```
     d. `chmod u+x $HOME/.local/bin/nvim`
     e. make sure `$HOME~/.local/bin` is in your path (it should be)
-12. launch neovim now: `nvim` (there will likely be many errors -- ignore for now)
-13. in neovim, run this command to install all the plugins: `:PlugInstall` and wait for it to complete
-14. exit nvim and re-launch it
-15. in neovim, run this command to install language for treesitter: `:TSInstall python lua comment sql` (and any other languages you want)
-16. in neovim, run this command to get deoplete working: `:UpdateRemotePlugins`
-17. close out of neovim, relaunch, and run this command to make sure all is OK: `:checkhealth`
-18. (optional) add nvim as the default editor in git: `git config --global core.editor nvim`
-19. (optional) add nvim as the default editor in psql: add this to your .bashrc: `export PSQL_EDITOR=nvim` and source your .bashrc
+11. launch neovim now: `nvim` (there will likely be many errors -- ignore for now)
+12. in neovim, run this command to install all the plugins: `:PlugInstall` and wait for it to complete
+13. exit nvim and re-launch it
+14. in neovim, run this command to install language for treesitter: `:TSInstall python lua comment sql` (and any other languages you want)
+15. in neovim, run this command to get deoplete working: `:UpdateRemotePlugins`
+16. close out of neovim, relaunch, and run this command to make sure all is OK: `:checkhealth`
+17. (optional) add nvim as the default editor in git: `git config --global core.editor nvim`
+18. (optional) add nvim as the default editor in psql: add this to your .bashrc: `export PSQL_EDITOR=nvim` and source your .bashrc
