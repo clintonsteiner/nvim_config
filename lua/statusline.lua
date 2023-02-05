@@ -26,22 +26,6 @@ function get_cwd()
     return dir
 end
 
-function scroll_bar()  -- from github.com/drzel/vim-line-no-indicator
-    local chars = {"⣾", "⣽", "⣻", "⢿", "⡿", "⣟", "⣯", "⣷"}
-    local current_line = vim.fn.line('.')
-    local total_lines = vim.fn.line('$')
-    local index = current_line
-    if current_line == 1 then
-        index = 1
-    elseif current_line == total_lines then
-        index = #chars
-    else
-        local line_no_fraction = math.floor(current_line) / math.floor(total_lines)
-        index = math.ceil(line_no_fraction * #chars)
-    end
-    return chars[index]
-end
-
 function gitsigns_status(key)
     local summary = vim.b.gitsigns_status_dict or {head = '', added = 0, changed = 0, removed = 0}
     if summary[key] == nil then return '' end
@@ -61,7 +45,6 @@ function status_line()
     status = status .. '%#Directory# '
     status = status .. '%='
     status = status .. [[%-{luaeval("get_cwd()")} ]]
-    status = status .. [[%#ScrollBar#%-{luaeval("scroll_bar()")}]]
     return status
 end
 
