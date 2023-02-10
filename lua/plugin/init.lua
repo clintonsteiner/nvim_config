@@ -1,6 +1,7 @@
 require "lsp"
 require "plugin.autopairs"
 require "plugin.ayu"
+require "plugin.comment"
 require "plugin.deoplete"
 require "plugin.fzf-lua"
 require "plugin.gitsigns"
