@@ -15,7 +15,7 @@ require('ayu').setup({
         ReplaceMode = {fg = colors.markup, bg = colors.bg, reverse = true, bold = true},
         OtherMode = {fg = colors.constant, bg = colors.bg, reverse = true, bold = true},
         ScrollBar = {fg = colors.accent, bg = colors.selection_inactive},
-        Sneak = {fg = colors.bg, bg = colors.error, bold = true},
+        Sneak = {fg = colors.bg, bg = colors.special, bold = true},
         GitSignsChangeDelete = {fg = colors.constant},
         ['@variable.builtin'] = {fg = colors.constant, italic = true},
     }
