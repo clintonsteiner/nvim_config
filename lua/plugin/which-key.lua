@@ -53,7 +53,7 @@ wk.register({
     o = {name = "open",
         f = {"<cmd>lua require('fzf-lua').files({prompt = 'Files> ', actions = {['default'] = function(selected) open_fzf_files(selected) end}})<CR>", "files"},
         h = {"<cmd>lua require('fzf-lua').oldfiles()<CR>", "history"},
-        s = {"<cmd>lua require('fzf-lua').fzf_exec('find ~/.local/share/nvim/sessions -type f', {prompt = 'Sessions> ', previewer = false, actions = {['default'] = function(selected) vim.api.nvim_command('source ' .. selected[1]) end}})<CR>", "session"},
+        s = {"<cmd>lua require('fzf-lua').fzf_exec('find ~/.local/share/nvim/sessions -type f ! -path \"*.git*\"', {prompt = 'Sessions> ', previewer = false, actions = {['default'] = function(selected) vim.api.nvim_command('source ' .. selected[1]) end}})<CR>", "session"},
         t = {":FloatermNew<CR>", "terminal"},
     },
     t = {name = "test",
