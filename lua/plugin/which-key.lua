@@ -19,7 +19,7 @@ wk.register({
     w = {":w<CR>", "save"},
     c = {name = "change dir",
         c = {":cd %:p:h<CR>", "change dir cwd"},
-        d = {"<cmd>lua require('fzf-lua').fzf_exec([[(echo '..' ; echo '-' ; echo '~' ; find . -type d -follow 2>/dev/null)]], {prompt = 'Cd> ', previewer = false, actions = {['default'] = function(selected) vim.api.nvim_command('cd ' .. selected[1]) end}})<CR>", "change dir"},
+        d = {"<cmd>lua require('fzf-lua').fzf_exec([[(echo '..' ; echo '-' ; echo '~' ; find . -type d ! -path \"*.git*\" -follow 2>/dev/null)]], {prompt = 'Cd> ', previewer = false, actions = {['default'] = function(selected) vim.api.nvim_command('cd ' .. selected[1]) end}})<CR>", "change dir"},
     },
     g = {name = "git",
         b = {"<cmd>lua require('gitsigns').blame_line{full=true}<CR>", "blame"},
