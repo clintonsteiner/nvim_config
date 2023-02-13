@@ -1,1 +1,5 @@
 require('leap').add_default_mappings()
+vim.keymap.del('o', 's')
+vim.keymap.del('o', 'S')
+vim.keymap.set('o', 'z', '<Plug>(leap-forward-to)')
+vim.keymap.set('o', 'Z', '<Plug>(leap-backward-to)')

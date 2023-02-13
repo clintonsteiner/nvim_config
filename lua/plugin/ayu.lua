@@ -17,6 +17,7 @@ require('ayu').setup({
         ScrollBar = {fg = colors.accent, bg = colors.selection_inactive},
         GitSignsChangeDelete = {fg = colors.constant},
         ['@variable.builtin'] = {fg = colors.constant, italic = true},
+        LeapBackdrop = {fg = colors.comment},
     }
 })
 require('ayu').colorscheme()
