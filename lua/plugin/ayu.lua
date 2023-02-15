@@ -14,7 +14,6 @@ require('ayu').setup({
         VisualMode = {fg = colors.keyword, bg = colors.bg, reverse = true, bold = true},
         ReplaceMode = {fg = colors.markup, bg = colors.bg, reverse = true, bold = true},
         OtherMode = {fg = colors.constant, bg = colors.bg, reverse = true, bold = true},
-        ScrollBar = {fg = colors.accent, bg = colors.selection_inactive},
         GitSignsChangeDelete = {fg = colors.constant},
         ['@variable.builtin'] = {fg = colors.constant, italic = true},
         LeapBackdrop = {fg = colors.comment},

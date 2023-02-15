@@ -20,9 +20,11 @@ function get_readonly_char()
     return ro_char
 end
 
-function get_cwd()
+function get_cwd(shorten)
     local dir = vim.api.nvim_call_function('getcwd', {})
-    dir = vim.api.nvim_call_function('pathshorten', {dir})
+    if shorten then
+        dir = vim.api.nvim_call_function('pathshorten', {dir})
+    end
     return dir
 end
 
@@ -44,7 +46,7 @@ function status_line()
     status = status .. [[%#GitSignsDelete#%-{luaeval("gitsigns_status('removed')")}]]
     status = status .. '%#Directory# '
     status = status .. '%='
-    status = status .. [[%-{luaeval("get_cwd()")} ]]
+    status = status .. [[%-{luaeval("get_cwd(false)")} ]]
     return status
 end
 
