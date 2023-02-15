@@ -23,7 +23,7 @@ wk.register({
     },
     g = {name = "git",
         b = {"<cmd>lua require('gitsigns').blame_line{full=true}<CR>", "blame"},
-        c = {":cd %:p:h<CR><cmd>lua require('FTerm').scratch({cmd = {'git', 'commit'}})<CR>", "commit"},
+        c = {":cd %:p:h<CR><cmd>lua require('FTerm').scratch({cmd = {'git', 'commit'}, hl = 'Normal,FloatBorder:FzfLuaBorder'})<CR>", "commit"},
         d = {":Gitsigns diffthis<CR>", "diff"},
         g = {"<cmd>lua require('fzf-lua').git_status()<CR>", "status"},
         j = {"<cmd>Gitsigns next_hunk<CR>", "next hunk"},
@@ -57,10 +57,10 @@ wk.register({
         t = {"<cmd>lua require('FTerm').open()<CR>", "terminal"},
     },
     t = {name = "test",
-        c = {"<cmd>lua require('FTerm').scratch({cmd = nt_cov()})<CR>", "file coverage"},
-        f = {"<cmd>lua require('FTerm').scratch({cmd = {'nosetests', '-sv', '--nologcapture', '--with-id', vim.fn.expand('%:p')}})<CR>", "file"},
-        t = {"<cmd>lua require('FTerm').scratch({cmd = {'nosetests', '-sv', '-a', 'this', '--nologcapture', vim.fn.expand('%:p')}})<CR>", "these"},
-        x = {"<cmd>lua require('FTerm').scratch({cmd = {'nosetests', '-sv', '--nologcapture', '--with-id', '-x', vim.fn.expand('%:p')}})<CR>", "stop at failure"},
+        c = {"<cmd>lua require('FTerm').scratch({cmd = nt_cov(), hl = 'Normal,FloatBorder:FzfLuaBorder'})<CR>", "file coverage"},
+        f = {"<cmd>lua require('FTerm').scratch({cmd = {'nosetests', '-sv', '--nologcapture', '--with-id', vim.fn.expand('%:p')}, hl = 'Normal,FloatBorder:FzfLuaBorder'})<CR>", "file"},
+        t = {"<cmd>lua require('FTerm').scratch({cmd = {'nosetests', '-sv', '-a', 'this', '--nologcapture', vim.fn.expand('%:p')}, hl = 'Normal,FloatBorder:FzfLuaBorder'})<CR>", "these"},
+        x = {"<cmd>lua require('FTerm').scratch({cmd = {'nosetests', '-sv', '--nologcapture', '--with-id', '-x', vim.fn.expand('%:p')}, hl = 'Normal,FloatBorder:FzfLuaBorder'})<CR>", "stop at failure"},
     },
 }, {prefix = "<leader>"})
 wk.register({
