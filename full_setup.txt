@@ -4,37 +4,28 @@ installing and running neovim 0.8.3 from absolute scratch (--verbose)
     a. `mkdir -p ~/apps/neovim && cd ~/apps/neovim`
     b. `wget https://github.com/neovim/neovim/releases/download/v0.8.3/nvim.appimage`
     c. `chmod u+x nvim.appimage`
-2. install fuse if you cannot run this: `./nvim.appimage`
-    a. `sudo apt-get install fuse`
-    b. `sudo apt-get install fuse-libs`
-3. install a virtual environment (if it already exists, wipe it out and start fresh):
+2. install a virtual environment (if it already exists, delete it and start fresh):
     a. `mkdir ~/.virtualenvs && cd ~/.virtualenvs`
     b. `python3 -m venv nvim`
-4. install the necessary python packages in the virtual environment:
+3. install the necessary python packages in the virtual environment for nvim and python lsp purposes:
     a. `cd ~/.virtualenvs/nvim/bin`
     b. `source activate`
     c. `./pip install pynvim`
-    d. `./pip install python-lsp-server[all]`  # https://github.com/python-lsp/python-lsp-server
-    e. `deactivate`
-5. download fzf if not already installed:
-    a. `git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf`
-    b. `~/.fzf/install`
-    c. enter `y` or enter at the 3 prompts to enable fuzzy auto-complete, key bindings, and update shell config
-    d. source your .bashrc: `. ~/.bashrc`
-6. install ripgrep if not already installed:
-    a. `sudo apt-get install ripgrep`
-7. download vim-plug plugin manager:
+    d. `./pip install python-lsp-server`  # https://github.com/python-lsp/python-lsp-server
+    e. `./pip install flake8`
+    f. `deactivate`
+4. download vim-plug plugin manager:
     a. `sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'`
-8. for a template to get you started (and this is my current lua config file):
+5. for an init configuration template to get you started:
     a. `mkdir ~/dotfiles/ && cd ~/dotfiles`
     b. `git clone https://github.com/benewberg/nightly_nvim_init.git`
     c. `mv nightly_nvim_init/ nvim`
-9. add symlinks from the dotfiles dir to the neovim config dir: 
+6. add symlinks from the dotfiles dir to the neovim config dir: 
     a. `mkdir -p $HOME/.config/nvim`
     b. `ln -sf $HOME/dotfiles/nvim/init.lua $HOME/.config/nvim/init.lua`
     c. `ln -sf $HOME/dotfiles/nvim/lua $HOME/.config/nvim/lua`
-10. make a new script which will launch this version of neovim:
+7. make a new script which will launch this version of neovim:
     a. `mkdir $HOME/.local/bin`
     b. `vi $HOME/.local/bin/nvim`
     c. add the below into the file (ignore the back-ticks) and save
@@ -49,11 +40,33 @@ installing and running neovim 0.8.3 from absolute scratch (--verbose)
     ```
     d. `chmod u+x $HOME/.local/bin/nvim`
     e. make sure `$HOME~/.local/bin` is in your path (it should be)
-11. launch neovim now: `nvim` (there will likely be many errors -- ignore for now)
-12. in neovim, run this command to install all the plugins: `:PlugInstall` and wait for it to complete
-13. exit nvim and re-launch it
-14. in neovim, run this command to install language for treesitter: `:TSInstall python lua comment sql` (and any other languages you want)
-15. in neovim, run this command to get deoplete working: `:UpdateRemotePlugins`
-16. close out of neovim, relaunch, and run this command to make sure all is OK: `:checkhealth`
-17. (optional) add nvim as the default editor in git: `git config --global core.editor nvim`
-18. (optional) add nvim as the default editor in psql: add this to your .bashrc: `export PSQL_EDITOR=nvim` and source your .bashrc
+8. launch neovim now: `nvim` (there will likely be many errors -- ignore for now) and then run `:PlugInstall` and wait for it to complete
+9. exit nvim and re-launch it
+10. for treesitter stuff, run `:TSInstall python lua comment help vim` (and any other languages you want)
+
+troubleshooting:
+* if you can't run the nvim.appimage binary, install fuse:
+    a. `sudo apt-get install fuse`
+    b. `sudo apt-get install fuse-libs`
+
+* if fzf is not installed:
+    a. `git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf`
+    b. `~/.fzf/install`
+    c. enter `y` or enter at the 3 prompts to enable fuzzy auto-complete, key bindings, and update shell config
+    d. source your .bashrc: `. ~/.bashrc`
+
+* if ripgrep is not installed:
+    a. `sudo apt-get install ripgrep`
+
+* if deoplete plugin complains when running neovim:
+    a. run `:UpdateRemotePlugins` in neovim
+
+* in neovim, run `:checkhealth` to check for any other issues
+
+optional:
+* add nvim as the default editor in git:
+    a. `git config --global core.editor nvim`
+
+* add nvim as the default editor in psql:
+    a. add this line to your .bashrc: `export PSQL_EDITOR=nvim`
+    b. source your .bashrc: `. ~/.bashrc`
