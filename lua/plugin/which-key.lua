@@ -12,6 +12,7 @@ wk.register({
     ['?'] = {"<cmd>lua require('fzf-lua').lines()<CR>", "lines"},
     [':'] = {":source ~/.local/share/nvim/sessions/init<CR>", "open init"},
     b = {"<cmd>lua require('fzf-lua').buffers()<CR>", "buffers"},
+    f = {"<cmd>lua require('fzf-lua').builtin()<CR>", "fzf builtins"},
     h = {"<cmd>lua require('fzf-lua').help_tags()<CR>", "help"},
     q = {":bd<CR>", "delete buffer"},
     r = {"<cmd>lua require('fzf-lua').live_grep()<CR>", "rg"},

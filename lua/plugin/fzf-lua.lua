@@ -11,7 +11,7 @@ require'fzf-lua'.setup {
         ['header'] = {'fg', 'Comment'}
     },
 }
-vim.api.nvim_command('FzfLua register_ui_select')
+vim.api.nvim_cmd({cmd = 'normal', args = {'FzfLua register_ui_select'}}, {})
 
 function git_show_diff(selected)
     local commit_hash = selected[1]:match("[^ ]+")
