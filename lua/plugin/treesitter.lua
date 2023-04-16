@@ -1,2 +1,2 @@
 local ts = require 'nvim-treesitter.configs'
-ts.setup {ensure_installed = 'python', highlight = {enable = true}}
+ts.setup {ensure_installed = 'python', highlight = {enable = true}, indent = {enable = true}}

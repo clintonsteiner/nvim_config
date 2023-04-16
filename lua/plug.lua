@@ -16,6 +16,5 @@ Plug 'ggandor/leap.nvim'
 Plug 'numToStr/FTerm.nvim'
 Plug 'folke/which-key.nvim'
 Plug 'windwp/nvim-autopairs'
-Plug 'yioneko/nvim-yati'
 Plug 'echasnovski/mini.map'
 vim.call('plug#end')    -- automatically calls `filetype plugin indent on` and `syntax enable`
