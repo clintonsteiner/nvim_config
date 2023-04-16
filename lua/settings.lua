@@ -1,7 +1,6 @@
 vim.opt.expandtab = true
 vim.opt.shiftwidth = 4
 vim.opt.softtabstop = -1
-vim.opt.textwidth = 100
 vim.opt.completeopt = {'menuone,noinsert,noselect'}  -- completion options (for deoplete)
 vim.opt.clipboard = 'unnamedplus'
 vim.opt.ignorecase = true
