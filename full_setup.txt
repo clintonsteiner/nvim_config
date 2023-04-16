@@ -1,8 +1,8 @@
-installing and running neovim 0.8.3 from absolute scratch (--verbose)
+installing and running neovim 0.9.0 from absolute scratch (--verbose)
 
-1. install neovim 0.8.3:
+1. install neovim 0.9.0:
     a. `mkdir -p ~/apps/neovim && cd ~/apps/neovim`
-    b. `wget https://github.com/neovim/neovim/releases/download/v0.8.3/nvim.appimage`
+    b. `wget https://github.com/neovim/neovim/releases/download/stable/nvim.appimage`
     c. `chmod u+x nvim.appimage`
 2. install a virtual environment (if it already exists, delete it and start fresh):
     a. `mkdir ~/.virtualenvs && cd ~/.virtualenvs`
@@ -19,8 +19,7 @@ installing and running neovim 0.8.3 from absolute scratch (--verbose)
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'`
 5. for an init configuration template to get you started:
     a. `mkdir ~/dotfiles/ && cd ~/dotfiles`
-    b. `git clone https://github.com/benewberg/nightly_nvim_init.git`
-    c. `mv nightly_nvim_init/ nvim`
+    b. `git clone https://github.com/benewberg/nightly_nvim_init.git nvim`
 6. add symlinks from the dotfiles dir to the neovim config dir: 
     a. `mkdir -p $HOME/.config/nvim`
     b. `ln -sf $HOME/dotfiles/nvim/init.lua $HOME/.config/nvim/init.lua`
@@ -30,13 +29,13 @@ installing and running neovim 0.8.3 from absolute scratch (--verbose)
     b. `vi $HOME/.local/bin/nvim`
     c. add the below into the file (ignore the back-ticks) and save
     ```
-        #!/bin/bash
+    #!/bin/bash
 
-        if [ ! "$#" -gt 0 ] ; then
-            ~/apps/neovim/nvim.appimage
-        else
-            ~/apps/neovim/nvim.appimage "$@"
-        fi
+    if [ ! "$#" -gt 0 ] ; then
+        ~/apps/neovim/nvim.appimage
+    else
+        ~/apps/neovim/nvim.appimage "$@"
+    fi
     ```
     d. `chmod u+x $HOME/.local/bin/nvim`
     e. make sure `$HOME~/.local/bin` is in your path (it should be)

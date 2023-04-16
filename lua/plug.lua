@@ -2,7 +2,7 @@ local Plug = vim.fn['plug#']
 vim.g.plug_home = vim.fn.stdpath('config') .. '/plugged'
 
 vim.call('plug#begin')
-Plug('nvim-treesitter/nvim-treesitter', {branch = 'v0.8.3'})
+Plug('nvim-treesitter/nvim-treesitter', {branch = 'v0.9.0'})
 Plug 'shougo/deoplete-lsp'
 Plug('shougo/deoplete.nvim', {['do'] = vim.fn['remote#host#UpdateRemotePlugins']})
 Plug 'neovim/nvim-lspconfig'
