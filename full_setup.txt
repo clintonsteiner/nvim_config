@@ -69,3 +69,10 @@ optional:
 * add nvim as the default editor in psql:
     a. add this line to your .bashrc: `export PSQL_EDITOR=nvim`
     b. source your .bashrc: `. ~/.bashrc`
+
+* install ctags and generate a tabs file:
+    a. `sudo apt-get install ctags`
+    b. ensure Exuberant Ctags is what we just installed: `ctags --version`
+    c. generate the tags file: `ctags -R --languages=python -f ~/.config/nvim/tags /HIGHEST_GIT_LEVEL_PATH/.`
+    d. in nvim, add this to your init somewhere: `vim.opt.tags = vim.env.HOME .. '/.config/nvim/tags'`
+    e. if you have fzf-lua plugin installed, then from neovim: `:FzfLua tags` or `:FzfLua tags_live_grep`
