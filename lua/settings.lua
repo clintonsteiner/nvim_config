@@ -13,3 +13,4 @@ vim.opt.colorcolumn = '100'
 vim.opt.cursorline = true
 vim.opt.number = true
 vim.opt.wrap = false
+vim.opt.tags = vim.env.HOME .. '/.config/nvim/tags'
