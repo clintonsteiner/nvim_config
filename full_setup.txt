@@ -8,8 +8,8 @@ installing and running neovim 0.9.0 from absolute scratch (--verbose)
     a. `mkdir ~/.virtualenvs && cd ~/.virtualenvs`
     b. `python3 -m venv nvim`
 3. install the necessary python packages in the virtual environment for nvim and python lsp purposes:
-    a. `cd ~/.virtualenvs/nvim/bin`
-    b. `source activate`
+    a. `cd ~/.virtualenvs/nvim`
+    b. `source bin/activate`
     c. `./pip install pynvim`
     d. `./pip install python-lsp-server`  # https://github.com/python-lsp/python-lsp-server
     e. `./pip install flake8`
