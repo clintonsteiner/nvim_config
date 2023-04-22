@@ -12,7 +12,7 @@ installing and running neovim 0.9.0 from absolute scratch (--verbose)
     b. `source bin/activate`
     c. `./pip install pynvim`
     d. `./pip install python-lsp-server`  # https://github.com/python-lsp/python-lsp-server
-    e. `./pip install flake8`
+    e. `./pip install ruff-lsp`
     f. `deactivate`
 4. download vim-plug plugin manager:
     a. `sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \

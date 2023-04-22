@@ -5,17 +5,29 @@ lsp.pylsp.setup {
     cmd = {vim.env.HOME .. '/.virtualenvs/nvim/bin/pylsp'},
     settings = {
         pylsp = {
-            configurationSources = {'flake8'},
             plugins = {
-                flake8 = {
-                    enabled = true,
-                    executable = vim.env.HOME .. '/.virtualenvs/nvim/bin/flake8',
-                    ignore = {"E121", "E124", "E125", "E126", "E127", "E128", "E131", "E501"},
-                },
+                flake8 = {enabled = false},
                 pycodestyle = {enabled = false},
                 pyflakes = {enabled = false},
             }
         }
+    },
+    handlers = {
+        ["textDocument/publishDiagnostics"] = function() end,
+    }
+}
+lsp.ruff_lsp.setup {
+    on_attach = function(client, bufnr)
+        client.server_capabilities.hoverProvider = false
+        on_attach(client, bufnr)
+    end,
+    -- root_dir = lsp.util.root_pattern('.git', vim.fn.getcwd()),
+    cmd = {vim.env.HOME .. '/.virtualenvs/nvim/bin/ruff-lsp'},
+    init_options = {
+        settings = {
+            -- path = {vim.env.HOME .. '/.virtualenvs/nvim_coq/bin/ruff-lsp'},
+            args = {},
+        },
     },
     handlers = {
         ["textDocument/publishDiagnostics"] = vim.lsp.with(
@@ -25,5 +37,5 @@ lsp.pylsp.setup {
                 underline = false,
             }
         )
-    }
+    },
 }
