@@ -1,5 +1,4 @@
 local lsp = require 'lspconfig'
--- lsp.ccls.setup {}  -- default settings; use this for cpp
 lsp.pylsp.setup {
     on_attach = function(client, bufnr)
         client.server_capabilities.codeActionProvider = false
