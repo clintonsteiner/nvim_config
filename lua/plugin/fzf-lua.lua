@@ -1,4 +1,15 @@
+local actions = require'fzf-lua.actions'
 require'fzf-lua'.setup {
+    actions = {
+        files = {
+            -- open multiple-selected files in separate buffers vs. quickfix
+            ["default"] = actions.file_edit,
+            ["ctrl-s"] = actions.file_split,
+            ["ctrl-v"] = actions.file_vsplit,
+            ["ctrl-t"] = actions.file_tabedit,
+            ["alt-q"] = actions.file_sel_to_qf,
+        },
+    },
     fzf_colors = {
         ['hl'] = {'sp', 'Underlined'},
         ['bg+'] = {'bg', 'CursorLine'},
@@ -25,11 +36,4 @@ function git_show_diff(selected)
     vim.api.nvim_buf_set_option(buf, 'filetype', 'git')
     vim.api.nvim_buf_set_option(buf, 'modifiable', false)
     vim.api.nvim_win_set_buf(win, buf)
-end
-
-function open_fzf_files(selected)
-    for _, e in ipairs(selected) do
-        local file = require'fzf-lua'.path.entry_to_file(e)
-        vim.cmd("e " .. file.path)
-    end
 end
