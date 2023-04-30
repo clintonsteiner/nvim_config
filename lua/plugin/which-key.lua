@@ -42,6 +42,7 @@ wk.register({
         t = {":lua abbrev('this')<CR>", "test this"},
     },
     l = {name = "lsp",
+        c = {"<cmd>lua vim.lsp.buf.code_action()<CR>", "code actions"},
         d = {"<cmd>lua require('fzf-lua').lsp_definitions({jump_to_single_result = true})<CR>", "definition"},
         h = {"<cmd>lua vim.lsp.buf.hover()<CR>", "hover"},
         l = {"<cmd>lua require('fzf-lua').lsp_document_diagnostics()<CR>", "list diagnostics"},

@@ -1,6 +1,11 @@
 local lsp = require 'lspconfig'
 -- lsp.ccls.setup {}  -- default settings; use this for cpp
 lsp.pylsp.setup {
+    on_attach = function(client, bufnr)
+        client.server_capabilities.codeActionProvider = false
+        client.server_capabilities.executeCommandProvider = false
+        on_attach(client, bufnr)
+    end,
     root_dir = lsp.util.root_pattern('.git', vim.fn.getcwd()),  -- start LSP server at project root or cwd
     cmd = {vim.env.HOME .. '/.virtualenvs/nvim/bin/pylsp'},
     settings = {
@@ -25,8 +30,9 @@ lsp.ruff_lsp.setup {
     cmd = {vim.env.HOME .. '/.virtualenvs/nvim/bin/ruff-lsp'},
     init_options = {
         settings = {
-            -- path = {vim.env.HOME .. '/.virtualenvs/nvim_coq/bin/ruff-lsp'},
-            args = {},
+            args = {
+                "--ignore=E501",
+            },
         },
     },
     handlers = {
