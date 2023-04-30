@@ -38,3 +38,12 @@ function fzf_git_blame(opts)
     opts.cwd = vim.fn.expand('%:p:h')
     fzf_lua.fzf_exec(opts.cmd, opts)
 end
+
+function toggle_text_wrap()
+    local current_setting = vim.o.textwidth
+    if current_setting == 0 then
+        current_setting = 100
+    else current_setting = 0
+    end
+    vim.o.textwidth = current_setting
+end

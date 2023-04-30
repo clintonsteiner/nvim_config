@@ -69,8 +69,7 @@ wk.register({
     t = {name = "toggles",
         i = {":IndentBlanklineToggle<CR>", "indents"},
         m = {"<cmd>lua require('mini.map').toggle()<CR>", "mini map"},
-        n = {":set textwidth=0<CR>", "no wrap"},
-        w = {":set textwidth=100<CR>", "wrap"},
+        w = {"<cmd>lua toggle_text_wrap()<CR>", "text wrap"},
     },
 }, {prefix = "<leader>"})
 wk.register({
