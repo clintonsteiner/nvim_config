@@ -67,6 +67,7 @@ wk.register({
         r = {"<cmd>lua require('fzf-lua').grep_cword()<CR>", "rg word under cursor"},
     },
     t = {name = "toggles",
+        d = {"<cmd>lua toggle_virtual_text()<CR>", "diagnostics"},
         i = {":IndentBlanklineToggle<CR>", "indents"},
         m = {"<cmd>lua require('mini.map').toggle()<CR>", "mini map"},
         w = {"<cmd>lua toggle_text_wrap()<CR>", "text wrap"},

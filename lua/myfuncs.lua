@@ -50,3 +50,8 @@ function toggle_text_wrap()
     end
     vim.o.textwidth = current_setting
 end
+
+function toggle_virtual_text()
+    local current_setting = vim.diagnostic.config().virtual_text
+    vim.diagnostic.config({virtual_text = not current_setting, signs = not current_setting, underline = not current_setting})
+end
