@@ -43,7 +43,10 @@ function toggle_text_wrap()
     local current_setting = vim.o.textwidth
     if current_setting == 0 then
         current_setting = 100
-    else current_setting = 0
+        print("text wrap on")
+    else
+        current_setting = 0
+        print("text wrap off")
     end
     vim.o.textwidth = current_setting
 end
