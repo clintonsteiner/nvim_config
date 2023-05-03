@@ -9,7 +9,7 @@ lsp.pylsp.setup {
                     enabled = true,
                     executable = vim.env.HOME .. '/.virtualenvs/nvim/bin/ruff',
                     ignore = {"E501"},  -- ignore line length error
-                    extendSelect = {"W291"},  -- report on trailing whitespace
+                    extendSelect = {"W291", "W293"},  -- whitespace warnings
                 },
             },
         },
