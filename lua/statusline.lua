@@ -37,6 +37,19 @@ function gitsigns_status(key)
     return string.format(" %s%s ", prefix[key], summary[key])
 end
 
+function get_lsp_names()
+    local clients = vim.lsp.get_active_clients()
+    local lsps = {}
+    for _, client in pairs(clients) do
+        table.insert(lsps, client.name)
+    end
+    local lsp_names = ""
+    if #lsps > 0 then
+        lsp_names = " " .. table.concat(lsps, ", ") .. " "
+    end
+    return lsp_names
+end
+
 function status_line()
     local status = ''
     status = status .. get_mode_color(vim.fn.mode()) .. [[ %-"]]
@@ -47,6 +60,7 @@ function status_line()
     status = status .. '%#Directory# '
     status = status .. '%='
     status = status .. [[%-{luaeval("get_cwd(false)")} ]]
+    status = status .. [[%#WildMenu#%-{luaeval("get_lsp_names()")}]]
     return status
 end
 
