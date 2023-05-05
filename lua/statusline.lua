@@ -73,7 +73,11 @@ function win_bar()
         end)
 
         for i = 1, #file_path_list do
-            value = value .. dir_icon .. file_path_list[i] .. '%#WinBarDirSep# / %*'
+            if i == #file_path_list then
+                value = value .. dir_icon .. file_path_list[i] .. '%#WinBarDirSep# / %*'
+            else
+                value = value .. file_path_list[i] .. '%#WinBarDirSep# / %*'
+            end
         end
         local file_modified = ''
         if vim.bo.modified then
