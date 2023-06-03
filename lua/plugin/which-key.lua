@@ -66,6 +66,7 @@ wk.register({
     },
     r = {name = "ripgrep",
         g = {"<cmd>lua require('fzf-lua').live_grep()<CR>", "rg"},
+        l = {"<cmd>lua require('fzf-lua').grep_last()<CR>", "rg last"},
         r = {"<cmd>lua require('fzf-lua').grep_cword()<CR>", "rg word under cursor"},
     },
     t = {name = "toggles",
