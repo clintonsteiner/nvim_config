@@ -33,7 +33,7 @@ function gitsigns_status(key)
     if summary[key] == nil then return '' end
     if summary[key] == '' then return '' end
     if summary[key] == 0 then return '' end
-    local prefix = {head = ' ', added = '+', changed = '~', removed = '-'}
+    local prefix = {head = ' ', added = '+', changed = '~', removed = '-'}
     return string.format(" %s%s ", prefix[key], summary[key])
 end
 
