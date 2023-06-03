@@ -95,7 +95,7 @@ function win_bar()
         end
         local file_modified = ''
         if vim.bo.modified then
-            file_modified = '%#WinBarModified#●%*'
+            file_modified = '%#WinBarModified#%*'
         end
         value = value .. file_icon .. filename .. ' ' .. file_modified .. ' %-{luaeval("get_readonly_char()")}%#NonText#%'
     end

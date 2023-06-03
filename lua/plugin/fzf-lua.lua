@@ -21,6 +21,7 @@ require'fzf-lua'.setup {
         ['spinner'] = {'fg', 'Label'},
         ['header'] = {'fg', 'Comment'}
     },
+    nbsp = '\xc2\xa0',
 }
 vim.api.nvim_cmd({cmd = 'normal', args = {'FzfLua register_ui_select'}}, {})
 
