@@ -51,7 +51,7 @@ wk.register({
         s = {"<cmd>lua vim.diagnostic.open_float()<CR>", "show line diagnostics"},
     },
     o = {name = "open",
-        f = {"<cmd>lua require('fzf-lua').files({prompt = 'Files> '})<CR>", "files"},
+        f = {"<cmd>lua require('fzf-lua').files({cwd_prompt = false, prompt = 'Files> '})<CR>", "files"},
         h = {"<cmd>lua require('fzf-lua').oldfiles()<CR>", "history"},
         s = {"<cmd>lua require('fzf-lua').fzf_exec('find ~/.local/share/nvim/sessions -type f ! -path \"*.git*\"', {prompt = 'Sessions> ', previewer = false, actions = {['default'] = function(selected) vim.api.nvim_command('source ' .. selected[1]) end}})<CR>", "session"},
         t = {"<cmd>lua require('FTerm').open()<CR>", "terminal"},
