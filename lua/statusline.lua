@@ -45,7 +45,7 @@ function get_lsp_names()
     end
     local lsp_names = ""
     if #lsps > 0 then
-        lsp_names = " " .. table.concat(lsps, ", ") .. " "
+        lsp_names = "  " .. table.concat(lsps, ", ") .. " "
     end
     return lsp_names
 end
