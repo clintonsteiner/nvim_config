@@ -61,6 +61,7 @@ wk.register({
         f = {"<cmd>lua require('FTerm').scratch({cmd = {'nosetests', '-sv', '--nologcapture', '--with-id', vim.fn.expand('%:p')}, hl = 'Normal,FloatBorder:FzfLuaBorder'})<CR>", "file"},
         t = {"<cmd>lua require('FTerm').scratch({cmd = {'nosetests', '-sv', '-a', 'this', '--nologcapture', vim.fn.expand('%:p')}, hl = 'Normal,FloatBorder:FzfLuaBorder'})<CR>", "these"},
         x = {"<cmd>lua require('FTerm').scratch({cmd = {'nosetests', '-sv', '--nologcapture', '--with-id', '-x', vim.fn.expand('%:p')}, hl = 'Normal,FloatBorder:FzfLuaBorder'})<CR>", "stop at failure"},
+        z = {"<cmd>lua require('FTerm').scratch({cmd = {'pytest', '-sv', '--disable-pytest-warnings', '-k', get_current_function_name()}, hl = 'Normal,FloatBorder:FzfLuaBorder'})<CR>", "test under cursor"},
     },
     r = {name = "ripgrep",
         g = {"<cmd>lua require('fzf-lua').live_grep()<CR>", "rg"},
