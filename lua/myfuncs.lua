@@ -3,7 +3,7 @@ function abbrev(_text)
         sbreak = '# ' .. string.rep('-', 94),
         lbreak = '# ' .. string.rep('-', 98),
         pdb = 'breakpoint()',
-        this = 'from nose.plugins.attrib import attr<CR>@attr("this")',
+        this = 'import pytest<CR>@pytest.mark.this',
     }
     local cmd = abbrev_text_table[_text]
     vim.api.nvim_command(vim.api.nvim_replace_termcodes('normal! O' .. cmd .. '<ESC><CR>', true, false, true))
@@ -54,4 +54,9 @@ end
 function toggle_diagnostics()
     local current_setting = vim.diagnostic.config().virtual_text
     vim.diagnostic.config({virtual_text = not current_setting, signs = not current_setting, underline = not current_setting})
+end
+
+function get_pytest_single_test_arg()
+    local pytest_arg = vim.fn.expand('%:p') .. '::' .. get_current_class_name() .. '::' .. get_current_function_name()
+    return pytest_arg
 end
