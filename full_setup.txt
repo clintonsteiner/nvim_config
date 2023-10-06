@@ -78,3 +78,17 @@ optional:
     c. generate the tags file: `ctags -R --languages=python -f ~/.config/nvim/tags /HIGHEST_GIT_LEVEL_PATH/.`
     d. in nvim, add this to your init somewhere: `vim.opt.tags = vim.env.HOME .. '/.config/nvim/tags'`
     e. if you have fzf-lua plugin installed, then from neovim: `:FzfLua tags` or `:FzfLua tags_live_grep`
+
+optional rust tools:
+* install cargo: `sudo apt-get install cargo`
+
+* eza (modern, maintained replacement for `ls`):
+    a. `cargo install eza`
+    b. add the following lines to your .bashrc and source it:
+    ```
+        alias ll='eza --long --icons'
+        alias lll='eza --long --tree --icons'
+    ```
+
+* fd (simple, fast and user-friendly alternative to find):
+    a. `cargo install fd-find`
