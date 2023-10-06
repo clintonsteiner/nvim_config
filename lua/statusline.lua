@@ -52,17 +52,20 @@ end
 
 function _get_current_function_name()
     local func_name = ""
-    func_name = get_current_function_name()
-    if func_name ~= nil and func_name ~= "" then
-        if string.sub(func_name, 1, 1):match("%w") then
-            func_name = " 󰊕  "  .. func_name .. " "
-        else
-            func_name = ""
-        end
-    elseif func_name ~= nil and func_name == "" then
-        func_name = get_current_class_name()
-        if func_name ~= "" then
-            func_name = "  " .. func_name .. " "
+    local clients = vim.lsp.get_active_clients()
+    if next(clients) ~= nil then  -- effectively checks for an empty table in lua
+        func_name = get_current_function_name()
+        if func_name ~= nil and func_name ~= "" then
+            if string.sub(func_name, 1, 1):match("%w") then
+                func_name = " 󰊕  "  .. func_name .. " "
+            else
+                func_name = ""
+            end
+        elseif func_name ~= nil and func_name == "" then
+            func_name = get_current_class_name()
+            if func_name ~= "" then
+                func_name = "  " .. func_name .. " "
+            end
         end
     end
     return func_name
