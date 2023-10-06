@@ -47,6 +47,7 @@ wk.register({
         d = {"<cmd>lua require('fzf-lua').lsp_definitions({jump_to_single_result = true})<CR>", "definition"},
         h = {"<cmd>lua vim.lsp.buf.hover()<CR>", "hover"},
         l = {"<cmd>lua require('fzf-lua').lsp_document_diagnostics()<CR>", "list diagnostics"},
+        n = {"<cmd>lua vim.lsp.buf.rename()<CR>", "rename"},
         r = {"<cmd>lua require('fzf-lua').lsp_references()<CR>", "references"},
         s = {"<cmd>lua vim.diagnostic.open_float()<CR>", "show line diagnostics"},
     },
