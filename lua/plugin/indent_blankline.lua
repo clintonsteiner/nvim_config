@@ -4,33 +4,29 @@ require("ibl").setup({
         char = "│",
     },
     scope = {
-        enabled = false,
+        enabled = true,
+        show_start = false,
+        show_end = false,
+        include = {
+            node_type = {
+                ["*"] = {
+                    "*",
+                },
+            },
+        },
+        exclude = {
+            filetypes = {
+                "lspinfo",
+                "help",
+                "man",
+                "gitcommit",
+            },
+            buftypes = {
+                "terminal",
+                "nofile",
+                "quickfix",
+                "prompt",
+            },
+        },
     },
-    -- scope = {
-    --     show_start = false,
-    --     show_end = false,
-    --     enabled = true,
-    --     include = {
-    --         node_type = {
-    --             ["*"] = {
-    --                 "function",
-    --                 "if",
-    --             },
-    --         },
-    --     },
-    --     exclude = {
-    --         filetypes = {
-    --             "lspinfo",
-    --             "help",
-    --             "man",
-    --             "gitcommit",
-    --         },
-    --         buftypes = {
-    --             "terminal",
-    --             "nofile",
-    --             "quickfix",
-    --             "prompt",
-    --         },
-    --     },
-    -- },
 })
