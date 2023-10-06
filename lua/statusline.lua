@@ -96,21 +96,6 @@ function win_bar()
     if not (file_name == nil or file_name == '' or string.sub(file_path, 1, 5) == 'term:') then
         file_icon = ' '
         file_icon = '%#WinBarIcon#' .. file_icon .. '%*'
-        dir_icon = ' '
-        dir_icon = '%#WinBarIcon#' .. dir_icon .. '%*'
-
-        local file_path_list = {}
-        local _ = string.gsub(file_path, '[^/]+', function(w)
-            table.insert(file_path_list, w)
-        end)
-
-        for i = 1, #file_path_list do
-            if i == #file_path_list then
-                value = value .. dir_icon .. file_path_list[i] .. '%#WinBarDirSep# / %*'
-            else
-                value = value .. file_path_list[i] .. '%#WinBarDirSep# / %*'
-            end
-        end
         local file_modified = ''
         if vim.bo.modified then
             file_modified = '%#WinBarModified#%*'
