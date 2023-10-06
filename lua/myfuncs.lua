@@ -59,3 +59,15 @@ function get_pytest_single_test_arg()
     local pytest_arg = vim.fn.expand('%:p') .. '::' .. get_current_class_name() .. '::' .. get_current_function_name()
     return pytest_arg
 end
+
+function get_last_test_name()
+    vim.cmd("py import os\npy import json")
+    vim.cmd("py root_path = os.environ['MY_ROOT_PATH_CHANGE_ME']")
+    vim.cmd("py pytest_config_path = os.path.join(f'{root_path}/change/me/.pytest_cache/v/cache/nodeids')")
+    vim.cmd("py fp = open(pytest_config_path)")
+    vim.cmd("py last_test = json.load(fp)")
+    vim.cmd("py fp.close()")
+    vim.cmd("py last_test = os.path.join(f'{root_path}/change/me/{last_test[0]}')")
+    local last_test_name = vim.fn.pyeval("last_test")
+    return last_test_name
+end
