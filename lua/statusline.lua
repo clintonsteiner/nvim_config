@@ -78,8 +78,6 @@ function status_line()
     status = status .. '%#Directory# '
     status = status .. '%='
     status = status .. [[%-{luaeval("get_cwd(false)")} ]]
-    status = status .. [[%#CurSearch#%-{luaeval("_get_current_function_name()")}]]
-    status = status .. '%#Directory# '
     status = status .. [[%#WildMenu#%-{luaeval("get_lsp_names()")}]]
     return status
 end
@@ -89,13 +87,13 @@ vim.opt.statusline = '%!luaeval("status_line()")'
 -- winbar
 function win_bar()
     local file_path = vim.fn.expand('%:~:.:h')
-    local filename = vim.fn.expand('%:t')
+    local file_name = vim.fn.expand('%:t')
     local value = ' '
 
     file_path = file_path:gsub('^%.', '')
     file_path = file_path:gsub('^%/', '')
 
-    if not (filename == nil or filename == '') then
+    if not (file_name == nil or file_name == '' or string.sub(file_path, 1, 5) == 'term:') then
         file_icon = ' '
         file_icon = '%#WinBarIcon#' .. file_icon .. '%*'
         dir_icon = ' '
@@ -117,7 +115,7 @@ function win_bar()
         if vim.bo.modified then
             file_modified = '%#WinBarModified#%*'
         end
-        value = value .. file_icon .. filename .. ' ' .. file_modified .. ' %-{luaeval("get_readonly_char()")}%#NonText#%'
+        value = value .. file_icon .. file_name .. ' ' .. file_modified .. ' %-{luaeval("get_readonly_char()")}%#NonText#% %#CurSearch#%-{luaeval("_get_current_function_name()")}%#NonText#%'
     end
     return value
 end
