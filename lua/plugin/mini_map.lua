@@ -1,5 +1,5 @@
 local map = require('mini.map')
-require('mini.map').setup({
+map.setup({
     integrations = {
         map.gen_integration.builtin_search(),
         map.gen_integration.gitsigns(),
