@@ -57,7 +57,7 @@ wk.register({
         t = {"<cmd>lua require('FTerm').open()<CR>", "terminal"},
     },
     p = {name = "pytest",
-        c = {"<cmd>lua require('FTerm').scratch({cmd = nt_cov(), hl = 'Normal,FloatBorder:FzfLuaBorder'})<CR>", "(nose) file coverage"},
+        c = {"<cmd>lua require('FTerm').scratch({cmd = {'pytest', '-sv', '--disable-pytest-warnings', '--cov', get_pytest_cov_cmd(), vim.fn.expand('%:p'), '--cov-report', 'term-missing'}, hl = 'Normal,FloatBorder:FzfLuaBorder'})<CR>", "file coverage"},
         f = {"<cmd>lua require('FTerm').scratch({cmd = {'nosetests', '-sv', '--nologcapture', '--with-id', vim.fn.expand('%:p')}, hl = 'Normal,FloatBorder:FzfLuaBorder'})<CR>", "(nose) file"},
         t = {"<cmd>lua require('FTerm').scratch({cmd = {'pytest', '-sv', '--disable-pytest-warnings', '-m', 'this', vim.fn.expand('%:p')}, hl = 'Normal,FloatBorder:FzfLuaBorder'})<CR>", "these"},
         x = {"<cmd>lua require('FTerm').scratch({cmd = {'pytest', '-sv', '--disable-pytest-warnings', '--pdb', '-x', vim.fn.expand('%:p')}, hl = 'Normal,FloatBorder:FzfLuaBorder'})<CR>", "stop at failure"},
