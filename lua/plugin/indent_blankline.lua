@@ -14,19 +14,19 @@ require("ibl").setup({
                 },
             },
         },
-        exclude = {
-            filetypes = {
-                "lspinfo",
-                "help",
-                "man",
-                "gitcommit",
-            },
-            buftypes = {
-                "terminal",
-                "nofile",
-                "quickfix",
-                "prompt",
-            },
+    },
+    exclude = {
+        filetypes = {
+            "lspinfo",
+            "help",
+            "man",
+            "gitcommit",
+        },
+        buftypes = {
+            "terminal",
+            "nofile",
+            "quickfix",
+            "prompt",
         },
     },
 })
