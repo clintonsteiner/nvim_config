@@ -70,6 +70,8 @@ optional:
     a. add this line to your .bashrc: `export PSQL_EDITOR=nvim`
     b. source your .bashrc: `. ~/.bashrc`
 
+* add the nerdfont-patched intel one mono font: `https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/IntelOneMono`
+
 * install ctags and generate a tabs file:
     a. `sudo apt-get install ctags`
     b. ensure Exuberant Ctags is what we just installed: `ctags --version`
