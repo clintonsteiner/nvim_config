@@ -7,10 +7,3 @@ vim.api.nvim_create_autocmd("TextYankPost", {
         vim.highlight.on_yank {timeout = 400}
     end,
 })
-vim.api.nvim_create_autocmd("CursorMoved", {
-    group = group,
-    pattern = "*",
-    callback = function()
-        vim.cmd("IndentBlanklineRefresh")
-    end,
-})
