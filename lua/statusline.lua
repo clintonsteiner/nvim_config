@@ -50,6 +50,20 @@ function get_lsp_names()
     return lsp_names
 end
 
+function _get_current_function_name()
+    local func_name = ""
+    func_name = get_current_function_name()
+    if func_name ~= nil and func_name ~= "" then
+        func_name = " 󰊕  "  .. func_name .. " "
+    elseif func_name ~= nil and func_name == "" then
+        func_name = get_current_class_name()
+        if func_name ~= "" then
+            func_name = "  " .. func_name .. " "
+        end
+    end
+    return func_name
+end
+
 function status_line()
     local status = ''
     status = status .. get_mode_color(vim.fn.mode()) .. [[ %-"]]
@@ -60,6 +74,8 @@ function status_line()
     status = status .. '%#Directory# '
     status = status .. '%='
     status = status .. [[%-{luaeval("get_cwd(false)")} ]]
+    status = status .. [[%#CurSearch#%-{luaeval("_get_current_function_name()")}]]
+    status = status .. '%#Directory# '
     status = status .. [[%#WildMenu#%-{luaeval("get_lsp_names()")}]]
     return status
 end

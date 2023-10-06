@@ -2,6 +2,7 @@ local ts = require 'nvim-treesitter.configs'
 ts.setup {ensure_installed = 'python', highlight = {enable = true}, indent = {enable = true}}
 
 function get_current_function_name()
+    if vim.bo.filetype ~= "python" then return "" end
     local current_node = vim.treesitter.get_node()
     if not current_node then return "" end
 
@@ -18,6 +19,7 @@ function get_current_function_name()
 end
 
 function get_current_class_name()
+    if vim.bo.filetype ~= "python" then return "" end
     local current_node = vim.treesitter.get_node()
     if not current_node then return "" end
 
