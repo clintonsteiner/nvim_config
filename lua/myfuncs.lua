@@ -71,3 +71,7 @@ function get_last_test_name()
     local last_test_name = vim.fn.pyeval("last_test")
     return last_test_name
 end
+
+function darker()
+    vim.api.nvim_command('!' .. vim.g.python3_host_prog .. ' -m darker ' .. vim.fn.expand('%:p'))
+end
