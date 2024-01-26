@@ -19,6 +19,8 @@ wk.register({
     c = {name = "change dir",
         c = {":cd %:p:h<CR>", "change dir cwd"},
         d = {"<cmd>lua require('fzf-lua').fzf_exec([[(echo '..' ; echo '-' ; echo '~' ; find . -type d ! -path \"*.git*\" -follow 2>/dev/null)]], {prompt = 'Cd> ', previewer = false, actions = {['default'] = function(selected) vim.api.nvim_command('cd ' .. selected[1]) end}})<CR>", "change dir"},
+        -- use if switch to fd over find:
+        -- d = {"<cmd>lua require('fzf-lua').fzf_exec([[(echo '..' ; echo '-' ; echo '~' ; fd --type=d --follow --hidden --exclude=.git 2>/dev/null)]], {prompt = 'Cd> ', previewer = false, actions = {['default'] = function(selected) vim.api.nvim_command('cd ' .. selected[1]) end}})<CR>", "change dir"},
     },
     g = {name = "git",
         a = {"<cmd>lua require('FTerm').scratch({cmd = {'git', 'add', '-i'}, hl = 'Normal,FloatBorder:FzfLuaBorder'})<CR>", "stage interactively"},
