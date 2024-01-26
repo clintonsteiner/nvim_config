@@ -73,5 +73,5 @@ function get_last_test_name()
 end
 
 function darker()
-    vim.api.nvim_command('!' .. vim.g.python3_host_prog .. ' -m darker ' .. vim.fn.expand('%:p'))
+    vim.api.nvim_command('!' .. vim.g.python3_host_prog .. ' -m darker -iv --color -l 140 -W 4 ' .. vim.fn.expand('%:p'))
 end
