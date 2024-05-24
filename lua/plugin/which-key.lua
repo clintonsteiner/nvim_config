@@ -31,7 +31,7 @@ wk.register({
         i = {"<cmd>lua require('gitsigns').blame_line{full=true}<CR>", "blame inline"},
         j = {"<cmd>Gitsigns next_hunk<CR>", "next hunk"},
         k = {"<cmd>Gitsigns prev_hunk<CR>", "prev hunk"},
-        l = {"<cmd>lua require('fzf-lua').git_bcommits({cmd = [[git log --color=always --pretty=format:%C\\(auto\\)%h\\ %s\\ %C\\(green\\)%cs\\ %an]], actions = {['default'] = function(selected) git_show_diff(selected) end}})<CR>", "log"},
+        l = {"<cmd>lua require('fzf-lua').git_bcommits({cmd = [[git log --color=always --pretty=format:%C\\(auto\\)%h\\ %s\\ %C\\(green\\)%cs\\ %an]], actions = {['default'] = function(selected) git_show_diff(selected) end}, winopts = {preview = {hidden = 'hidden'}}})<CR>", "log"},
         p = {"<cmd>Gitsigns preview_hunk_inline<CR>", "preview hunk"},
         r = {"<cmd>lua require('FTerm').scratch({cmd = {'git', 'reset', '-p'}, hl = 'Normal,FloatBorder:FzfLuaBorder'})<CR>", "unstage"},
         s = {"<cmd>Gitsigns stage_hunk<CR>", "stage hunk"},
