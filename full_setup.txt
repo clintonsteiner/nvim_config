@@ -43,7 +43,7 @@ installing and running neovim (stable) from absolute scratch (--verbose version)
     e. make sure `$HOME~/.local/bin` is in your path (it should be)
 8. launch neovim now: `nvim` (there will likely be many errors -- ignore for now) and then run `:PlugInstall` and wait for it to complete
 9. exit nvim and re-launch it
-10. for treesitter stuff, run `:TSInstall python lua comment vim` (and any other languages you want)
+10. for treesitter stuff, run `:TSInstall python lua comment vim vimdoc c sql query` (and any other languages you want)
 
 troubleshooting:
 * if you can't run the nvim.appimage binary, install fuse:
