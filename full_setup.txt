@@ -1,8 +1,8 @@
-installing and running neovim (stable) from absolute scratch (--verbose version)
+installing and running neovim (v0.10.0) from absolute scratch (--verbose version)
 
-1. install neovim (stable):
+1. install neovim (v0.10.0):
     a. `mkdir -p ~/apps/neovim && cd ~/apps/neovim`
-    b. `wget https://github.com/neovim/neovim/releases/download/stable/nvim.appimage`
+    b. `wget https://github.com/neovim/neovim/releases/download/v0.10.0/nvim.appimage`
     c. `chmod u+x nvim.appimage`
 2. install a virtual environment (if it already exists, delete it and start fresh):
     a. `mkdir ~/.virtualenvs && cd ~/.virtualenvs`
