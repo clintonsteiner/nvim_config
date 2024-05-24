@@ -19,7 +19,7 @@ require'fzf-lua'.setup {
         ["hl+"] = {"fg", "CursorLineNr"},
         ["info"] = {"fg", "Identifier"},
         ["prompt"] = {"fg", "NotifyDEBUGTitle"},
-        ["pointer"] = {"fg", "Todo"},
+        ["pointer"] = {"fg", "Identifier"},
         ["marker"] = {"fg", "Identifier"},
         ["spinner"] = {"fg", "Identifier"},
         ["header"] = {"fg", "Constant"},
