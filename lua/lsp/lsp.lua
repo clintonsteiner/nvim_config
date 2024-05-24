@@ -10,6 +10,8 @@ lsp.pylsp.setup {
                     executable = vim.env.HOME .. '/.virtualenvs/nvim/bin/ruff',
                     ignore = {"E501"},  -- ignore line length error
                     extendSelect = {"W291", "W293"},  -- whitespace warnings
+                    -- TODO add to extendSelect when available: E1120, ...
+                    -- see astral-sh / ruff / issues / 970
                 },
             },
         },
