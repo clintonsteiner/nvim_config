@@ -22,6 +22,11 @@ require'fzf-lua'.setup {
         ['header'] = {'fg', 'Comment'}
     },
     nbsp = '\xc2\xa0',
+    helptags = {
+        fzf_opts = {
+            ["--delimiter"] = "[ ]",
+        },
+    },
 }
 vim.api.nvim_cmd({cmd = 'normal', args = {'FzfLua register_ui_select'}}, {})
 
