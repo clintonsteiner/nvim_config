@@ -34,6 +34,9 @@ function git_show_diff(selected)
     local buf = vim.api.nvim_create_buf(true, true)
     vim.api.nvim_buf_set_lines(buf, 0, 0, true, git_file_contents)
     vim.api.nvim_buf_set_name(buf, file_name)
+    -- TODO change these to vim.bo.filetype = "git"
+    -- and vim.bo.modifiable = false
+    -- for nvim v0.10.0 deprecation
     vim.api.nvim_buf_set_option(buf, 'filetype', 'git')
     vim.api.nvim_buf_set_option(buf, 'modifiable', false)
     vim.api.nvim_win_set_buf(win, buf)
