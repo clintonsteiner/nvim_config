@@ -8,7 +8,7 @@ wk.register({
     ['<S-Tab>'] = {":bn<CR>", "next buffer"},
 })
 wk.register({
-    ['/'] = {"<cmd>lua require('fzf-lua').blines({start = 'cursor'})<CR>", "blines"},
+    ['/'] = {"<cmd>lua require('fzf-lua').blines({start = 'cursor', fzf_cli_args = '--with-nth=3..'})<CR>", "blines"},
     ['?'] = {"<cmd>lua require('fzf-lua').lines({fzf_cli_args = '--with-nth 2..'})<CR>", "lines"},
     [':'] = {":source ~/.local/share/nvim/sessions/init<CR>", "open init"},
     [' '] = {"<cmd>lua require('fzf-lua').buffers()<CR>", "buffers"},
