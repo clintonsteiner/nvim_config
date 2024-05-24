@@ -3,7 +3,7 @@ local wk = require("which-key")
 local fzf = require("plugin.fzf-lua")
 
 wk.register({
-    ['<CR>'] = {"<cmd>noh<CR><CR>", "remove highlights"},
+    ['\\'] = {"<cmd>noh<CR><CR>", "remove highlights"},
     ['<Tab>'] = {"<C-^>", "last buffer"},
     ['<S-Tab>'] = {":bn<CR>", "next buffer"},
 })
