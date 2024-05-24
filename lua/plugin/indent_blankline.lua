@@ -7,6 +7,7 @@ require("ibl").setup({
         enabled = true,
         show_start = false,
         show_end = false,
+        -- show_exact_scope = true,
         include = {
             node_type = {
                 ["*"] = {
