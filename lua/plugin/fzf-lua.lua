@@ -25,7 +25,7 @@ require'fzf-lua'.setup {
         ["header"] = {"fg", "Constant"},
         ["gutter"] = "-1",
         ["selected-fg"] = {"fg", "Constant"},
-        ["selected-bg"] = {"bg", "FzfLuaScrollFloatFull"},
+        ["selected-bg"] = {"bg", "WinBar"},
     },
     fzf_opts = {
         ["--highlight-line"] = true,
