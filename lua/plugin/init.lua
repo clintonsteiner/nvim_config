@@ -1,7 +1,7 @@
 require "lsp"
 require "plugin.autopairs"
 require "plugin.ayu"
-require "plugin.deoplete"
+require "plugin.nvim-cmp"
 require "plugin.fzf-lua"
 require "plugin.fterm"
 require "plugin.gitsigns"

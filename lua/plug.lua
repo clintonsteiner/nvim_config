@@ -3,8 +3,11 @@ vim.g.plug_home = vim.fn.stdpath('config') .. '/plugged'
 
 vim.call('plug#begin')
 Plug 'nvim-treesitter/nvim-treesitter'
-Plug('benewberg/deoplete-lsp', {branch = 'update-fonts'})
-Plug('shougo/deoplete.nvim', {['do'] = vim.fn['remote#host#UpdateRemotePlugins']})
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-cmdline'
+Plug 'hrsh7th/nvim-cmp'
 Plug 'neovim/nvim-lspconfig'
 Plug 'ibhagwan/fzf-lua'
 Plug 'Shatur/neovim-ayu'
