@@ -1,4 +1,3 @@
-vim.g.mapleader = ' '
 local wk = require("which-key")
 local fzf = require("plugin.fzf-lua")
 
