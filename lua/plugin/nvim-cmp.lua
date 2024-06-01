@@ -60,6 +60,7 @@ cmp.setup({
         nvim_lua = "[lua]",
         path = "[path]",
         cmdline = "[cmdline]",
+        rg = "[rg]",
       })[entry.source.name]
       return vim_item
     end
@@ -84,3 +85,17 @@ cmp.setup.cmdline(':', {
   }),
   matching = { disallow_symbol_nonprefix_matching = false }
 })
+
+-- manually trigger the ripgrep completion source when needed
+vim.keymap.set("i", "<c-x><c-r>", function()
+  require("cmp").complete({
+    config = {
+      sources = {
+        {
+          name = "rg",
+          -- keyword_length = 3,
+        },
+      },
+    },
+  })
+end)
