@@ -16,17 +16,14 @@ installing and running neovim (v0.10.0) from absolute scratch (--verbose version
     f. `./pip install --upgrade darker`  # https://github.com/akaihola/darker
     g. `./pip install darker[isort]`  # https://github.com/PyCQA/isort
     h. `deactivate`
-4. download vim-plug plugin manager:
-    a. `sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
-       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'`
-5. for an init configuration template to get you started:
+4. for an init configuration template to get you started:
     a. `mkdir ~/dotfiles/ && cd ~/dotfiles`
     b. `git clone https://github.com/benewberg/nightly_nvim_init.git nvim`
-6. add symlinks from the dotfiles dir to the neovim config dir: 
+5. add symlinks from the dotfiles dir to the neovim config dir:
     a. `mkdir -p $HOME/.config/nvim`
     b. `ln -sf $HOME/dotfiles/nvim/init.lua $HOME/.config/nvim/init.lua`
     c. `ln -sf $HOME/dotfiles/nvim/lua $HOME/.config/nvim/lua`
-7. make a new script which will launch this version of neovim:
+6. make a new script which will launch this version of neovim:
     a. `mkdir $HOME/.local/bin`
     b. `vi $HOME/.local/bin/nvim`
     c. add the below into the file (ignore the back-ticks) and save
@@ -41,9 +38,9 @@ installing and running neovim (v0.10.0) from absolute scratch (--verbose version
     ```
     d. `chmod u+x $HOME/.local/bin/nvim`
     e. make sure `$HOME~/.local/bin` is in your path (it should be)
-8. launch neovim now: `nvim` (there will likely be many errors -- ignore for now) and then run `:PlugInstall` and wait for it to complete
-9. exit nvim and re-launch it
-10. for treesitter stuff, run `:TSInstall python lua comment vim vimdoc c sql query` (and any other languages you want)
+7. launch neovim now: `nvim` (there will likely be many errors -- ignore for now) and then run `:PlugInstall` and wait for it to complete
+8. exit nvim and re-launch it
+9. for treesitter stuff, run `:TSInstall python lua comment vim vimdoc c sql query` (and any other languages you want)
 
 troubleshooting:
 * if you can't run the nvim.appimage binary, install fuse:
@@ -58,9 +55,6 @@ troubleshooting:
 
 * if ripgrep is not installed:
     a. `sudo apt-get install ripgrep`
-
-* if deoplete plugin complains when running neovim:
-    a. run `:UpdateRemotePlugins` in neovim
 
 * in neovim, run `:checkhealth` to check for any other issues
 
