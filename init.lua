@@ -66,9 +66,7 @@ require("lazy").setup({
     },
     {
         "kylechui/nvim-surround",
-        config = function()
-            require("nvim-surround").setup({})
-        end,
+        config = true,
     },
     {
         "ggandor/leap.nvim",
