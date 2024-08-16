@@ -68,7 +68,7 @@ wk.register({
         z = {"<cmd>lua require('FTerm').scratch({cmd = {'pytest', '-sv', '--disable-pytest-warnings', get_pytest_single_test_arg()}, hl = 'Normal,FloatBorder:FzfLuaBorder'})<CR>", "under cursor"},
     },
     r = {name = "ripgrep",
-        g = {"<cmd>lua require('fzf-lua').live_grep()<CR>", "rg"},
+        g = {"<cmd>lua require('fzf-lua').live_grep({multiline = 2})<CR>", "rg"},
         l = {"<cmd>lua require('fzf-lua').grep_last()<CR>", "rg last"},
         r = {"<cmd>lua require('fzf-lua').grep_cword()<CR>", "rg word under cursor"},
     },
