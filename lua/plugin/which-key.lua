@@ -22,7 +22,7 @@ wk.register({
     },
     g = {name = "git",
         a = {"<cmd>lua require('FTerm').scratch({cmd = {'git', 'add', '-i'}, hl = 'Normal,FloatBorder:FzfLuaBorder'})<CR>", "stage interactively"},
-        b = {"<cmd>lua fzf_git_blame()<CR>", "blame"},
+        b = {"<cmd>Gitsigns blame<CR>", "blame"},
         c = {":cd %:p:h<CR><cmd>lua require('FTerm').scratch({cmd = {'git', 'commit'}, hl = 'Normal,FloatBorder:FzfLuaBorder'})<CR>", "commit"},
         d = {"<cmd>Gitsigns diffthis<CR>", "diff"},
         g = {"<cmd>lua require('fzf-lua').git_status()<CR>", "status"},

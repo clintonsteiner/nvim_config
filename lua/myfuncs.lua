@@ -28,16 +28,6 @@ function save_session()
     )
 end
 
-function fzf_git_blame(opts)
-    local fzf_lua = require'fzf-lua'
-    opts = fzf_lua.defaults.git.files
-    opts.previewer = false
-    opts.prompt = "Blame> "
-    opts.cmd = "for i in " .. vim.api.nvim_buf_get_name(0) .. " ; do git blame --color-by-age ${i} ; done"
-    opts.cwd = vim.fn.expand('%:p:h')
-    fzf_lua.fzf_exec(opts.cmd, opts)
-end
-
 function toggle_text_wrap()
     local current_setting = vim.o.textwidth
     if current_setting == 0 then
